@@ -101,6 +101,7 @@ Furthermore you will not only be able to manage a tidied up collection of links 
 Our frontend will primarily be done with [Angular CLI](https://cli.angular.io/). The database and overlying system we will use to store all those URLs is, just as the system connecting the UI to our server, tbd.
 
 ## 3. Specific Requirements
+Shorten URLs, search for URLs and manage the shortened URLs.
 [This section of the SRS should contain all the software requirements to a level of detail sufficient to enable designers to design a system to satisfy those requirements, 
 and testers to test that the system satisfies those requirements.   When using use-case modeling, these requirements are captured in the Use-Cases and the applicable 
 supplementary specifications.  If use-case modeling is not used, the outline for supplementary specifications may be inserted directly into this section, as shown below.]
