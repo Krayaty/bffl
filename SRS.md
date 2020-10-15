@@ -49,7 +49,7 @@ Version <1.0>
 
 
 ### 1.1 Purpose
-This SRS's (or software requirements specification) purpose is to save, list and document planned features. By doing so it should give any person interested a more or less detailed outline about the link-shortening-project BFFL (name remains yet to be changed). Therefore it should explain usability and expected behaviour of the application. It is supposed to hold all functional as well as non-functional requirements which may or may not be implemented throughout the next year (late 2020 to mid 2021).
+This SRS's (or software requirements specification) purpose is to save, list and document planned features. By doing so, it should give any person interested a more or less detailed outline about the link-shortening-project BFFL (name remains yet to be changed). Therefore it should explain usability and expected behaviour of the application. It is supposed to hold all functional, as well as non-functional requirements, which may or may not be implemented throughout the next year (late 2020 to mid 2021).
 
 ### 1.2 Scope
 The document contains the BFFL project in its entirety, therefore containing information and requirements about the following sub-systems:
