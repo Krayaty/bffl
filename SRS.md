@@ -3,7 +3,6 @@ Project - PROJECTNAME | Software Requirements Specification
 Version <1.0>
 ======
 
-- [#Revision History](#-revision-history)
 - [1. Introduction](#1-introduction)
   * [1.1 Purpose](#11-purpose)
   * [1.2 Scope](#12-scope)
@@ -47,25 +46,18 @@ Version <1.0>
 | XX.XX.XXXX |   X.X   |  <details>  | <name> |
 
 ## 1. Introduction
-[The introduction of the Software Requirements Specification (SRS) should provide an overview of the entire SRS. It should include the purpose, scope, definitions, acronyms, 
-abbreviations, references, and overview of the SRS.]
-[Note: The Software Requirements Specification (SRS) captures the complete software requirements for the system, or a portion of the system.  Following is a typical SRS 
-outline for a project using only traditional natural-language style requirements ñ with no use-case modeling.  It captures all requirements in a single document,  with  
-applicable sections inserted from the  Supplementary Specifications (which would no longer be needed).  For a template of an SRS using use-case modeling, which consists of 
-a package containing Use-Cases of the use-case model and applicable Supplementary Specifications and other supporting information, see rup_SRS-uc.dot.]
-[Many different arrangements of an SRS are possible.  Refer to [IEEE830-1998] for further elaboration of these explanations, as well as other options for SRS organization.]
+
 
 ### 1.1 Purpose
-[Specify the purpose of this SRS. The SRS should fully describe the external behavior of the application or subsystem identified. It also describes nonfunctional requirements, 
-design constraints and other factors necessary to provide a complete and comprehensive description of the requirements for the software.]
+This SRS's (or software requirements specification) purpose is to save, list and document planned features. By doing so it should give any person interested a more or less detailed outline about the link-shortening-project BFFL (name remains yet to be changed). Therefore it should explain usability and expected behaviour of the application. It is supposed to hold all functional as well as non-functional requirements which may or may not be implemented throughout the next year (late 2020 to mid 2021).
 
 ### 1.2 Scope
-[A brief description of the software application that the SRS applies to; the feature or other subsystem grouping; what Use-Case model(s) it is associated with;  and anything 
-else that is affected or influenced by this document.]
+The document contains the BFFL project in its entirety, therefore containing information and requirements about the following sub-systems:
+ - Link-Administration: A collection of all shortened links by a single user or their respective group.
+ - Access management: The option for users to create and manage their account. Also provides grouping of such.
+ - Dashboard: Gives users an overview over data collected by usage of their shortened links.
 
 ### 1.3 Definitions, Acronyms and Abbreviations
-[This subsection should provide the definitions of all terms, acronyms, and abbreviations required to properly interpret the SRS.  This information may be provided by reference 
-to the project Glossary.]
 
 | Abbrevation | Explanation                            |
 | ----------- | -------------------------------------- |
@@ -99,13 +91,14 @@ Instead, it provides a background for those requirements, which are defined in d
 
 
 ### 2.1 Vision
-to be determined (tbd)
+Running out of options for pretty URLs can be really frustrating, espcially when trying to build a huge application. In addition to that it becomes rather hard to keep it clean and keeping track of everything is often an impossible task. BFFL is a project providing a URL-shortening-service with the goal of providing a secure and professional alternative to common URL-shorteners for business environments.
+Furthermore you will not only be able to manage a tidied up collection of links but access additional information about the usage of your hyperlinks.
 
 ### 2.2 Use Case Diagram
-to be determined (tbd)
+![alt text](https://lucid.app/publicSegments/view/0dad81c4-3d9b-4b91-b314-05ccb2a11b17/image.png)
 
 ### 2.3 Technology Stack
-to be determined (tbd)
+Our frontend will primarily be done with [Angular CLI](https://cli.angular.io/). The database and overlying system we will use to store all those URLs is, just as the system connecting the UI to our server, tbd.
 
 ## 3. Specific Requirements
 [This section of the SRS should contain all the software requirements to a level of detail sufficient to enable designers to design a system to satisfy those requirements, 
@@ -126,27 +119,27 @@ availability of that data, indicating the location and name of the tool that is 
 ## 3.2 Usability
 [This section should include all of those requirements that affect usability. For example,
  - specify the required training time for a normal users and a power user to become productive at particular operations
- - specify measurable task times for typical tasks or base the new systemís usability requirements on other systems that the users know and like
- - specify requirement to conform to common usability standards, such as IBMís CUA standards Microsoftís GUI standards]
+ - specify measurable task times for typical tasks or base the new system‚Äôs usability requirements on other systems that the users know and like
+ - specify requirement to conform to common usability standards, such as IBM‚Äôs CUA standards Microsoft‚Äôs GUI standards]
 
 ### 3.2.1 Usability Requirement One
 [The requirement description goes here.]
 
 ## 3.3 Reliability
 [Requirements for reliability of the system should be specified here. Some suggestions follow:
- - Availabilityóspecify the percentage of time available ( xx.xx%), hours of use, maintenance access, degraded mode operations, etc.
- - Mean Time Between Failures (MTBF) ó this is usually specified in hours, but it could also be specified in terms of days, months or years.
- -  Mean Time To Repair (MTTR)óhow long is the system allowed to be out of operation after it has failed?
- - Accuracyóspecify precision (resolution) and accuracy (by some known standard) that is required in the systemís output.
- - Maximum Bugs or Defect Rateóusually expressed in terms of bugs per thousand of lines of code (bugs/KLOC) or bugs per function-point( bugs/function-point).
- - Bugs or Defect Rateócategorized in terms of minor, significant, and critical bugs: the requirement(s) must define what is meant by a ìcriticalî bug; for example, complete 
-   loss of data or a complete inability to use certain parts of the systemís functionality.]
+ - Availability‚Äîspecify the percentage of time available ( xx.xx%), hours of use, maintenance access, degraded mode operations, etc.
+ - Mean Time Between Failures (MTBF) ‚Äî this is usually specified in hours, but it could also be specified in terms of days, months or years.
+ -  Mean Time To Repair (MTTR)‚Äîhow long is the system allowed to be out of operation after it has failed?
+ - Accuracy‚Äîspecify precision (resolution) and accuracy (by some known standard) that is required in the system‚Äôs output.
+ - Maximum Bugs or Defect Rate‚Äîusually expressed in terms of bugs per thousand of lines of code (bugs/KLOC) or bugs per function-point( bugs/function-point).
+ - Bugs or Defect Rate‚Äîcategorized in terms of minor, significant, and critical bugs: the requirement(s) must define what is meant by a ‚Äúcritical‚Äù bug; for example, complete 
+   loss of data or a complete inability to use certain parts of the system‚Äôs functionality.]
 
 ### 3.3.1 Reliability Requirement One
 [The requirement description.]
 
 ## 3.4 Perfomance
-[The systemís performance characteristics should be outlined in this section. Include specific response times. Where applicable, reference related Use Cases by name.
+[The system‚Äôs performance characteristics should be outlined in this section. Include specific response times. Where applicable, reference related Use Cases by name.
  - response time for a transaction (average, maximum)
  - throughput, for example, transactions per second
  - capacity, for example, the number of customers or transactions the system can accommodate
