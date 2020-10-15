@@ -109,6 +109,10 @@ and testers to test that the system satisfies those requirements.   When using u
 supplementary specifications.  If use-case modeling is not used, the outline for supplementary specifications may be inserted directly into this section, as shown below.]
 
 ### 3.1 Functionality
+The main functionality of the application has been mentioned in the "Specific Requirements" (Chapter 3).
+As you can see in our "Use Case Diagram" (Chapter 2), the system is divided in three subsystems. The Accessmanagement and the Linking to other Websites will be done this semester, the data analysis will be done in the next semester.
+
+
 [This section describes the functional requirements of the system for those requirements which are expressed in the natural language style. For many applications, this may 
 constitute the bulk of the SRS Package and thought should be given to the organization of this section. This section is typically organized by feature, but alternative 
 organization methods may also be appropriate, for example, organization by user or organization by subsystem.  Functional requirements may include feature sets, capabilities, 
@@ -116,7 +120,13 @@ and security.
 Where application development tools, such as requirements tools, modeling tools, etc., are employed to capture the functionality, this section document will refer to the 
 availability of that data, indicating the location and name of the tool that is used to capture the data.]
 
-#### 3.1.1 Functional Requirement One
+#### 3.1.1 Accessmanagement
+[The requirement description.]
+
+#### 3.1.2 Linking to other websites
+[The requirement description.]
+
+#### 3.1.3 Data Analysis
 [The requirement description.]
 
 ## 3.2 Usability
