@@ -104,41 +104,35 @@ Our frontend will primarily be done with [Angular CLI](https://cli.angular.io/).
 Every user can shorten URLs, search for his shortend URLs and manage them:
 Our program should primary shorten URLs, that means, that it creates a short URL for a given (long) URL. This short URL is tied with the original URL and can be managed in a clearly structured table. By using the search functions, you can find every URL, you shortened.
 
-[This section of the SRS should contain all the software requirements to a level of detail sufficient to enable designers to design a system to satisfy those requirements, 
-and testers to test that the system satisfies those requirements.   When using use-case modeling, these requirements are captured in the Use-Cases and the applicable 
-supplementary specifications.  If use-case modeling is not used, the outline for supplementary specifications may be inserted directly into this section, as shown below.]
-
 ### 3.1 Functionality
-The main functionality of the application has been mentioned in the "Specific Requirements" (Chapter 3).
-As you can see in our "Use Case Diagram" (Chapter 2), the system is divided in three subsystems. The Accessmanagement and the Linking to other Websites will be done this semester, the data analysis will be done in the next semester.
-
-
-[This section describes the functional requirements of the system for those requirements which are expressed in the natural language style. For many applications, this may 
-constitute the bulk of the SRS Package and thought should be given to the organization of this section. This section is typically organized by feature, but alternative 
-organization methods may also be appropriate, for example, organization by user or organization by subsystem.  Functional requirements may include feature sets, capabilities, 
-and security.
-Where application development tools, such as requirements tools, modeling tools, etc., are employed to capture the functionality, this section document will refer to the 
-availability of that data, indicating the location and name of the tool that is used to capture the data.]
-
-#### 3.1.1 Accessmanagement
-[The requirement description.]
+The main services, the software must offer, has been mentioned in the "Specific Requirements" (Chapter 3) and in the "Use Case Diagram" (Chapter 2).
+As you can see there, the system is divided in three subsystems. The Accessmanagement and the Linking to other Websites will be done this semester, the data analysis will be done in the next semester. In this software, security is very important, because we are having to do responsible with the data of our customers.
 
 #### 3.1.2 Linking to other websites
-[The requirement description.]
+The most important function is the creation of new shortend URLs. Those shortend URLs should link to a given Website, which can easily be changed. Because of this, the combination of shortend URL and the original URL has to be saved in a table, where the content should be managed by the regular user. This should be realized by a search function, with which a specific URL can be searched in the created URLs.
+
+#### 3.1.1 Accessmanagement
+The system should have an accessmanagement. There should be an acces for the application manager who manages the accounts and the group, which can acces the data of a certain application. 
 
 #### 3.1.3 Data Analysis
-[The requirement description.]
+The accessmanager, mentioned at the top, has acces to the data analysis. In this subsystem, security should be ensured, because this is the part, where ths user daata is collected and the evaluation is shown on a Dashboard, specified below.
+
+#### 3.1.4 Dashboard
+The application should have a Dashboard, where all important information for the users are shown.
 
 ## 3.2 Usability
-[This section should include all of those requirements that affect usability. For example,
- - specify the required training time for a normal users and a power user to become productive at particular operations
- - specify measurable task times for typical tasks or base the new system’s usability requirements on other systems that the users know and like
- - specify requirement to conform to common usability standards, such as IBM’s CUA standards Microsoft’s GUI standards]
+A normal user is for example a person responible for some websites. Those persons are normally used to URLs and will immediately understand the functionality of our application. The required training time should be nearly zero.
+The usabilty requirements should be simliar to URL shortener like "bitly". The time fot the typical task, which is to shorten a URL should be under 3 minutes. The management of the created short URLs should not take more time, too.
 
-### 3.2.1 Usability Requirement One
-[The requirement description goes here.]
+### 3.2.1 Conform common usability standards
+The websites should contain no unnecessary content. In the development process, we will experience, which content will be important to show on the dashboard, and whcih content will not. In the design process, the comparison to real URL shortener should be made. There should just be pop-ups, if it is really necessary. Besides, the user should not have to wait longer than 30 seconds for any service of the application. The website should be accesible by everyone, even if one does not has the rights. We do not need to mention, that the website should be accesible from every common browser (Safari, Google Chrome, Firefox, Microsoft Edge, Internet Explorer). The application should have a search function, with which one can find and access content of the whole application.
+
+#### 3.2.2 Appearance
+The homepage of our application should be understandable and inform the user exactly, what one can get on this website. The content should be ordered from important to unimportant from the top to the bottom. The website should have a clear structured navigation menu, with which one can get from every page to every page. If scrolling is necessary on the page, the header and the navigation of the page should stay, while the content moves. Links on the website should be named clearly. Of course, the font formatting should be consistent on the whole application. The same categories of information, for example phone numbers, should always be formatted in the same way.
+
 
 ## 3.3 Reliability
+
 [Requirements for reliability of the system should be specified here. Some suggestions follow:
  - Availability—specify the percentage of time available ( xx.xx%), hours of use, maintenance access, degraded mode operations, etc.
  - Mean Time Between Failures (MTBF) — this is usually specified in hours, but it could also be specified in terms of days, months or years.
