@@ -151,26 +151,16 @@ availability of that data, indicating the location and name of the tool that is 
 [The requirement description goes here.]
 
 ### 3.5 Supportability
-[This section indicates any requirements that will enhance the supportability or maintainability of the system being built, including coding standards, naming conventions,
-class libraries, maintenance access, maintenance utilities.]
-
-#### 3.5.1 Supportability Requirement One
-[The requirement description goes here.]
+The coding for the project should follow strict guidelines regarding the naming of for example variables and methods. These should, unless they are a simple interator, be named in an understandable way that describes their function. Additionally comments should be added at important places in the code to describe its functionality.
 
 ### 3.6 Design Constraints
-[This section should indicate any design constraints on the system being built. Design constraints represent design decisions that have been mandated and must be adhered to.  
-Examples include software languages, software process requirements, prescribed use of developmental tools, architectural and design constraints, purchased components, class
-libraries, etc.]
-
-#### 3.6.1 <Design Constraint One>
-[The requirement description goes here.]
+The application should be created using the framework Angular for the frontend. Further more for now only the standard libraries and no external ones should be used. 
 
 ### 3.7 On-line User Documentation and Help System Requirements
-[Describes the requirements, if any, for on-line user documentation, help systems, help about notices, etc.]
+Alongside the actual application there should also be created a user documentation that clearly describes the application's functionality. This documentation should include all the implemented functions of the product and how to use them.
 
 ### 3.8 Purchased Components
-[This section describes any purchased components to be used with the system, any applicable licensing or usage restrictions, and any associated compatibility and interoperability or
-interface standards.]
+In order to avoid license fees, only freely available software products should be used. 
 
 ### 3.9 Interfaces
 #### 3.9.1 User Interfaces
