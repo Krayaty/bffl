@@ -15,27 +15,26 @@ Version <1.0>
   * [2.3 Technology Stack](#23-technology-stack)
 - [3. Specific Requirements](#3-specific-requirements)
   * [3.1 Functionality](#31-functionality)
-    + [3.1.1 Functional Requirement One](#311-functional-requirement-one)
+    + [3.1.1 Linking to other websites](#311-linking-to-other-website)
+    + [3.1.2 Accessmanagement](#311-accessmanagement)
+    + [3.1.3 Data Analysis](#311-data-analysis)
+    + [3.1.4 Dashboard](#311-dashboard)
 - [3.2 Usability](#32-usability)
   * [3.2.1 Usability Requirement One](#321-usability-requirement-one)
-- [3.3 Reliability](#33-reliability)
-  * [3.3.1 Reliability Requirement One](#331-reliability-requirement-one)
-- [3.4 Perfomance](#34-perfomance)
-  * [3.4.1 Performance Requirement One](#341-performance-requirement-one)
-  * [3.5 Supportability](#35-supportability)
+  * [3.3 Supportability](#35-supportability)
     + [3.5.1 Supportability Requirement One](#351-supportability-requirement-one)
-  * [3.6 Design Constraints](#36-design-constraints)
+  * [3.4 Design Constraints](#36-design-constraints)
     + [3.6.1 Design Constraint One](#361--design-constraint-one-)
-  * [3.7 On-line User Documentation and Help System Requirements](#37-on-line-user-documentation-and-help-system-requirements)
-  * [3.8 Purchased Components](#38-purchased-components)
-  * [3.9 Interfaces](#39-interfaces)
-    + [3.9.1 User Interfaces](#391-user-interfaces)
-    + [3.9.2 Hardware Interfaces](#392-hardware-interfaces)
-    + [3.9.3 Software Interfaces](#393-software-interfaces)
-    + [3.9.4 Communications Interfaces](#394-communications-interfaces)
-  * [3.10 Licensing Requirements](#310-licensing-requirements)
-  * [3.11 Legal, Copyright, and Other Notices](#311-legal--copyright--and-other-notices)
-  * [3.12 Applicable Standards](#312-applicable-standards)
+  * [3.5 On-line User Documentation and Help System Requirements](#37-on-line-user-documentation-and-help-system-requirements)
+  * [3.6 Purchased Components](#38-purchased-components)
+  * [3.7 Interfaces](#39-interfaces)
+    + [3.7.1 User Interfaces](#391-user-interfaces)
+    + [3.7.2 Hardware Interfaces](#392-hardware-interfaces)
+    + [3.7.3 Software Interfaces](#393-software-interfaces)
+    + [3.7.4 Communications Interfaces](#394-communications-interfaces)
+  * [3.8 Licensing Requirements](#310-licensing-requirements)
+  * [3.9 Legal, Copyright, and Other Notices](#311-legal--copyright--and-other-notices)
+  * [3.10 Applicable Standards](#312-applicable-standards)
 - [4. Supporting Information](#4-supporting-information)
 
 #Revision History
@@ -131,77 +130,52 @@ The websites should contain no unnecessary content. In the development process, 
 The homepage of our application should be understandable and inform the user exactly, what one can get on this website. The content should be ordered from important to unimportant from the top to the bottom. The website should have a clear structured navigation menu, with which one can get from every page to every page. If scrolling is necessary on the page, the header and the navigation of the page should stay, while the content moves. Links on the website should be named clearly. Of course, the font formatting should be consistent on the whole application. The same categories of information, for example phone numbers, should always be formatted in the same way.
 
 
-## 3.3 Reliability
-
-[Requirements for reliability of the system should be specified here. Some suggestions follow:
- - Availability—specify the percentage of time available ( xx.xx%), hours of use, maintenance access, degraded mode operations, etc.
- - Mean Time Between Failures (MTBF) — this is usually specified in hours, but it could also be specified in terms of days, months or years.
- -  Mean Time To Repair (MTTR)—how long is the system allowed to be out of operation after it has failed?
- - Accuracy—specify precision (resolution) and accuracy (by some known standard) that is required in the system’s output.
- - Maximum Bugs or Defect Rate—usually expressed in terms of bugs per thousand of lines of code (bugs/KLOC) or bugs per function-point( bugs/function-point).
- - Bugs or Defect Rate—categorized in terms of minor, significant, and critical bugs: the requirement(s) must define what is meant by a “critical” bug; for example, complete 
-   loss of data or a complete inability to use certain parts of the system’s functionality.]
-
-### 3.3.1 Reliability Requirement One
-[The requirement description.]
-
-## 3.4 Perfomance
-[The system’s performance characteristics should be outlined in this section. Include specific response times. Where applicable, reference related Use Cases by name.
- - response time for a transaction (average, maximum)
- - throughput, for example, transactions per second
- - capacity, for example, the number of customers or transactions the system can accommodate
- - degradation modes (what is the acceptable mode of operation when the system has been degraded in some manner)
- - resource utilization, such as memory, disk, communications, etc.
-
-### 3.4.1 Performance Requirement One
-[The requirement description goes here.]
-
-### 3.5 Supportability
+### 3.3 Supportability
 [This section indicates any requirements that will enhance the supportability or maintainability of the system being built, including coding standards, naming conventions, 
 class libraries, maintenance access, maintenance utilities.]
 
-#### 3.5.1 Supportability Requirement One
+#### 3.3.1 Supportability Requirement One
 [The requirement description goes here.]
 
-### 3.6 Design Constraints
+### 3.4 Design Constraints
 [This section should indicate any design constraints on the system being built. Design constraints represent design decisions that have been mandated and must be adhered to.  
 Examples include software languages, software process requirements, prescribed use of developmental tools, architectural and design constraints, purchased components, class 
 libraries, etc.]
 
-#### 3.6.1 <Design Constraint One>
+#### 3.4.1 <Design Constraint One>
 [The requirement description goes here.]
 
-### 3.7 On-line User Documentation and Help System Requirements
+### 3.5 On-line User Documentation and Help System Requirements
 [Describes the requirements, if any, for on-line user documentation, help systems, help about notices, etc.]
 
-### 3.8 Purchased Components
+### 3.6 Purchased Components
 [This section describes any purchased components to be used with the system, any applicable licensing or usage restrictions, and any associated compatibility and interoperability or 
 interface standards.]
 
-### 3.9 Interfaces
+### 3.7 Interfaces
 [This section defines the interfaces that must be supported by the application. It should contain adequate specificity, protocols, ports and logical addresses, etc. so that the software 
 can be developed and verified against the interface requirements.]
 
-#### 3.9.1 User Interfaces
+#### 3.7.1 User Interfaces
 [Describe the user interfaces that are to be implemented by the software.]
 
-#### 3.9.2 Hardware Interfaces
+#### 3.7.2 Hardware Interfaces
 [This section defines any hardware interfaces that are to be supported by the software, including logical structure, physical addresses, expected behavior, etc. ]
 
-#### 3.9.3 Software Interfaces
+#### 3.7.3 Software Interfaces
 [This section describes software interfaces to other components of the software system. These may be purchased components, components reused from another application or 
 components being developed for subsystems outside of the scope of this SRS but with which this software application must interact.]
 
-#### 3.9.4 Communications Interfaces
+#### 3.7.4 Communications Interfaces
 [Describe any communications interfaces to other systems or devices such as local area networks, remote serial devices, etc.]
 
-### 3.10 Licensing Requirements
+### 3.8 Licensing Requirements
 [Defines any licensing enforcement requirements or other usage restriction requirements that are to be exhibited by the software.]
 
-### 3.11 Legal, Copyright, and Other Notices
+### 3.9 Legal, Copyright, and Other Notices
 [This section describes any necessary legal disclaimers, warranties, copyright notices, patent notice, wordmark, trademark, or logo compliance issues for the software.]
 
-### 3.12 Applicable Standards
+### 3.10 Applicable Standards
 [This section describes by reference any applicable standard and the specific sections of any such standards which apply to the system being described. For example, this could 
 include legal, quality and regulatory standards, industry standards for usability, interoperability, internationalization, operating system compliance, etc.]
 
