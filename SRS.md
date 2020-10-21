@@ -130,6 +130,23 @@ The websites should contain no unnecessary content. In the development process, 
 #### 3.2.2 Appearance
 The homepage of our application should be understandable and inform the user exactly, what one can get on this website. The content should be ordered from important to unimportant from the top to the bottom. The website should have a clear structured navigation menu, with which one can get from every page to every page. If scrolling is necessary on the page, the header and the navigation of the page should stay, while the content moves. Links on the website should be named clearly. Of course, the font formatting should be consistent on the whole application. The same categories of information, for example phone numbers, should always be formatted in the same way.
 
+### 3.3 Reliability
+The application should always be avaiable and should not lose any data.
+
+#### 3.3.1 Availability
+The application should be avaible all the time. 
+
+#### 3.3.2 Defect Rate
+Our goal is that we have no loss of any data. It is important for people working with the application, to be sure, that the shortened URLs and the original URLs are available in there relation.
+
+### 3.4 Perfomance
+
+#### 3.4.1 Capacity
+The system should normally not have more than ten users at the same time.
+
+#### 3.4.3 App perfomance / Response time
+The response time should be, as described in the "Usability" as short as possible.
+
 ### 3.5 Supportability
 The coding for the project should follow strict guidelines regarding the naming of for example variables and methods. These should, unless they are a simple interator, be named in an understandable way that describes their function. Additionally comments should be added at important places in the code to describe its functionality.
 
