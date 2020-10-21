@@ -188,7 +188,7 @@ During the implementation of the project, the URL standard RFC-1738 should be fo
 This project is an assignment of the following students at the DHBW Karlsruhe:
 Felix Hirschel,
 Lars Hudalla,
-Bastian shepherd,
+Bastian Schäfer,
 Fabian Schwickert.
 This application may not meet any legal requirements and therefore may not be used commercially or otherwise publicly. This project is only a purely pedagogical exercise. The content of this project is intellectual property of the above mentioned persons and may not be used or copied without their permission.
 No liability is assumed for any commercial use by third parties.
