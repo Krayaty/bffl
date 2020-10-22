@@ -16,7 +16,7 @@
   * [1.1 Brief Description](#11-Brief Description)
 - [2. Flow of Events](#2-Flow of Events)
   * [2.1 Basic Flow](#21-Basic Flow)
-  * [2.2 Alternative Flows](#22-Alternative Flows)
+  * [2.2 Alternative Flows](#22-Alternative-Flows)
 - [3. Specific Requirements](#3-specific-requirements)
   * [3.1 A](#31-A)
 - [4. Preconditions](#4-Preconditions)
@@ -26,46 +26,46 @@
 - [6. Extension Points](#6-Extension Points)
   * [6.1 A](#61-A)
   
-  # Use Case Specification: Update an URL-entry.
+# Use Case Specification: Update an URL-entry.
   
-  #1-Use-Case Name
-  abc
+## 1. Use-Case Name
+abc
   
-  #11-Brief Description
-  abc
-  
-  
-  #2-Flow of Events
-  #21-Basic Flow
-  abc
-  
-  #22-Alternative Flows
-  abc
+### 1.1 Brief Description
+abc
   
   
-  #3-specific-requirements
-  abc
+## 2. Flow of Events
+### 2.1 Basic Flow
+abc
   
-  #31-A
-  abc
-  
-  
-  #4-Preconditions
-  abc
-  
-  #41-A
-  abc
+### 2.2 AlternativeFlows
+abc
   
   
-  #5-Postconditions
-  abc
+## 3. specific requirements
+abc
   
-  #51-A
-  abc
+### 3.1 A
+abc
   
   
-  #6-Extension Points
-  abc
+## 4. Preconditions
+abc
   
-  #61-A
-  abc
+### 4.1 A
+abc
+  
+  
+## 5. Postconditions
+abc
+  
+### 5.1 A
+abc
+  
+  
+## 6. Extension Points
+abc
+  
+### 6.1 A
+abc
