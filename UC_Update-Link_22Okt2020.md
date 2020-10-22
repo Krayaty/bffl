@@ -12,10 +12,10 @@
 
 # Table of Contents
 
-- [1. Use-Case Name](#1-Use-Case Name)
-  * [1.1 Brief Description](#11-Brief Description)
-- [2. Flow of Events](#2-Flow of Events)
-  * [2.1 Basic Flow](#21-Basic Flow)
+- [1. Use-Case Name](#1-Use-Case-Name)
+  * [1.1 Brief Description](#11-Brief-Description)
+- [2. Flow of Events](#2-Flow-of-Events)
+  * [2.1 Basic Flow](#21-Basic-Flow)
   * [2.2 Alternative Flows](#22-Alternative-Flows)
 - [3. Specific Requirements](#3-specific-requirements)
   * [3.1 A](#31-A)
@@ -39,7 +39,7 @@ abc
 ### 2.1 Basic Flow
 abc
   
-### 2.2 AlternativeFlows
+### 2.2 Alternative Flows
 abc
   
   
