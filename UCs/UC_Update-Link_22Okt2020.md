@@ -54,7 +54,7 @@ abc
  
 ## 3. Flow of Events
 ### 3.1 Basic Flow
-![Basic Flow](../../../../Planung/UseCases/UpdateLink/UC_Update_22Okt2020.png)
+![Basic Flow](res/UC_Update_22Okt2020.png)
   
 ### 3.2 Alternative Flows
 n/a
