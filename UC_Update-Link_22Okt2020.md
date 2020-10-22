@@ -23,7 +23,7 @@
   * [4.1 A](#41-A)
 - [5. Postconditions](#5-Postconditions)
   * [5.1 A](#51-A)
-- [6. Extension Points](#6-Extension Points)
+- [6. Extension Points](#6-Extension-Points)
   * [6.1 A](#61-A)
   
 # Use Case Specification: Update an URL-entry.
