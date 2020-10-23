@@ -44,10 +44,16 @@ The present document concretizes the process "Update".
  
 ## 2. Mock Up
 ### 2.1 Mock
-abc
+The following picture shows a mock of the application in the initial state of the update process.
+
+![Basic Flow](res/UC_Update-Link_Mock1_23Okt2020.png)
   
 ### 2.2 Screenshots
-abc 
+The following screenshots show the main steps of the update process in the UI shown in the [activity diagram](#31-Basic-Flow).
+
+![Basic Flow](res/UC_Update-Link_Mock2_23Okt2020.png) 
+![Basic Flow](res/UC_Update-Link_Mock3_23Okt2020.png)
+![Basic Flow](res/UC_Update-Link_Mock4_23Okt2020.png)
  
  
 ## 3. Flow of Events
