@@ -35,10 +35,14 @@ find [here](../README.md).
  
 ## 2. Mock Up
 ### 2.1 Mock
-abc
+![Mock of application](res/mock_total.png)
   
 ### 2.2 Screenshots
-abc 
+### 2.2.1 Initial state of URL registration
+![Mock of entry fields](res/mock_input.png)
+
+### 2.2.2 After registering a new URL
+![Mock of successful registration](res/mock_success.png)
  
  
 ## 3. Flow of Events
