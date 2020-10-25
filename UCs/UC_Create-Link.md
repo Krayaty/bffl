@@ -30,7 +30,7 @@ Revision History
 ### 1.1 Brief Description
 The content of this document is the specification of the use case called "Create URL-entry". 
 The use case itself is part of a CRUD regarding the management of URLs in our application. The CRUD holds all four operations (Create, Read, Update, Delete) which you will
-find [here](../README.md).
+find [here](CRUD.md).
  
  
 ## 2. Mock Up
