@@ -8,7 +8,7 @@
 
 |    Date    | Version | Description | Author |
 |------------|---------|-------------|--------|
-| 22.10.2020 |   1.0   |  -  | Krayaty |
+| 25.10.2020 |   1.0   |  -  | Lars |
 
 # Table of Contents
 
@@ -33,48 +33,26 @@
   
 ## 1. Use-Case Name  
 ### 1.1 Brief Description
-abc
+The CRUD contains all Use Cas
  
  
 ## 2. Mock Up
 ### 2.1 Mock
-abc
+n/a
   
 ### 2.2 Screenshots
-abc 
+n/a
  
  
 ## 3. Flow of Events
 ### 3.1 Basic Flow
-abc
+![Basic Flow](res/CRUD_25Okt2020.png)
   
 ### 3.2 Alternative Flows
-abc
+n/a
   
   
 ## 4. specific requirements
-abc
-  
-### 4.1 A
-abc
-  
-  
-## 5. Preconditions
-abc
-  
-### 5.1 A
-abc
-  
-  
-## 6. Postconditions
-abc
-  
-### 6.1 A
-abc
-  
-  
-## 7. Extension Points
-abc
-  
-### 7.1 A
-abc
+Use Cases: 
+[Create Link](https://github.com/Krayaty/bffl/blob/master/UCs/UC_Create-Link.md)
+[Update Link](https://github.com/Krayaty/bffl/blob/master/UCs/UC_Update-Link_22Okt2020.md)
