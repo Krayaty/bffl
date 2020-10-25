@@ -33,7 +33,7 @@
   
 ## 1. Use-Case Name  
 ### 1.1 Brief Description
-The CRUD contains all Use Cases, the user should be able to perform.
+The CRUD contains all ways, the user is able to interact with the shortened links.
  
  
 ## 2. Mock Up
