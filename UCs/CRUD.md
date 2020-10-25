@@ -33,7 +33,7 @@
   
 ## 1. Use-Case Name  
 ### 1.1 Brief Description
-The CRUD contains all Use Cas
+The CRUD contains all Use Cases, the user should be able to perform.
  
  
 ## 2. Mock Up
@@ -54,5 +54,5 @@ n/a
   
 ## 4. specific requirements
 Use Cases: 
-[Create Link](https://github.com/Krayaty/bffl/blob/master/UCs/UC_Create-Link.md)
+[Create Link](https://github.com/Krayaty/bffl/blob/master/UCs/UC_Create-Link.md),
 [Update Link](https://github.com/Krayaty/bffl/blob/master/UCs/UC_Update-Link_22Okt2020.md)
