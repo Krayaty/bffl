@@ -54,5 +54,5 @@ n/a
   
 ## 4. specific requirements
 Use Cases: 
-[Create Link](https://github.com/Krayaty/bffl/blob/master/UCs/UC_Create-Link.md),
-[Update Link](https://github.com/Krayaty/bffl/blob/master/UCs/UC_Update-Link_22Okt2020.md)
+[Create Link](UC_Create-Link.md),
+[Update Link](UC_Update-Link_22Okt2020.md)
