@@ -38,7 +38,7 @@ This is part of a so-called CRUD. CRUD is an acronym that describes the four fun
 
 (see glossar.hs-augsburg.de (ed.): CRUD, 19th Mai 2016, https://glossar.hs-augsburg.de/CRUD, retrieved on 22.10.2020.)
 
-The [CRUD](../README.md) referred to here deals with the main content of this web application: shortened URLs.
+The [CRUD](CRUD.md) referred to here deals with the main content of this web application: shortened URLs.
 The present document concretizes the process "Update".
  
  
