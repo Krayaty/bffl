@@ -1,5 +1,5 @@
 # BFFL
-# shortened links management - CRUD
+# Links management - CRUD
 
 ## Version <1.0>
 
