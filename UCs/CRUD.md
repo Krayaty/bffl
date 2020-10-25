@@ -1,5 +1,5 @@
 # BFFL
-# Use Case Specification: Update an URL-entry.
+# shortened links management - CRUD
 
 ## Version <1.0>
 
