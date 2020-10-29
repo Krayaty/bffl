@@ -88,4 +88,4 @@ In both cases the application can be used normally.
   
   
 ## 7. Extension Points
-This Use Case is a possible follow-up process to the [creation](../README.md), [deletion](../README.md) and [display](../README.md) of shortened URLs in the [CRUD](../README.md) described above.
+This Use Case is a possible follow-up process to the [creation](../../README.md), [deletion](../../README.md) and [display](../../README.md) of shortened URLs in the [CRUD](../../README.md) described above.
