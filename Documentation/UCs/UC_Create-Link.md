@@ -47,7 +47,7 @@ find [here](CRUD.md).
  
 ## 3. Flow of Events
 ### 3.1 Basic Flow
-![Basic Flow](res/UC_Create_22Okt2020.png)
+![Basic Flow](res/UC_Create_Link.png)
   
 ### 3.2 .feature
   ``` Cucumber 
