@@ -19,7 +19,8 @@ Revision History
   * [2.2 Screenshots](#22-Screenshots)
 - [3. Flow of Events](#3-Flow-of-Events)
   * [3.1 Basic Flow](#31-Basic-Flow)
-  * [3.2 Alternative Flows](#32-Alternative-Flows)
+  * [3.2 Basic Flow](#32-Basic-Flow)
+  * [3.3 Alternative Flows](#33-Alternative-Flows)
 - [4. Special Requirements](#4-special-requirements)
 - [5. Preconditions](#5-Preconditions)
 - [6. Postconditions](#6-Postconditions)
@@ -38,7 +39,7 @@ This is part of a so-called CRUD. CRUD is an acronym that describes the four fun
 
 (see glossar.hs-augsburg.de (ed.): CRUD, 19th Mai 2016, https://glossar.hs-augsburg.de/CRUD, retrieved on 22.10.2020.)
 
-The [CRUD](CRUD.md) referred to here deals with the main content of this web application: shortened URLs.
+The [CRUD](/CRUD.md) referred to here deals with the main content of this web application: shortened URLs.
 The present document concretizes the process "Update".
  
  
@@ -60,7 +61,56 @@ The following screenshots show the main steps of the update process in the UI sh
 ### 3.1 Basic Flow
 ![Basic Flow](res/UC_Update_22Okt2020.png)
   
-### 3.2 Alternative Flows
+### 3.2 .feature-file
+
+``` Cucumber
+
+Feature: Update-Link
+  as a User 
+    I want to be able to find my shortened URLs on the main page in a List view. By clicking on an entry I want to be 
+    able to change the entry. I want to see a view that shows me all changeable fields. With click on submit all changes
+     should be saved. With click on cancel I the changes should be discarded.
+
+  Background: User is logged in.
+
+  Scenario: User and his group have no URL saved.
+    Given the user and his group have no URL saved in the database
+    Then an empty list should be viewed
+
+  Scenario: The User and his group have an URL saved and successfully changes the entry.
+    Given the user and his group have minimum one URL saved in the database
+    When the user clicks on an entry
+    Then the update-view should open for the specific entry
+    When the user chages the entrys data
+    And clicks on submit
+    And the data is valid
+    Then the data is changed in the database
+    And the main page is shown
+    But the update-view closes
+
+  Scenario: The User and his group have an URL saved and changes the entry but discards the changes.
+    Given the user and his group have minimum one URL saved in the database
+    When the user clicks on an entry
+    Then the update-view should open for the specific entry
+    When the user chages the entrys data
+    And clicks on cancel
+    Then the changes are discarded by not sending an SQL-request
+    And the main page is shown
+    But the update-view closes
+
+  Scenario: The User and his group have an URL saved and wants to change the entry, but the new data is not valid.
+    Given the user and his group have minimum one URL saved in the database
+    When the user clicks on an entry
+    Then the update-view should open for the specific entry
+    When the user chages the entrys data
+    And clicks on submit
+    But the data is invalid
+    Then the update-view is shown again with the old data
+    And an error message is shown
+    But the data isn't changed in the database
+```
+  
+### 3.3 Alternative Flows
 n/a
   
   
@@ -88,4 +138,4 @@ In both cases the application can be used normally.
   
   
 ## 7. Extension Points
-This Use Case is a possible follow-up process to the [creation](../../README.md), [deletion](../../README.md) and [display](../../README.md) of shortened URLs in the [CRUD](../../README.md) described above.
+This Use Case is a possible follow-up process to the [creation](/UC_Create-Link.md), [deletion](../../README.md) and [display](../../README.md) of shortened URLs in the [CRUD](/CRUD.md) described above.
