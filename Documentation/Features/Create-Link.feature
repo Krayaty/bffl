@@ -1,4 +1,7 @@
 Feature: Use Case to shorten a link
+  As a user
+  I want to open the app and be able to shorten a link to a custom URL
+  So that my own web application stays tidied up and I can keep track of all my internal URLs
 
   Background:
     Given The user is logged in
