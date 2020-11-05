@@ -1,1 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
+body{
+  margin: auto !important;
+  width: 100%;
+}
+
+.section-container{
+  margin: 10px 10px 10px 0px;
+  text-align: center;
+}
