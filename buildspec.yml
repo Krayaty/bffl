@@ -5,14 +5,12 @@ phases:
     runtime-versions:
       nodejs: 10
     commands:
-      - echo Installing angular cli...
       - npm install -g @angular/cli
       - yarn add @angular-devkit/build-angular --dev
   build:
     commands:
-      - echo Build started...
     #  - ng test --watch=false
       - ng build
-artifacts:
-  files:
-    - /**/*
+#artifacts:
+ # files:
+  #  - /**/*
