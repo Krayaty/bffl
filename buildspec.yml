@@ -15,4 +15,4 @@ phases:
       - ng build
 artifacts:
   files:
-    - dist/**/*
+    - frontend/dist
