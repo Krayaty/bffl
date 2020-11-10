@@ -10,7 +10,7 @@ phases:
   build:
     commands:
     #  - ng test --watch=false
-      - ng build
+      - ng build --prod
 #artifacts:
  # files:
   #  - /**/*
