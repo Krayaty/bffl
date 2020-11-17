@@ -1,19 +1,21 @@
-version: 0.2
+version: 0.1
 
 phases:
   install:
-    runtime-versions:
-      nodejs: 10
     commands:
+      - curl -sL https://deb.nodesource.com/setup_12.x | bash -
+      - apt-get install -y nodejs
+      - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+      - apt install --no-install-recommends yarn
+  pre_build:
+    commands:
+      - npm i -g @angular/cli
       - npm install
-      - npm install -g @angular/cli
-      - yarn add @angular-devkit/build-angular --dev
   build:
     commands:
-    #  - ng test --watch=false
-      - ng build --aot
+      - ng build --prod
 artifacts:
- files:
-    - '**/*'
-base-directory: 'dist*'
-discard-paths: yes
+  files:
+    - "**/*"
+  discard-paths: no
+  base-directory: dist/bffl
