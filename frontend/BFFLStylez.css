@@ -1,0 +1,27 @@
+html, input{
+  background-color: #172951;
+  font-size: medium;
+  color: #FFFFFF;
+  font-family: "Lucida Console", serif;
+}
+
+h1{
+  color: #ADD8FD;
+  font-size: large;
+}
+input[type=text] {
+  border-radius: 25px;
+  background: #394B73;
+  color: #FFFFFF;
+  font-size: medium;
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid #555;
+  outline: none;
+}
+
+input[type=text]:focus {
+  background-color: #7AA5EA;
+}
