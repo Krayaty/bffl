@@ -10,13 +10,13 @@ phases:
     runtime-versions:
       nodejs: 10
     commands:
+      - cd frontend
       - echo Installing source NPM dependencies...
       - npm install
       - npm install -g @angular/cli
   build:
     commands:
       - echo Build started
-      - cd frontend
       - ng test
       - ng build
 artifacts:
