@@ -1,19 +1,24 @@
-version: 0.1
+version: 0.2
 
+env:
+  variables:
+    CACHE_CONTROL: "86400"
+    S3_BUCKET: "{{http://www.bffl.com.s3-website.eu-central-1.amazonaws.com}}"
+    BUILD_FOLDER: "dist"
 phases:
   install:
+    runtime-versions:
+      nodejs: 10
     commands:
-      - curl -sL https://deb.nodesource.com/setup_12.x | bash -
-      - apt-get install -y nodejs
-  pre_build:
-    commands:
-      - npm i -g @angular/cli
+      - echo Installing source NPM dependencies...
       - npm install
+      - npm install -g @angular/cli
   build:
     commands:
-      - ng build --prod
+      - echo Build started
+      - ng build
 artifacts:
   files:
-    - "**/*"
-  discard-paths: no
-  base-directory: dist/bffl
+    - '**/*'
+  base-directory: 'dist*'
+  discard-paths: yes
