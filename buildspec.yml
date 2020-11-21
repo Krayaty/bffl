@@ -16,7 +16,9 @@ phases:
   build:
     commands:
       - echo Build started
-      - ng build frontend
+      - cd frontend
+      - ng test
+      - ng build
 artifacts:
   files:
     - '**/*'
