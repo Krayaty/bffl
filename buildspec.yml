@@ -17,7 +17,6 @@ phases:
   build:
     commands:
       - echo Build started
-      - ng test
       - ng build
 artifacts:
   files:
