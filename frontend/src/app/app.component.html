@@ -1,6 +1,16 @@
-<app-top-bar></app-top-bar>
+<app-menu></app-menu>
 
 <br><br><br><br><br><br><br>
 
 <router-outlet></router-outlet>
 
+<div id='menu'>
+  <nav>
+    <ul>
+      <li><a routerLink="/main-page">Home</a></li>
+      <li><a routerLink="/shorten-section">Create URL</a></li>
+      <li><a routerLink="/url-manager-section">Manage Group</a></li>
+      <li><a routerLink="/about-section">About</a></li>
+    </ul>
+  </nav>
+</div>

@@ -9,15 +9,18 @@ import {FormsModule} from '@angular/forms';
 import { LoginComponent } from './StartUpComponents/login/login.component';
 import { MainPageComponent } from './MainPageSections/main-page/main-page.component';
 import {AppRoutingModule} from './app-routing.module';
+import {MenuComponent} from './menu/menu.component';
+import { AboutSectionComponent } from './MainPageSections/about-section/about-section.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TopBarComponent,
+    MenuComponent,
     ShortenSectionComponent,
     UrlManagerSectionComponent,
     LoginComponent,
-    MainPageComponent
+    MainPageComponent,
+    AboutSectionComponent
   ],
   imports: [
     BrowserModule,
