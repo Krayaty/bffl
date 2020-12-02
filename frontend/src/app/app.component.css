@@ -1,3 +1,5 @@
+html, body{color: #000000;}
+
 #menu, #menu ul, #menu li, #menu a {
   border: none;
   line-height: 1;

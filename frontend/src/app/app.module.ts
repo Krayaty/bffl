@@ -5,12 +5,10 @@ import { AppComponent } from './app.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { ShortenSectionComponent } from './MainPageSections/shorten-section/shorten-section.component';
 import { UrlManagerSectionComponent } from './MainPageSections/url-manager-section/url-manager-section.component';
-import {FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './StartUpComponents/login/login.component';
-import { MainPageComponent } from './MainPageSections/main-page/main-page.component';
-import {AppRoutingModule} from './app-routing.module';
-import {MenuComponent} from './menu/menu.component';
-import { AboutSectionComponent } from './MainPageSections/about-section/about-section.component';
+import { AppRoutingModule } from './app-routing.module';
+import { MenuComponent } from './menu/menu.component';
 
 @NgModule({
   declarations: [
@@ -18,9 +16,7 @@ import { AboutSectionComponent } from './MainPageSections/about-section/about-se
     MenuComponent,
     ShortenSectionComponent,
     UrlManagerSectionComponent,
-    LoginComponent,
-    MainPageComponent,
-    AboutSectionComponent
+    LoginComponent
   ],
   imports: [
     BrowserModule,
