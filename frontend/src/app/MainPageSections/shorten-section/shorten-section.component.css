@@ -11,7 +11,6 @@ input[type=text] {
   border: 2px solid #555;
   outline: none;
 }
-
 input[type=text]:focus {
   background-color: #7AA5EA;
 }
