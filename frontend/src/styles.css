@@ -1,6 +1,9 @@
 body{
   margin: auto !important;
   width: 100%;
+  background-color: black;
+  font-family: "Lucida Console", serif;
+  color: white;
 }
 
 .section-container{
