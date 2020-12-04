@@ -56,10 +56,10 @@ Figure 3: Dynamic Requirement Analysis of “create a Short-URL”
  ![alt text](./Pictures/Dynamic%20Requirement%20Analysis%20of%20update%20Short-URLs.png?raw=true)
 Figure 4: Dynamic Requirement Analysis of “update Short-URLs”
 
-5.	Logical View
+## 5.	Logical View
 ![alt text](./Pictures/Logical%20View.png?raw=true)
 
-The following figure shows the architecture of the BFFL webapp and gives information of central functionalities, attributes and dependencies of all major components.
+Figure 5: The following figure shows the architecture of the BFFL webapp and gives information of central functionalities, attributes and dependencies of all major components.
 
 ## 6.	Deployment View
  ![alt text](./Pictures/Digital%20Infrastructure%20Diagram.png?raw=true)
