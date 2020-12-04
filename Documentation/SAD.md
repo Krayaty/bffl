@@ -50,7 +50,7 @@ The dynamic requirement analysis of the BFFL webapp concretises the static requi
  ![alt text](./Pictures/Dynamic%20Requirement%20Analysis%20of%20show%20Short-URLs.png?raw=true)
 Figure 2: Dynamic Requirement Analysis of “show Short-URLs”
 
-![alt text](./Pictures/Dynamic%20Requirement%20Analysis%20of%20create%20Short-URL.pngg?raw=true)
+![alt text](./Pictures/Dynamic%20Requirement%20Analysis%20of%20create%20a%20Short-URL.png?raw=true)
 Figure 3: Dynamic Requirement Analysis of “create a Short-URL”
 
  ![alt text](./Pictures/Dynamic%20Requirement%20Analysis%20of%20update%20Short-URLs.png?raw=true)
