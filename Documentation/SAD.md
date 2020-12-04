@@ -41,17 +41,24 @@ Sicherheit durch Keycloak und eventuell FIDO2
 Data Security mit Authentifizierung und build in AWS Hilfsmittel wie ausversehen DB-Löschung nicht erlauben
 ## 4.	Use-Case View Basti
 The static requirement analysis of the BFFL webapp shows what the core requirements of the application are.
+
  ![alt text](./Pictures/Static%20Requirement%20Analysis.png?raw=true)
 Figure 1: Static Requirement Analysis
+
 The dynamic requirement analysis of the BFFL webapp concretises the static requirement analysis. It consists out of the documentation of the processes of the core requirements shown in the static requirement analysis. The following figures show three of the most important requirements.
+
  ![alt text](./Pictures/Dynamic%20Requirement%20Analysis%20of%20show%20Short-URLs.png?raw=true)
 Figure 2: Dynamic Requirement Analysis of “show Short-URLs”
+
 ![alt text](./Pictures/Dynamic%20Requirement%20Analysis%20of%20create%20Short-URL.pngg?raw=true)
 Figure 3: Dynamic Requirement Analysis of “create a Short-URL”
+
  ![alt text](./Pictures/Dynamic%20Requirement%20Analysis%20of%20update%20Short-URLs.png?raw=true)
 Figure 4: Dynamic Requirement Analysis of “update Short-URLs”
+
 5.	Logical View
 ![alt text](./Pictures/Logical%20View.png?raw=true)
+
 The following figure shows the architecture of the BFFL webapp and gives information of central functionalities, attributes and dependencies of all major components.
 
 ## 6.	Deployment View
