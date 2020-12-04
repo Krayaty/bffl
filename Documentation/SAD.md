@@ -58,5 +58,5 @@ The following figure shows the architecture of the BFFL webapp and gives informa
  
 Figure 6: Digital Infrastructure Diagram
 ## 7.	Data View
- ![alt text](https://github.com/Krayaty/bffl/tree/Fabi/Documentation/Pictures/DB Schema.png?raw=true)
+ ![alt text](https://github.com/Krayaty/bffl/blob/Fabi/Documentation/Pictures/DB%20Schema.png?raw=true)
 Figure 7: DB scheme
