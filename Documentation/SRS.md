@@ -15,17 +15,22 @@ Version 1.1
   * [2.3 Technology Stack](#23-technology-stack)
 - [3. Specific Requirements](#3-specific-requirements)
   * [3.1 Functionality](#31-functionality)
-    + [3.1.1 Functional Requirement One](#311-functional-requirement-one)
-- [3.2 Usability](#32-usability)
-  * [3.2.1 Usability Requirement One](#321-usability-requirement-one)
-- [3.3 Reliability](#33-reliability)
-  * [3.3.1 Reliability Requirement One](#331-reliability-requirement-one)
-- [3.4 Perfomance](#34-perfomance)
-  * [3.4.1 Performance Requirement One](#341-performance-requirement-one)
+    + [3.1.1 Accessmanagement](#311-accessmanagement)
+    + [3.1.2 Linking to other websites](#312-linking-to-other-websites)
+    + [3.1.3 Data Analysis](#313-data-analysis)
+    + [3.1.4 Dashboard](#314-dashboard)
+  * [3.2 Usability](#32-usability)
+    + [3.2.1 Conform common usability standards](#321-conform-common-usability-standards)
+    + [3.2.2 Appearance](#322-appearance)
+  * [3.3 Reliability](#33-reliability)
+    + [3.3.1 Availability](#331-availability)
+    + [3.3.2 Defect Rate](#332-defect-rate)
+  * [3.4 Perfomance](#34-perfomance)
+    + [3.4.1 Capacity](#341-capacity)
+    + [3.4.2 App perfomance / Response time](#342-app-performance-response-time)
+    3.4.2 App perfomance / Response time
   * [3.5 Supportability](#35-supportability)
-    + [3.5.1 Supportability Requirement One](#351-supportability-requirement-one)
   * [3.6 Design Constraints](#36-design-constraints)
-    + [3.6.1 Design Constraint One](#361--design-constraint-one-)
   * [3.7 On-line User Documentation and Help System Requirements](#37-on-line-user-documentation-and-help-system-requirements)
   * [3.8 Purchased Components](#38-purchased-components)
   * [3.9 Interfaces](#39-interfaces)
@@ -46,19 +51,19 @@ Revision History
 | 10.10.2020 |   1.0   |  <Add Chapters>               | <BFFL>            |
 | 06.12.2020 |   1.1   |  <Update Table of Contents>   | <Bastian Schäfer> |
 
-## 1. Introduction
+## [1. Introduction](#1-introduction)
 
 
-### 1.1 Purpose
+### [1.1 Purpose](#11-purpose)
 This SRS's (or software requirements specification) purpose is to save, list and document planned features. By doing so, it should give any person interested a more or less detailed outline about the link-shortening-project BFFL (name remains yet to be changed). Therefore it should explain usability and expected behaviour of the application. It is supposed to hold all functional, as well as non-functional requirements, which may or may not be implemented throughout the next year (late 2020 to mid 2021).
 
-### 1.2 Scope
+### [1.2 Scope](#12-scope)
 The document contains the BFFL project in its entirety, therefore containing information and requirements about the following sub-systems:
  - Link-Administration: A collection of all shortened links by a single user or their respective group.
  - Access management: The option for users to create and manage their account. Also provides grouping of such.
  - Dashboard: Gives users an overview over data collected by usage of their shortened links.
 
-### 1.3 Definitions, Acronyms and Abbreviations
+### [1.3 Definitions, Acronyms and Abbreviations](#13-definitions--acronyms-and-abbreviations)
 
 | Abbrevation | Explanation                            |
 | ----------- | -------------------------------------- |
@@ -67,7 +72,7 @@ The document contains the BFFL project in its entirety, therefore containing inf
 | tbd         | to be determined                       |
 | ----------- | -------------------------------------- |
 
-### 1.4 References
+### [1.4 References](#14-references)
 [This subsection should provide a complete list of all documents referenced elsewhere in the SRS.  Each document should be identified by title, report number (if applicable),
 date, and publishing organization.  Specify the sources from which the references can be obtained. This information may be provided by reference to an appendix or to another
 document.]
@@ -77,10 +82,10 @@ document.]
 | --------------------------------------------------------------------------------|:----------:| ------------------------- |
 
 
-### 1.5 Overview
+### [1.5 Overview](#15-overview)
 [This subsection should describe what the rest of the SRS contains and explain how the document is organized.]
 
-## 2. Overall Description
+## [2. Overall Description](#2-overall-description)
 [This section of the SRS should describe the general factors that affect the product and its requirements.  This section does not state specific requirements.  
 Instead, it provides a background for those requirements, which are defined in detail in Section 3, and makes them easier to understand. Include such items as:
  - product perspective
@@ -91,67 +96,67 @@ Instead, it provides a background for those requirements, which are defined in d
  - requirements subsets]
 
 
-### 2.1 Vision
+### [2.1 Vision](#21-vision)
 Running out of options for pretty URLs can be really frustrating, espcially when trying to build a huge application. In addition to that it becomes rather hard to keep it clean and keeping track of everything is often an impossible task. BFFL is a project providing a URL-shortening-service with the goal of providing a secure and professional alternative to common URL-shorteners for business environments.
 Furthermore you will not only be able to manage a tidied up collection of links but access additional information about the usage of your hyperlinks.
 
-### 2.2 Use Case Diagram
+### [2.2 Use Case Diagram](#22-use-case-diagram)
 ![alt text](https://lucid.app/publicSegments/view/0dad81c4-3d9b-4b91-b314-05ccb2a11b17/image.png)
 
-### 2.3 Technology Stack
+### [2.3 Technology Stack](#23-technology-stack)
 Our frontend will primarily be done with [Angular CLI](https://cli.angular.io/). The database and overlying system we will use to store all those URLs is, just as the system connecting the UI to our server, tbd.
 
-## 3. Specific Requirements
+## [3. Specific Requirements](#3-specific-requirements)
 Every user can shorten URLs, search for his shortend URLs and manage them:
 Our program should primary shorten URLs, that means, that it creates a short URL for a given (long) URL. This short URL is tied with the original URL and can be managed in a clearly structured table. By using the search functions, you can find every URL, you shortened.
 
-### 3.1 Functionality
+### [3.1 Functionality](#31-functionality)
 The main services, the software must offer, has been mentioned in the "Specific Requirements" (Chapter 3) and in the "Use Case Diagram" (Chapter 2).
 As you can see there, the system is divided in three subsystems. The Accessmanagement and the Linking to other Websites will be done this semester, the data analysis will be done in the next semester. In this software, security is very important, because we are having to do responsible with the data of our customers.
 
-#### 3.1.2 Linking to other websites
+#### [3.1.1 Accessmanagement](#311-accessmanagement)
+The system should have an accessmanagement. There should be an acces for the application manager who manages the accounts and the group, which can acces the data of a certain application.
+
+#### [3.1.2 Linking to other websites](#312-linking-to-other-websites)
 The most important function is the creation of new shortend URLs. Those shortend URLs should link to a given Website, which can easily be changed. Because of this, the combination of shortend URL and the original URL has to be saved in a table, where the content should be managed by the regular user. This should be realized by a search function, with which a specific URL can be searched in the created URLs.
 
-#### 3.1.1 Accessmanagement
-The system should have an accessmanagement. There should be an acces for the application manager who manages the accounts and the group, which can acces the data of a certain application. 
-
-#### 3.1.3 Data Analysis
+#### [3.1.3 Data Analysis](#313-data-analysis)
 The accessmanager, mentioned at the top, has acces to the data analysis. In this subsystem, security should be ensured, because this is the part, where ths user daata is collected and the evaluation is shown on a Dashboard, specified below.
 
-#### 3.1.4 Dashboard
+#### [3.1.4 Dashboard](#314-dashboard)
 The application should have a Dashboard, where all important information for the users are shown.
 
-## 3.2 Usability
+## [3.2 Usability](#32-usability)
 A normal user is for example a person responible for some websites. Those persons are normally used to URLs and will immediately understand the functionality of our application. The required training time should be nearly zero.
 The usabilty requirements should be simliar to URL shortener like "bitly". The time fot the typical task, which is to shorten a URL should be under 3 minutes. The management of the created short URLs should not take more time, too.
 
-### 3.2.1 Conform common usability standards
+### [3.2.1 Conform common usability standards](#321-conform-common-usability-standards)
 The websites should contain no unnecessary content. In the development process, we will experience, which content will be important to show on the dashboard, and whcih content will not. In the design process, the comparison to real URL shortener should be made. There should just be pop-ups, if it is really necessary. Besides, the user should not have to wait longer than 30 seconds for any service of the application. The website should be accesible by everyone, even if one does not has the rights. We do not need to mention, that the website should be accesible from every common browser (Safari, Google Chrome, Firefox, Microsoft Edge, Internet Explorer). The application should have a search function, with which one can find and access content of the whole application.
 
-#### 3.2.2 Appearance
+#### [3.2.2 Appearance](#322-appearance)
 The homepage of our application should be understandable and inform the user exactly, what one can get on this website. The content should be ordered from important to unimportant from the top to the bottom. The website should have a clear structured navigation menu, with which one can get from every page to every page. If scrolling is necessary on the page, the header and the navigation of the page should stay, while the content moves. Links on the website should be named clearly. Of course, the font formatting should be consistent on the whole application. The same categories of information, for example phone numbers, should always be formatted in the same way.
 
-### 3.3 Reliability
+### [3.3 Reliability](#33-reliability)
 The application should always be avaiable and should not lose any data.
 
-#### 3.3.1 Availability
+#### [3.3.1 Availability](#331-availability)
 The application should be avaible all the time. 
 
-#### 3.3.2 Defect Rate
+#### [3.3.2 Defect Rate](#332-defect-rate)
 Our goal is that we have no loss of any data. It is important for people working with the application, to be sure, that the shortened URLs and the original URLs are available in there relation.
 
-### 3.4 Perfomance
+### [3.4 Perfomance](#34-perfomance)
 
-#### 3.4.1 Capacity
+#### [3.4.1 Capacity](#341-capacity)
 The system should normally not have more than ten users at the same time.
 
-#### 3.4.3 App perfomance / Response time
+#### [3.4.2 App perfomance / Response time](#342-app-performance-response-time)
 The response time should be, as described in the "Usability" as short as possible.
 
-### 3.5 Supportability
+### [3.5 Supportability](#35-supportability)
 The coding for the project should follow strict guidelines regarding the naming of for example variables and methods. These should, unless they are a simple interator, be named in an understandable way that describes their function. Additionally comments should be added at important places in the code to describe its functionality.
 
-### 3.6 Design Constraints
+### [3.6 Design Constraints](#36-design-constraints)
 The application should be created using the framework Angular for the frontend. Further more for now only the standard libraries and no external ones should be used. 
 
 ### [3.7 On-line User Documentation and Help System Requirements](#37-on-line-user-documentation-and-help-system-requirements)
@@ -167,7 +172,7 @@ The UI should be kept to a minimum. The design is unimportant at first. What is 
 #### [3.9.2 Hardware Interfaces](#392-hardware-interfaces)
 Since the web application requires a DBMS and a user administration service, a server must be configured accordingly.
 
-#### 3.9.3 [3.9.3 Software Interfaces](#393-software-interfaces)
+#### [3.9.3 Software Interfaces](#393-software-interfaces)
 Since this application is essentially based on a DBMS, it is particularly important that such a DBMS is used and connected to the rest.
 It is also likely that a service for data analysis is needed.
 A user administration service is also elementary.
