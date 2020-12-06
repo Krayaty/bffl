@@ -1,6 +1,6 @@
 BFFL | Software Requirements Specification
 ======
-Version <1.0>
+Version 1.1
 ======
 
 - [1. Introduction](#1-introduction)
@@ -38,12 +38,13 @@ Version <1.0>
   * [3.12 Applicable Standards](#312-applicable-standards)
 - [4. Supporting Information](#4-supporting-information)
 
-#Revision History
+Revision History
 -----
 
-|    Date    | Version | Description | Author |
-|------------|---------|-------------|--------|
-| XX.XX.XXXX |   X.X   |  <details>  | <name> |
+|    Date    | Version | Description                   | Author            |
+|------------|---------|-------------------------------|-------------------|
+| 10.10.2020 |   1.0   |  <Add Chapters>               | <BFFL>            |
+| 06.12.2020 |   1.1   |  <Update Table of Contents>   | <Bastian Schäfer> |
 
 ## 1. Introduction
 
@@ -153,38 +154,38 @@ The coding for the project should follow strict guidelines regarding the naming 
 ### 3.6 Design Constraints
 The application should be created using the framework Angular for the frontend. Further more for now only the standard libraries and no external ones should be used. 
 
-### 3.7 On-line User Documentation and Help System Requirements
+### [3.7 On-line User Documentation and Help System Requirements](#37-on-line-user-documentation-and-help-system-requirements)
 Alongside the actual application there should also be created a user documentation that clearly describes the application's functionality. This documentation should include all the implemented functions of the product and how to use them.
 
-### 3.8 Purchased Components
+### [3.8 Purchased Components](#38-purchased-components)
 In order to avoid license fees, only freely available software products should be used. 
 
-### 3.9 Interfaces
-#### 3.9.1 User Interfaces
+### [3.9 Interfaces](#39-interfaces)
+#### [3.9.1 User Interfaces](#391-user-interfaces)
 The UI should be kept to a minimum. The design is unimportant at first. What is relevant is that there is one log-in and two different websites based on user roles. On the page for users it should be possible to shorten, change and manage URLs. On the page for admins the same should be possible. Additionally a dashboard for data analysis should be displayed.
 
-#### 3.9.2 Hardware Interfaces
+#### [3.9.2 Hardware Interfaces](#392-hardware-interfaces)
 Since the web application requires a DBMS and a user administration service, a server must be configured accordingly.
 
-#### 3.9.3 Software Interfaces
+#### 3.9.3 [3.9.3 Software Interfaces](#393-software-interfaces)
 Since this application is essentially based on a DBMS, it is particularly important that such a DBMS is used and connected to the rest.
 It is also likely that a service for data analysis is needed.
 A user administration service is also elementary.
 
-#### 3.9.4 Communications Interfaces
+#### [3.9.4 Communications Interfaces](#394-communications-interfaces)
 not applicable
 
-### 3.10 Licensing Requirements
+### [3.10 Licensing Requirements](#310-licensing-requirements)
 For this project only software and hardware that can be used commercially free of charge shall be used. Therefore nothing has to be licensed with costs. Everything that is used is licensed under a license similar to the General Public License.
 The content of this project is intellectual property of the above mentioned persons and may not be used or copied without their permission. The idea behind it is to put only commercial free software into the product, so that this product can theoretically be published later. Should it come to that, the product itself will have to be licensed by the user.
 
-### 3.11 Legal, Copyright, and Other Notices
+### [3.11 Legal, Copyright, and Other Notices](#311-legal--copyright--and-other-notices)
 Since only software and hardware should be used which is under a free license, there should be no legal problems in this area. Concerning copyrights and patents there are no problems for the time being, because there is no commercial interest in this project. A release with commercial use is not planned in the near future.
 
-### 3.12 Applicable Standards
+### 3[3.12 Applicable Standards](#312-applicable-standards)
 During the implementation of the project, the URL standard RFC-1738 should be followed.
 
-## 4. Supporting Information
+## [4. Supporting Information](#4-supporting-information)
 This project is an assignment of the following students at the DHBW Karlsruhe:
 Felix Hirschel,
 Lars Hudalla,
