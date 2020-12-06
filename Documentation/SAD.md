@@ -1,6 +1,6 @@
 BFFL | Software Architecture Document
 ======
-Version 1.3
+Version 1.4
 ======
 
 - [1. Introduction](#1-introduction)
@@ -25,22 +25,23 @@ Revision History
 | 03.12.2020 |   1.1   | Update chap. 4-7 | Fabian Schwickert |
 | 04.12.2020 |   1.2   | Convert to .md   | Bastian Schäfer   |
 | 06.12.2020 |   1.3   | Update chap. 2+3 | Bastian Schäfer   |
+| 06.12.2020 |   1.4   | Update chap. 1   | Lars Hudalla      |
  
 # Software Architecture Document 
 ## [1. Introduction](#1-introduction)
-[The introduction of the Software Architecture Document provides an overview of the entire Software Architecture Document. It includes the purpose, scope, definitions, acronyms, abbreviations, references, and overview of the Software Architecture Document.]
 ### [1.1 Purpose](#11-purpose)
 This document provides a comprehensive architectural overview of the system, using a number of different architectural views to depict different aspects of the system. It is intended to capture and convey the significant architectural decisions which have been made on the system.
-
-[This section defines the role or purpose of the Software Architecture Document, in the overall project documentation, and briefly describes the structure of the document. The specific audiences for the document is identified, with an indication of how they are expected to use the document.]
 ### [1.2 Scope](#12-scope)
-[A brief description of what the Software Architecture Document applies to; what is affected or influenced by this document.]
+This document describes the architecture of the BFFL link shortener project. 
 ### [1.3 Definitions, Acronyms and Abbreviations](#13-definitions--acronyms-and-abbreviations)
-[This subsection provides the definitions of all terms, acronyms, and abbreviations required to properly interpret the Software Architecture Document.  This information may be provided by reference to the project’s Glossary.]
+n/a
 ### [1.4 References](#14-references)
-[This subsection provides a complete list of all documents referenced elsewhere in the Software Architecture Document. Identify each document by title, report number (if applicable), date, and publishing organization. Specify the sources from which the references can be obtained. This information may be provided by reference to an appendix or to another document.]
+|    File                                                                                           |
+|---------------------------------------------------------------------------------------------------|
+| [Create short URL](Planning/Requirements_Analysis/Dynamic/Create-URL/UC_Create-Link.md)           |
+| [Update short URL](Planning/Requirements_Analysis/Dynamic/Update-URL/UC_Update-Link_22Okt2020.md) |
 ### [1.5 Overview](#15-overview)
-[This subsection describes what the rest of the Software Architecture Document contains and explains how the Software Architecture Document is organized.]
+In the following sections the project's architecure will be defined through a description of the requirements and the used systems and software. The archtitecture will be further described with diagrams that showcase the use cases and different views on the logic, deployment and data.
 ## [2. Architectural Representation](#2-architectural-representation)
 The software architecture for our system is based on AWS in the backend and on Angular in the frontend.
 In the [Use-Case View](#4-use-case-view), you find the static requirement analysis and some use cases.
