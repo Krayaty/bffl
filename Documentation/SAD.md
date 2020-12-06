@@ -18,7 +18,7 @@ Version <1.0>
 
  
 Software Architecture Document 
-## 1.	Introduction Lars
+## [1. Introduction](#1-introduction)
 [The introduction of the Software Architecture Document provides an overview of the entire Software Architecture Document. It includes the purpose, scope, definitions, acronyms, abbreviations, references, and overview of the Software Architecture Document.]
 ### 1.1	Purpose
 This document provides a comprehensive architectural overview of the system, using a number of different architectural views to depict different aspects of the system. It is intended to capture and convey the significant architectural decisions which have been made on the system.
@@ -34,10 +34,10 @@ This document provides a comprehensive architectural overview of the system, usi
 [This subsection describes what the rest of the Software Architecture Document contains and explains how the Software Architecture Document is organized.]
 ## 2.	Architectural Representation Basti
 The software architecture for our system is based on AWS in the backend and on Angular in the frontend.
-In the [4. Use-Case View](#4-use-case-view), you find the static requirement analysis and some use cases.
-The architecture of the webapp is shown in the [5. Logical View](#5-logical-view).
-In the [6. Deployment View](#6-deployment-view), you can see our digital infrastracture.
-The database scheme is shown in the [7. Data View](#7-data-view).
+In the [Use-Case View](#4-use-case-view), you find the static requirement analysis and some use cases.
+The architecture of the webapp is shown in the [Logical View](#5-logical-view).
+In the [Deployment View](#6-deployment-view), you can see our digital infrastracture.
+The database scheme is shown in the [Data View](#7-data-view).
 
 ## 3.	Architectural Goals and Constraints Basti
 Our most important requirement, which has an impact on the architecture is safety. We want our customers data to be protected. In this purpose, we are using keycloak, as you can see in Figure 6, and FIDO2. Keycloak is an open source software and allows single sign-on with Identity and Access Management. A login with your social network account becomes possible. FIDO2 is a new technology, which allows a login without a password, using some identification hardware.
