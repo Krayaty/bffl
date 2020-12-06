@@ -1,6 +1,6 @@
 BFFL | Software Architecture Document
 ======
-Version <1.0>
+Version 1.3
 ======
 
 - [1. Introduction](#1-introduction)
@@ -16,8 +16,17 @@ Version <1.0>
 - [6. Deployment View](#6-deployment-view)
 - [7. Data View](#7-data-view)
 
+#Revision History
+-----
+
+|    Date    | Version | Description      | Author            |
+|------------|---------|------------------|-------------------|
+| 02.12.2020 |   1.0   | Get default file | Bastian Schäfer   |
+| 03.12.2020 |   1.1   | Update chap. 4-7 | Fabian Schwickert |
+| 04.12.2020 |   1.2   | Convert to .md   | Bastian Schäfer   |
+| 06.12.2020 |   1.3   | Update chap. 2+3 | Bastian Schäfer   |
  
-Software Architecture Document 
+
 ## [1. Introduction](#1-introduction)
 [The introduction of the Software Architecture Document provides an overview of the entire Software Architecture Document. It includes the purpose, scope, definitions, acronyms, abbreviations, references, and overview of the Software Architecture Document.]
 ### [1.1 Purpose](#11-purpose)
