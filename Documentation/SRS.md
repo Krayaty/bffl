@@ -1,6 +1,6 @@
 BFFL | Software Requirements Specification
 ======
-Version 1.1
+Version 1.2
 ======
 
 - [1. Introduction](#1-introduction)
@@ -49,7 +49,8 @@ Revision History
 |    Date    | Version | Description                   | Author            |
 |------------|---------|-------------------------------|-------------------|
 | 10.10.2020 |   1.0   |  <Add Chapters>               | <BFFL>            |
-| 06.12.2020 |   1.1   |  <Update Table of Contents>   | <Bastian Schäfer> |
+| 06.12.2020 |   1.1   |  <Update Table of Contents>   | Bastian Schäfer   |
+| 17.12.2020 |   1.2   |  Minor fixes                  | Felix Hirschel    |
 
 ## [1. Introduction](#1-introduction)
 
@@ -93,7 +94,7 @@ Instead, it provides a background for those requirements, which are defined in d
  - user characteristics
  - constraints
  - assumptions and dependencies
- - requirements subsets]
+ - requirements subsets
 
 
 ### [2.1 Vision](#21-vision)
@@ -102,6 +103,7 @@ Furthermore you will not only be able to manage a tidied up collection of links 
 
 ### [2.2 Use Case Diagram](#22-use-case-diagram)
 ![alt text](https://lucid.app/publicSegments/view/0dad81c4-3d9b-4b91-b314-05ccb2a11b17/image.png)
+Find the respective CRUD and the applying UCs [here](https://github.com/Krayaty/bffl/blob/master/Documentation/Planning/Requirements_Analysis/Static/CRUD/CRUD.md).
 
 ### [2.3 Technology Stack](#23-technology-stack)
 Our frontend will primarily be done with [Angular CLI](https://cli.angular.io/). The database and overlying system we will use to store all those URLs is, just as the system connecting the UI to our server, tbd.
