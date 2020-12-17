@@ -35,19 +35,19 @@ find [here](CRUD.md).
  
 ## 2. Mock Up
 ### 2.1 Mock
-![Mock of application](res/mock_total.png)
+![Mock of application](Mock/mock_total.png)
   
 ### 2.2 Screenshots
 ### 2.2.1 Initial state of URL registration
-![Mock of entry fields](res/mock_input.png)
+![Mock of entry fields](Mock/mock_input.png)
 
 ### 2.2.2 After registering a new URL
-![Mock of successful registration](res/mock_success.png)
+![Mock of successful registration](Mock/mock_success.png)
  
  
 ## 3. Flow of Events
 ### 3.1 Basic Flow
-![Basic Flow](res/UC_Create_Link.png)
+![Basic Flow](./UC_Create_Link.png)
   
 ### 3.2 .feature
   ``` Cucumber 
