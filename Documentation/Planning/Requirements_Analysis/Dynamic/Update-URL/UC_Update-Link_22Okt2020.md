@@ -9,6 +9,7 @@ Revision History
 |    Date    | Version | Description | Author |
 |------------|---------|-------------|--------|
 | 22.10.2020 |   1.0   |  -  | Krayaty |
+| 17.12.2020 |   1.1   | fixed images| Felix  |
 
 # Table of Contents
 
@@ -47,19 +48,19 @@ The present document concretizes the process "Update".
 ### 2.1 Mock
 The following picture shows a mock of the application in the initial state of the update process.
 
-![Basic Flow](res/UC_Update-Link_Mock1_23Okt2020.png)
+![Basic Flow](Mock/UC_Update-Link_Mock1_23Okt2020.png)
   
 ### 2.2 Screenshots
 The following screenshots show the main steps of the update process in the UI shown in the [activity diagram](#31-Basic-Flow).
 
-![Basic Flow](res/UC_Update-Link_Mock2_23Okt2020.png) 
-![Basic Flow](res/UC_Update-Link_Mock3_23Okt2020.png)
-![Basic Flow](res/UC_Update-Link_Mock4_23Okt2020.png)
+![Basic Flow](Mock/UC_Update-Link_Mock2_23Okt2020.png) 
+![Basic Flow](Mock/UC_Update-Link_Mock3_23Okt2020.png)
+![Basic Flow](Mock/UC_Update-Link_Mock4_23Okt2020.png)
  
  
 ## 3. Flow of Events
 ### 3.1 Basic Flow
-![Basic Flow](res/UC_Update_22Okt2020.png)
+![Basic Flow](./UC_Update_22Okt2020.png)
   
 ### 3.2 .feature-file
 
