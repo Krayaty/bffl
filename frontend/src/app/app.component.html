@@ -1,13 +1,15 @@
-<app-menu></app-menu>
-<div id='menu'>
-<ul>
-<nav>
-  <li><a routerLink="/main">MainPage</a></li>
-  <li><a routerLink="/shorten">Shorten</a></li>
-  <li><a routerLink="/manager">Manage URL</a></li>
-  <li><a routerLink="/login">Login</a></li>
-</nav>
-</ul>
-</div>
+<div>
 
-<router-outlet></router-outlet>
+  <div *ngIf="this.getLogInOutService().loggedIn">
+
+    <app-topbar></app-topbar>
+
+    <router-outlet></router-outlet>
+
+  </div>
+
+  <app-login *ngIf="!this.getLogInOutService().loggedIn"></app-login>
+
+  <app-botbar></app-botbar>
+
+</div>

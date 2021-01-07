@@ -1,0 +1,13 @@
+<div class="section-container">
+
+<h1>BFFL</h1>
+<p>Welcome to BFFL - the famous URL-Shortener </p>
+
+<form>
+  <label for="username">Username</label>
+  <input type="text" #username id="username" placeholder="Insert your username">
+  <label for="pw">Passwort</label>
+  <input type="password" #pw id = "pw" placeholder="****** **** ********">
+  <button type="submit" (click)="this.getLogInOutService().logIn(username.value, pw.value)">Login</button>
+</form>
+</div>
