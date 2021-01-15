@@ -1,0 +1,13 @@
+<div class="section-container">
+  <div class="ag-grid-container">
+    <ag-grid-angular
+      class="ag-theme-alpine"
+      [rowData]="rowData"
+      [columnDefs]="columnDefs"
+      rowSelection="multiple">
+    </ag-grid-angular>
+  </div>
+  <button class="button" (click)="getSelectedRows()">Zeige ausgewählte Reihen</button>
+</div>
+
+
