@@ -1,3 +1,8 @@
 export const environment = {
-  production: true
+  production: true,
+  keycloakConfig: {
+    url: 'https://auth.bfflshort.de/auth/',
+    realm: 'BFFL-Realm',
+    clientId: 'bffl-prod',
+  }
 };
