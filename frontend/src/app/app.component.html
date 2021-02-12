@@ -1,14 +1,8 @@
 <div>
 
-  <div *ngIf="this.getLogInOutService().loggedIn">
+  <app-topbar></app-topbar>
 
-    <app-topbar></app-topbar>
-
-    <router-outlet></router-outlet>
-
-  </div>
-
-  <app-login *ngIf="!this.getLogInOutService().loggedIn"></app-login>
+  <router-outlet></router-outlet>
 
   <app-botbar></app-botbar>
 

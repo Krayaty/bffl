@@ -23,6 +23,8 @@
     "ag-grid-angular": "^24.1.0",
     "ag-grid-community": "^24.1.0",
     "cors": "^2.8.5",
+    "keycloak-angular": "^8.1.0",
+    "keycloak-js": "^12.0.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
