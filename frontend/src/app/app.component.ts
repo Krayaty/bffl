@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {LogInOutService} from './Services/Login-Services/log-in-out.service';
 
 @Component({
   selector: 'app-root',
@@ -9,10 +8,6 @@ import {LogInOutService} from './Services/Login-Services/log-in-out.service';
 export class AppComponent {
   title = 'BFFL-Shortener';
 
-  constructor(private logInOutService: LogInOutService) {}
-
-  public getLogInOutService(): LogInOutService{
-    return this.logInOutService;
-  }
+  constructor() {}
 
 }
