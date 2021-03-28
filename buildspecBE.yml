@@ -1,0 +1,23 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - yum update -y
+  pre_build:
+    commands:
+      - echo starting pre-build `date`
+      - java -version
+      - mvn -version
+  build:
+    commands:
+      - cd backend
+      - echo Starting build `date`
+      - mvn clean install
+  post_build:
+    commands:
+      - echo Build completed on `date`
+artifacts:
+  files:
+    - backend/target/bffl-backend.jar
+discard-paths: yes
