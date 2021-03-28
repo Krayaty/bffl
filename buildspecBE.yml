@@ -9,7 +9,7 @@ phases:
     commands:
       - cd backend
       - echo Starting build `date`
-      - mvn clean install
+      - mvn install
   post_build:
     commands:
       - echo Build completed on `date`
