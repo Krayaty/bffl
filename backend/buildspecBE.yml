@@ -1,18 +1,18 @@
 version: 0.2
 
-  phases:
-    install:
-      commands:
-        - apt-get update -y
-        - apt-get install -y maven
-    build:
-      commands:
-        - echo Starting build `date`
-        - mvn clean install
-    post_build:
-      commands:
-        - echo Build completed on `date`
-  artifacts:
-    files:
-      - target/bffl-backend.jar
-  discard-paths: yes
+phases:
+  install:
+    commands:
+      - apt-get update -y
+      - apt-get install -y maven
+  build:
+    commands:
+      - echo Starting build `date`
+      - mvn clean install
+  post_build:
+    commands:
+      - echo Build completed on `date`
+artifacts:
+  files:
+    - target/bffl-backend.jar
+discard-paths: yes
