@@ -4,7 +4,7 @@ phases:
   install:
     commands:
       - yum update -y
-  pre-build:
+  pre_build:
     commands:
       - echo starting pre-build `date`
       - java -version
