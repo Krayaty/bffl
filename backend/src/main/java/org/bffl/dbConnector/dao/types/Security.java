@@ -1,7 +1,9 @@
 package org.bffl.dbConnector.dao.types;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
+@Getter
 @AllArgsConstructor
 public enum Security {
     ENCRYPTED("encrypted"),
@@ -9,7 +11,4 @@ public enum Security {
 
     private String msg;
 
-    public String getMsg() {
-        return msg;
-    }
 }
