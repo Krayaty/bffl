@@ -4,12 +4,13 @@ phases:
   install:
     commands:
       - yum update -y
-      - yum install -y maven
+      - yum install -y maven.latest
+      - mvn -version
   build:
     commands:
       - cd backend
       - echo Starting build `date`
-      - mvn install
+      - mvn clean install
   post_build:
     commands:
       - echo Build completed on `date`
