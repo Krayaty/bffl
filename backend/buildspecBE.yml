@@ -9,9 +9,8 @@ version: 0.1
         - apt-get install -y maven
     build:
       commands:
-        - cd backend
         - echo Starting build `date`
-        - mvn clean package
+        - mvn clean install
     post_build:
       commands:
         - echo Build completed on `date`
