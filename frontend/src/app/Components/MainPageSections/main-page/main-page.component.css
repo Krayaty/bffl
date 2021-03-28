@@ -16,3 +16,7 @@ ag-grid-angular{
 button{
   margin-bottom: 5em;
 }
+
+button:hover{
+  cursor: pointer;
+}

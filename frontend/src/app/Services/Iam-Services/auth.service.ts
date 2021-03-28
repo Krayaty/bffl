@@ -4,14 +4,36 @@ import {KeycloakService} from 'keycloak-angular';
 @Injectable()
 export class AuthService {
 
-  constructor(private keycloakService: KeycloakService) { }
+  constructor(private keycloakService: KeycloakService) {}
 
-  getLoggdUser(): any {
+  getUserProfile(): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      if (this.keycloakService.getKeycloakInstance().token) {
+        this.keycloakService.getKeycloakInstance()
+          .loadUserProfile()
+          .success(data => {
+            resolve(data as any);
+          })
+          .error(() => {
+            reject('Failed to load profile');
+          });
+      } else {
+        reject('Not logged in');
+      }
+    });
+  }
+
+  getIdToken(): any {
     try{
-      const userDetails = this.keycloakService.getKeycloakInstance().idTokenParsed;
-      console.log('Userdetails: ' + userDetails);
-      console.log('UserRoles' + this.keycloakService.getUserRoles(true));
-      return userDetails;
+      return this.keycloakService.getKeycloakInstance().idTokenParsed;
+    } catch (e){
+      return undefined;
+    }
+  }
+
+  getAccessToken(): any {
+    try{
+      return this.keycloakService.getKeycloakInstance().tokenParsed;
     } catch (e){
       return undefined;
     }
@@ -26,7 +48,7 @@ export class AuthService {
   }
 
   getRoles(): string[] {
-    return this.keycloakService.getUserRoles(true);
+    return this.keycloakService.getUserRoles();
   }
 
 }
