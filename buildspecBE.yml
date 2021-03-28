@@ -1,23 +1,21 @@
-version: 0.2
-env:
-  variables:
-    JAVA_HOME: "/usr/lib/jvm/java-8-openjdk-amd64"
-phases:
-  install:
-    commands:
-      - echo installing maven...
-      - apt-get update -y
-      - apt-get install -y maven
-  build:
-    commands:
-      - cd backend
-      - echo entered building-phase
-      - mvn clean install
-artifacts:
-  files:
-    - backend/target/backend-1.0-aws.jar
-    - backend/appspec.yml
+version: 0.1
+  environment_variables:
+    plaintext:
+      JAVA_HOME: "/opt/java-8-openjdk-amd64"
+  phases:
+    install:
+      commands:
+        - apt-get update -y
+        - apt-get install -y maven
+    build:
+      commands:
+        - cd backend
+        - echo Starting build `date`
+        - mvn clean package
+    post_build:
+      commands:
+        - echo Build completed on `date`
+  artifacts:
+    files:
+      - target/bffl-backend.jar
   discard-paths: yes
-cache:
-  paths:
-    - '/root/.m2/**/*'
