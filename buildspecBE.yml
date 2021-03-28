@@ -4,7 +4,6 @@ phases:
   install:
     commands:
       - yum update -y
-      - yum install -y maven
       - mvn -version
   build:
     commands:
