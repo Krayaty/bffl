@@ -17,6 +17,7 @@ a{
 
 a:hover{
   color: white;
+  cursor: pointer;
 }
 
 app-user-selection{

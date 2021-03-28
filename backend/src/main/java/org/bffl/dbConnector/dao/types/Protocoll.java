@@ -1,7 +1,9 @@
 package org.bffl.dbConnector.dao.types;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
+@Getter
 @AllArgsConstructor
 public enum Protocoll {
     HTTP("HTTP", Security.NOT_ENCRYPTED),
@@ -13,11 +15,4 @@ public enum Protocoll {
     private String bez;
     private Security security;
 
-    public String getBez() {
-        return bez;
-    }
-
-    public Security getSecurity() {
-        return security;
-    }
 }

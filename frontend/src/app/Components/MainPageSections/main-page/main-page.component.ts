@@ -1,5 +1,4 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
 import {AgGridAngular} from 'ag-grid-angular';
 import {DbConnectorService} from '../../../Services/DB-Connect-Services/db-connector.service';
 
@@ -12,26 +11,24 @@ export class MainPageComponent implements OnInit {
   @ViewChild('agGrid') agGrid: AgGridAngular;
 
   columnDefs = [
-    { field: 'Email', sortable: true, resizable: true, filter: true, checkboxSelection: true },
-    { field: 'Vorname', sortable: true, filter: true, resizable: true },
-    { field: 'Nachname', sortable: true, filter: true, resizable: true },
-    { field: 'Password', sortable: true, filter: true, resizable: true }
+    { field: 'name', headerName: 'URL', sortable: true, resizable: true, filter: true, checkboxSelection: true },
+    { field: 'owner', headerName: 'Besitzer', sortable: true, filter: true, resizable: true },
+    { field: 'type',  headerName: 'Typ', sortable: true, filter: true, resizable: true }
   ];
 
-  rowData: any;
+  rowData = [];
 
-  constructor(private dbconnector: DbConnectorService) { }
+  constructor(private dbconnector: DbConnectorService) {}
 
   ngOnInit(): void {
-    this.retrieveAllUsers();
+    this.retrieveAllTargetURLs();
   }
 
-  retrieveAllUsers(): void {
-    this.dbconnector.getAllUsers()
+  retrieveAllTargetURLs(): void {
+    this.dbconnector.getAllTargetURLs()
       .subscribe(
         data => {
           this.rowData = data;
-          console.log(data);
         },
         error => {
           console.log(error);

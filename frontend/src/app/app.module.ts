@@ -14,9 +14,11 @@ import { AgGridModule } from 'ag-grid-angular';
 import { MainPageComponent } from './Components/MainPageSections/main-page/main-page.component';
 import { TopbarComponent } from './Components/TopBarComponents/topbar/topbar.component';
 import { UserSelectionComponent } from './Components/TopBarComponents/user-selection/user-selection.component';
-import { AuthService } from './Services/Iam-Services/auth.service';
-import { KeycloakService } from 'keycloak-angular';
-import { initializer } from './AppInit';
+import {AuthService} from './Services/Iam-Services/auth.service';
+import {keycloakInitializer} from './AppInit';
+import {KeycloakService} from 'keycloak-angular';
+import {AuthGuardService} from './Services/Iam-Services/auth-guard.service';
+import {DbConnectorService} from './Services/DB-Connect-Services/db-connector.service';
 
 @NgModule({
   declarations: [
@@ -38,14 +40,16 @@ import { initializer } from './AppInit';
     AgGridModule.withComponents([])
   ],
   providers: [
+    AuthService,
     KeycloakService,
     {
       provide: APP_INITIALIZER,
-      useFactory: initializer,
-      deps: [KeycloakService],
-      multi: true
+      useFactory: keycloakInitializer,
+      multi: true,
+      deps: [KeycloakService]
     },
-    AuthService
+    AuthGuardService,
+    DbConnectorService
   ],
   bootstrap: [AppComponent]
 })
