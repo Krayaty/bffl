@@ -3,8 +3,8 @@ version: 0.2
 phases:
   install:
     commands:
-      - apt-get update -y
-      - apt-get install -y maven
+      - yum update -y
+      - yum install -y maven
   build:
     commands:
       - echo Starting build `date`
