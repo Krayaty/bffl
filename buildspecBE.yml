@@ -4,6 +4,10 @@ phases:
   install:
     commands:
       - yum update -y
+  pre-build:
+    commands:
+      - echo starting pre-build `date`
+      - java -version
       - mvn -version
   build:
     commands:
@@ -15,5 +19,5 @@ phases:
       - echo Build completed on `date`
 artifacts:
   files:
-    - target/bffl-backend.jar
+    - backend/target/bffl-backend.jar
 discard-paths: yes
