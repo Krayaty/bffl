@@ -3,13 +3,19 @@ package org.bffl.dbConnector.dao.idClasses;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Embeddable
 public class Composite_user_has_group_id implements Serializable {
 
+    @Column
     private String user_id;
+
+    @Column
     private String group_id;
 
     @Override

@@ -14,43 +14,27 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @Entity
-@IdClass(Composite_url_call_id.class)
 @Table(name = "url_call", schema = "bffl")
 public class Url_call {
 
-    @Id
-    private String short_url_id;
+    @EmbeddedId
+    private Composite_url_call_id id;
 
-    @Id
-    private Timestamp timestamp;
-
-    @Id
-    private String client_ip;
+    @MapsId("short_url_id")
+    @ManyToOne(targetEntity = Short_url.class, cascade = CascadeType.ALL)
+    @JoinColumn(name="short_url_id", nullable=false)
+    private Short_url url_call_short_url;
 
     @Column
     private String region;
 
-    public int[] clientIpToArray(String ip){
-        int[] ipArray = new int[4];
-        if(ip.length() > 15) return null;
-
-        String help = "";
-        int field = 0;
-        for(int i = 0; i < ip.length(); i++){
-            if(ip.toCharArray()[i] == '.'){
-                ipArray[field] = Integer.parseInt(help);
-                if(ipArray[field] < 0 | ipArray[field] > 255) return null;
-                field++;
-                help = "";
-            } else {
-                help += ip.toCharArray()[i];
-            }
-        }
-
-        return ipArray;
-    }
-
-    public static boolean isValidIp(int[] ip){
+    public static boolean isValidIp(String sIp){
+        int[] ip = {
+          Integer.parseInt(sIp.substring(0,3)),
+          Integer.parseInt(sIp.substring(3,6)),
+          Integer.parseInt(sIp.substring(6,9)),
+          Integer.parseInt(sIp.substring(9,12)),
+        };
 
         if(!(ip[0] >= 192 && ip[0] <= 233) |
                 !(ip[1] >= 0 && ip[1] <= 255) |

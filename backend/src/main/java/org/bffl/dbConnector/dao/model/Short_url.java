@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.persistence.*;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,9 +19,6 @@ public class Short_url {
     private String id;
 
     @Column
-    private String group_id;
-
-    @Column
     private int scope;
 
     @Column
@@ -31,5 +29,18 @@ public class Short_url {
 
     @Column
     private boolean delete_flag;
+
+    @OneToMany(mappedBy = "url_has_tags_short_url")
+    private Set<Url_has_tags> short_url_url_has_tags;
+
+    @ManyToOne(targetEntity = App_group.class, cascade = CascadeType.ALL)
+    @JoinColumn(name="group_id", nullable=false)
+    private App_group short_url_group;
+
+    @OneToMany(mappedBy = "url_call_short_url", cascade = CascadeType.ALL)
+    private Set<Url_call> short_url_url_calls;
+
+    @OneToMany(mappedBy = "url_history_short_url", cascade = CascadeType.ALL)
+    private Set<Url_history> short_url_url_histories;
 
 }

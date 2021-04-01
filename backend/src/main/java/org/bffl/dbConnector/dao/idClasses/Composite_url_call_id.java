@@ -3,16 +3,24 @@ package org.bffl.dbConnector.dao.idClasses;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Embeddable
 public class Composite_url_call_id implements Serializable {
 
+    @Column
     private String short_url_id;
+
+    @Column
     private Timestamp timestamp;
-    private int[] client_ip;
+
+    @Column
+    private String client_ip;
 
     @Override
     public boolean equals(Object o) {

@@ -13,15 +13,21 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@IdClass(Composite_url_has_tags_id.class)
 @Table(name = "url_has_tags", schema = "bffl")
 public class Url_has_tags {
 
-    @Id
-    private String short_url_id;
+    @EmbeddedId
+    private Composite_url_has_tags_id id;
 
-    @Id
-    private String tag_name;
+    @MapsId("tag_name")
+    @ManyToOne(targetEntity = Tag.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "tag_name")
+    private Tag url_has_tags_tag;
+
+    @MapsId("short_url_id")
+    @ManyToOne(targetEntity = Short_url.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "short_url_id")
+    private Short_url url_has_tags_short_url;
 
 }
 

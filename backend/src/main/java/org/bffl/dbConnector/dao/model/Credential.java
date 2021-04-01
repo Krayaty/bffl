@@ -4,10 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+
+import javax.persistence.*;
 
 @Getter
 @Setter
@@ -24,9 +22,6 @@ public class Credential {
     private String type;
 
     @Column
-    private String user_id;
-
-    @Column
     private long created_date;
 
     @Column
@@ -40,5 +35,9 @@ public class Credential {
 
     @Column
     private int priority;
+
+    @ManyToOne(targetEntity = App_user.class, cascade = CascadeType.ALL)
+    @JoinColumn(name="user_id", nullable=false)
+    private App_user credential_user;
 
 }

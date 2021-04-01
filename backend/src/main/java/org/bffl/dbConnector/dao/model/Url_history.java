@@ -14,18 +14,21 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @Entity
-@IdClass(Composite_url_history_id.class)
 @Table(name = "url_history", schema = "bffl")
 public class Url_history {
 
-    @Id
-    private String target_url_name;
+    @EmbeddedId
+    private Composite_url_history_id id;
 
-    @Id
-    private String short_url_id;
+    @MapsId("target_url_name")
+    @ManyToOne(targetEntity = Target_url.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "target_url_name")
+    private Target_url url_history_target_url;
 
-    @Id
-    private Timestamp timestamp;
+    @MapsId("short_url_id")
+    @ManyToOne(targetEntity = Short_url.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "short_url_id")
+    private Short_url url_history_short_url;
 
 }
 
