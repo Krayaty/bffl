@@ -21,7 +21,7 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'BFFL'`, () => {
-    expect(app.title).toEqual('BFFL-Shortener');
+  it('should have "BFFL" as title', () => {
+    expect(app.title).toBe('BFFL-Shortener');
   });
 });
