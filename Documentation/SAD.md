@@ -26,6 +26,7 @@ Revision History
 | 04.12.2020 |   1.2   | Convert to .md   | Bastian Schäfer   |
 | 06.12.2020 |   1.3   | Update chap. 2+3 | Bastian Schäfer   |
 | 06.12.2020 |   1.4   | Update chap. 1   | Lars Hudalla      |
+| 06.04.2021 |   1.3   | Update chap 4    | Bastian Schäfer   |
  
 # Software Architecture Document 
 ## [1. Introduction](#1-introduction)
@@ -61,7 +62,7 @@ The static requirement analysis of the BFFL webapp shows what the core requireme
  ![alt text](./Pictures/Static%20Requirement%20Analysis.png?raw=true)
 Figure 1: Static Requirement Analysis
 
-The dynamic requirement analysis of the BFFL webapp concretises the static requirement analysis. It consists out of the documentation of the processes of the core requirements shown in the static requirement analysis. The following figures show three of the most important requirements, which are in fact, our use cases:
+The dynamic requirement analysis of the BFFL webapp concretises the static requirement analysis. It consists out of the documentation of the processes of the core requirements shown in the static requirement analysis. For more details, you can read our [Software Requirement Specifications](https://github.com/Krayaty/bffl/blob/master/Documentation/SRS.md). The following figures show three of the most important requirements, which are in fact, our use cases:
 
  ![alt text](./Pictures/Dynamic%20Requirement%20Analysis%20of%20show%20Short-URLs.png?raw=true)
 Figure 2: Dynamic Requirement Analysis of “show Short-URLs”
