@@ -1,6 +1,6 @@
 BFFL | Software Requirements Specification
 ======
-Version 1.2
+Version 1.3
 ======
 
 - [1. Introduction](#1-introduction)
@@ -48,12 +48,13 @@ Revision History
 
 |    Date    | Version | Description                   | Author            |
 |------------|---------|-------------------------------|-------------------|
-| 10.10.2020 |   1.0   |  <Add Chapters>               | <BFFL>            |
-| 06.12.2020 |   1.1   |  <Update Table of Contents>   | Bastian Schäfer   |
+| 10.10.2020 |   1.0   |  Add Chapters                 | BFFL              |
+| 06.12.2020 |   1.1   |  Update Table of Contents     | Bastian Schäfer   |
 | 17.12.2020 |   1.2   |  Minor fixes                  | Felix Hirschel    |
+| 06.04.2021 |   1.3   |  Update Link to UCs           | Bastian Schäfer   |
 
 ## [1. Introduction](#1-introduction)
-
+The SRS is the Software Requirement Specification. In the following chapters, we are talking about Specific Requirements as Funciontality or Usability, focus on the Use Cases and the Technology Stack and explain our Vision.
 
 ### [1.1 Purpose](#11-purpose)
 This SRS's (or software requirements specification) purpose is to save, list and document planned features. By doing so, it should give any person interested a more or less detailed outline about the link-shortening-project BFFL (name remains yet to be changed). Therefore it should explain usability and expected behaviour of the application. It is supposed to hold all functional, as well as non-functional requirements, which may or may not be implemented throughout the next year (late 2020 to mid 2021).
@@ -102,8 +103,7 @@ Running out of options for pretty URLs can be really frustrating, espcially when
 Furthermore you will not only be able to manage a tidied up collection of links but access additional information about the usage of your hyperlinks.
 
 ### [2.2 Use Case Diagram](#22-use-case-diagram)
-![alt text](https://lucid.app/publicSegments/view/0dad81c4-3d9b-4b91-b314-05ccb2a11b17/image.png)
-Find the respective CRUD and the applying UCs [here](https://github.com/Krayaty/bffl/blob/master/Documentation/Planning/Requirements_Analysis/Static/CRUD/CRUD.md).
+Find the respective CRUD [here](https://github.com/Krayaty/bffl/blob/master/Documentation/Planning/Requirements_Analysis/Static/CRUD/CRUD.md). On GitHub, you can find the current version of our [UseCases](https://github.com/Krayaty/bffl/blob/master/Documentation/Planning/Requirements_Analysis/Static/BFFL-UseCase-Diagram.png), too. 
 
 ### [2.3 Technology Stack](#23-technology-stack)
 Our frontend will primarily be done with [Angular CLI](https://cli.angular.io/). The database and overlying system we will use to store all those URLs is, just as the system connecting the UI to our server, tbd.
