@@ -4,10 +4,11 @@
   <p>Welcome to BFFL - the famous URL-Shortener </p>
 
   <form>
-    <label for="original">Original URL</label>
-    <input type="text" id="original" placeholder="Insert Original URL here">
-    <label for="wish">Short URL</label>
-    <input type="text" id = "wish" placeholder="Insert Wish for Short URL here">
-    <button type="submit">Gekürzte URL laden</button>
+    <label for="originalURL">Original URL</label>
+    <input type="text" id="originalURL" placeholder="Insert Original URL here">
+    <label for="wishURL">Short URL</label>
+    <input type="text" id = "wishURL" placeholder="https://bffl.wikipedia.com/12hjer783s">
+    <button class="button" onclick="ShortenURL(document.getElementById('originalURL').value, document.getElementById('wishURL').value)">Shorten URL</button>
+    <p id = "resultURL"></p>
   </form>
 </div>
