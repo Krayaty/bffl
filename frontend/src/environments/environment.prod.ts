@@ -29,9 +29,6 @@ export const environment = {
     public: '',
     admin: 'admin',
     user: 'user',
-  },
-  endpoints: {
-    target_urls: `${apiUrl}/api/target_urls`
   }
 };
 
