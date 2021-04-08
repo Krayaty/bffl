@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {AuthService} from '../Iam-Services/auth.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class DbConnectorService {
 
   private headers = {};
