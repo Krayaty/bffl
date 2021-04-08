@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {KeycloakService} from 'keycloak-angular';
 import {KeycloakTokenParsed} from "keycloak-js";
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class AuthService {
 
   constructor(private keycloakService: KeycloakService) {}

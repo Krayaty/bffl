@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {AuthService} from '../Iam-Services/auth.service';
 import {endpoints} from '../../../assets/endpoints/endpoints';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class DbConnectorService {
 
   constructor(private http: HttpClient, private authService: AuthService) {}
