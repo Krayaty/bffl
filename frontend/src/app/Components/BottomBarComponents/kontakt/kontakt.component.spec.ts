@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { KontaktComponent } from './kontakt.component';
-import {By} from "@angular/platform-browser";
+import {By} from '@angular/platform-browser';
 
 describe('KontaktComponent', () => {
   let component: KontaktComponent;
