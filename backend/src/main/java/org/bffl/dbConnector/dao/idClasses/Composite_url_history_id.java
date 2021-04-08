@@ -3,15 +3,23 @@ package org.bffl.dbConnector.dao.idClasses;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Embeddable
 public class Composite_url_history_id implements Serializable {
 
+    @Column
     private String target_url_name;
+
+    @Column
     private String short_url_id;
+
+    @Column
     private Timestamp timestamp;
 
     @Override

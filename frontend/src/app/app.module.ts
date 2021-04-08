@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { ShortenSectionComponent } from './Components/MainPageSections/shorten-section/shorten-section.component';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { BotbarComponent } from './Components/BottomBarComponents/botbar/botbar.component';
 import { ImpressumComponent } from './Components/BottomBarComponents/impressum/impressum.component';
 import { KontaktComponent } from './Components/BottomBarComponents/kontakt/kontakt.component';
@@ -19,6 +19,7 @@ import {keycloakInitializer} from './AppInit';
 import {KeycloakService} from 'keycloak-angular';
 import {AuthGuardService} from './Services/Iam-Services/auth-guard.service';
 import {DbConnectorService} from './Services/DB-Connect-Services/db-connector.service';
+import {AuthInterceptor} from './Services/Iam-Services/auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,11 @@ import {DbConnectorService} from './Services/DB-Connect-Services/db-connector.se
       useFactory: keycloakInitializer,
       multi: true,
       deps: [KeycloakService]
+    },
+    {
+      provide : HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi   : true,
     },
     AuthGuardService,
     DbConnectorService

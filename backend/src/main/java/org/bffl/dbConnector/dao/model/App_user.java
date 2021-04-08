@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -53,5 +54,11 @@ public class App_user {
 
     @Column
     private int not_before;
+
+    @OneToMany(mappedBy="user_has_group_user", cascade = CascadeType.ALL)
+    private Set<User_has_group> user_user_has_groups;
+
+    @OneToMany(mappedBy="credential_user", cascade = CascadeType.ALL)
+    private Set<Credential> user_credentials;
 
 }

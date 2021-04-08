@@ -14,15 +14,21 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@IdClass(Composite_user_has_group_id.class)
 @Table(name = "user_has_group", schema = "bffl")
 public class User_has_group {
 
-    @Id
-    private String user_id;
+    @EmbeddedId
+    private Composite_user_has_group_id id;
 
-    @Id
-    private String group_id;
+    @MapsId("user_id")
+    @ManyToOne(targetEntity = App_user.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private App_user user_has_group_user;
+
+    @MapsId("group_id")
+    @ManyToOne(targetEntity = App_group.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "group_id")
+    private App_group user_has_group_group;
 
     @Column
     private Timestamp start_timestamp;

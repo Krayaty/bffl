@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,5 +24,11 @@ public class Target_url {
 
     @Column
     private String type;
+
+    @OneToMany(mappedBy = "url_history_target_url", cascade = CascadeType.ALL)
+    private Set<Url_history> target_url_url_histories;
+
+    @OneToMany(mappedBy = "available_protocolls_target_url", cascade = CascadeType.ALL)
+    private Set<Available_protocolls> available_protocolls;
 
 }

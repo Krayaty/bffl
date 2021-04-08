@@ -15,18 +15,16 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@IdClass(Composite_available_protocolls_id.class)
 @Table(name = "available_protocolls", schema = "bffl")
 public class Available_protocolls {
 
-    @Id
-    private String protocoll_name;
+    @EmbeddedId
+    private Composite_available_protocolls_id id;
 
-    @Id
-    private Timestamp timestamp;
-
-    @Id
-    private String target_url;
+    @MapsId("target_url")
+    @ManyToOne(targetEntity = Target_url.class, cascade = CascadeType.ALL)
+    @JoinColumn(name="target_url", nullable=false)
+    private Target_url available_protocolls_target_url;
 
 }
 

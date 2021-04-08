@@ -4,15 +4,26 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.bffl.dbConnector.dao.types.Protocoll;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Embeddable
 public class Composite_available_protocolls_id implements Serializable {
 
+    @Column
+    @Enumerated(EnumType.STRING)
     private Protocoll protocoll_name;
+
+    @Column
     private Timestamp timestamp;
+
+    @Column
     private String target_url;
 
     @Override

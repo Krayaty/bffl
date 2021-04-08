@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {KeycloakService} from 'keycloak-angular';
+import {KeycloakTokenParsed} from "keycloak-js";
 
 @Injectable()
 export class AuthService {
@@ -31,9 +32,17 @@ export class AuthService {
     }
   }
 
-  getAccessToken(): any {
+  getAccessTokenParsed(): KeycloakTokenParsed {
     try{
       return this.keycloakService.getKeycloakInstance().tokenParsed;
+    } catch (e){
+      return undefined;
+    }
+  }
+
+  getAccessToken(): string {
+    try{
+      return this.keycloakService.getKeycloakInstance().token;
     } catch (e){
       return undefined;
     }
