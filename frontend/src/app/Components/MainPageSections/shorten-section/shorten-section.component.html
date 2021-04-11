@@ -8,8 +8,17 @@
     <input type="text" id="originalURL" placeholder="Insert Original URL here"/>
     <label for="wishURL">Wish for a short URL</label>
     <input type="text" id = "wishURL" placeholder="https://bffl.wikipedia.com/12hjer783s"/>
-    <button class="button" (click)="ShortenURL()">Shorten URL</button><br><br>
-    <label for="resultURL">Your new short URL</label>
-    <input type = "text" id = "resultURL"/>
+    <button class="button" (click)="shortenURL()">Shorten URL</button><br><br>
   </form>
+
+  <br><br>
+  Your Short URLs:
+  <div class="ag-grid-container">
+    <ag-grid-angular
+      class="ag-theme-alpine"
+      [rowData]="rowData"
+      [columnDefs]="columnDefs"
+      rowSelection="multiple">
+    </ag-grid-angular>
+  </div>
 </div>

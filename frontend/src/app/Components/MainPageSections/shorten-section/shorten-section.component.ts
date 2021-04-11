@@ -11,83 +11,82 @@ export class ShortenSectionComponent implements OnInit {
   private urlTF = document.getElementById('originalURL') as HTMLInputElement;
   private wishURLTF = document.getElementById('wishURL') as HTMLInputElement;
 
-  constructor(private dbconnector: DbConnectorService) { }
+  columnDefs = [
+    { field: 'name', headerName: 'URL', sortable: true, resizable: true, filter: true, checkboxSelection: true },
+    { field: 'type',  headerName: 'Typ', sortable: true, filter: true, resizable: true }
+  ];
+
+  rowData = [];
+
+  constructor(private dbconnector: DbConnectorService) {}
 
   ngOnInit(): void {
+    this.showAllURLsFromUser();
   }
 
-  public ShortenURL(): string {
+  showAllURLsFromUser(): void {
+    this.dbconnector.getAllURLsFromUser()
+      .subscribe(
+        data => {
+          this.rowData = data;
+        },
+        error => {
+          console.log(error);
+        });
+  }
+
+  shortenURL(): string {
 
     let url = this.urlTF.value;
     let wishURL = this.wishURLTF.value;
 
-    console.log(url);
-    console.log(wishURL);
-
-    if (URL_In_Database(wishURL) === true) {
+    if (this.URL_In_Database(wishURL) === true) {
       url = wishURL;
-      SaveURL(url);
+      this.saveURL(url);
     }
     else {
-      const additionToURL = String(CreateRandomChar());
+      const additionToURL = String(this.createRandomChar());
       wishURL = wishURL + additionToURL;
-      ShortenURL(wishURL);
+      this.shortenURL();
     }
-    document.getElementById('resultURL').innerHTML = url.toString();
+    this.showAllURLsFromUser();
     return url;
   }
 
-
-}
-
-function ShortenURL(wishURL: string): string {
-  let url: string;
-  if (URL_In_Database(wishURL) === true) {
-    url = wishURL;
-    SaveURL(url);
+  URL_In_Database(wishURL: string): boolean {
+    this.dbconnector.getAllTargetURLs();
+    return true;
   }
-  else {
-    const additionToURL = String(CreateRandomChar());
-    wishURL = wishURL + additionToURL;
-    ShortenURL(wishURL);
+
+  createRandomChar(): string {
+    let max = 3;
+    let min = 1;
+    let randomNumber: number = Math.floor(Math.random() * (max - min + 1)) + min;
+
+    switch (randomNumber) {
+      case(1):
+        max = 57;
+        min = 48;
+        randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+        let res = String.fromCharCode(randomNumber);
+        return res;
+      case(2):
+        max = 90;
+        min = 65;
+        randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+        res = String.fromCharCode(randomNumber);
+        return res;
+      case(3):
+        max = 122;
+        min = 97;
+        randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+        res = String.fromCharCode(randomNumber);
+        return res;
+    }
   }
-  document.getElementById('resultURL').innerHTML = url;
-  return url;
-}
 
-function URL_In_Database(wishURL: string): boolean {
-  // this.dbconnector.getAllTargetURLs();
-  return true;
-}
-
-function CreateRandomChar(): string {
-  let max = 3;
-  let min = 1;
-  let randomNumber: number = Math.floor(Math.random() * (max - min + 1)) + min;
-
-  switch (randomNumber) {
-    case(1):
-      max = 57;
-      min = 48;
-      randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-      let res = String.fromCharCode(randomNumber);
-      return res;
-    case(2):
-      max = 90;
-      min = 65;
-      randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-      res = String.fromCharCode(randomNumber);
-      return res;
-    case(3):
-      max = 122;
-      min = 97;
-      randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-      res = String.fromCharCode(randomNumber);
-      return res;
+  saveURL(url: string): boolean{
+    this.dbconnector.saveNewURL(url);
+    return true;
   }
-}
-
-function SaveURL(url: string): boolean{
-  // this.dbconnector.save(url); ?
-  return true;
 }

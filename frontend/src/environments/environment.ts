@@ -32,6 +32,7 @@ export const environment = {
     user: 'user',
   },
   endpoints: {
-    target_urls: `${apiUrl}/api/target_urls`
+    target_urls: `${apiUrl}/api/target_urls`,
+    user_urls: `${apiUrl}/api/user_urls`
   }
 };
