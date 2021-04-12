@@ -37,12 +37,26 @@ export class ShortenSectionComponent implements OnInit {
 
   shortenURL(): string {
 
+    // Timestamp (needed in the database)
+    const timestamp = Date.now();
+
+    // User-ID
+    // tslint:disable-next-line:variable-name
+    const user_id = this.getUserID();
+    // Group-ID
+
+    // tslint:disable-next-line:variable-name
+    const group_id = this.getGroupID();
+    //
+
     let url = this.urlTF.value;
     let wishURL = this.wishURLTF.value;
 
     if (this.URL_In_Database(wishURL) === true) {
       url = wishURL;
-      this.saveURL(url);
+      // tslint:disable-next-line:variable-name
+      const url_id = this.createID();
+      this.saveURL(url, url_id, user_id, group_id);
     }
     else {
       const additionToURL = String(this.createRandomChar());
@@ -85,7 +99,25 @@ export class ShortenSectionComponent implements OnInit {
     }
   }
 
-  saveURL(url: string): boolean{
+  getUserID(): number {
+    return 0;
+  }
+
+  getGroupID(): number {
+  return 0;
+  }
+
+  createID(): string {
+    let id = '';
+    let i: number;
+    for ( i = 0; i < 10; i++){
+      id += this.createRandomChar();
+    }
+    return id;
+  }
+
+  // tslint:disable-next-line:variable-name
+  saveURL(url: string, id: string, user_id: number, group_id: number): boolean{
     this.dbconnector.saveNewURL(url);
     return true;
   }
