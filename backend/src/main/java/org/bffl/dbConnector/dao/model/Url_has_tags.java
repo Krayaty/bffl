@@ -19,9 +19,9 @@ public class Url_has_tags {
     @EmbeddedId
     private Composite_url_has_tags_id id;
 
-    @MapsId("tag_name")
+    @MapsId("tag_id")
     @ManyToOne(targetEntity = Tag.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "tag_name")
+    @JoinColumn(name = "tag_id")
     private Tag url_has_tags_tag;
 
     @MapsId("short_url_id")

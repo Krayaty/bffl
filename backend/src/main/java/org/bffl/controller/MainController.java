@@ -19,6 +19,11 @@ public class MainController {
     private AppService app_Service;
 
     @GetMapping("/target_urls")
+    public ResponseEntity<List<Target_url>> getAllShortURLsWithTargetURLsForGroup(@PathVariable("group") String groupID) {
+        return app_Service.findAllTarget_urls();
+    }
+
+    @GetMapping("/target_urls")
     public ResponseEntity<List<Target_url>> getAllTargetURLs() {
         return app_Service.findAllTarget_urls();
     }
