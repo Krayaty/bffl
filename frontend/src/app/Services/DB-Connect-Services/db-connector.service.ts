@@ -20,4 +20,11 @@ export class DbConnectorService {
     return this.http.get(`${environment.endpoints.target_urls}`, this.headers);
   }
 
+  getAllURLsFromUser(): Observable<any> {
+    return this.http.get(`${environment.endpoints.user_urls}`, this.headers);
+  }
+
+  saveNewURL(url: string): Observable<any> {
+    return this.http.get(`${environment.endpoints.user_urls}`, this.headers);
+  }
 }
