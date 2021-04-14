@@ -8,21 +8,20 @@ import {DbConnectorService} from '../../../Services/DB-Connect-Services/db-conne
 })
 export class ShortenSectionComponent implements OnInit {
   document: any;
-  private urlTF = document.getElementById('originalURL') as HTMLInputElement;
-  private wishURLTF = document.getElementById('wishURL') as HTMLInputElement;
+  private urlTF;
+  private wishURLTF;
 
   constructor(private dbconnector: DbConnectorService) { }
 
   ngOnInit(): void {
+    this.urlTF = document.getElementById('originalURL') as HTMLInputElement;
+    this.wishURLTF = document.getElementById('wishURL') as HTMLInputElement;
   }
 
   public ShortenURL(): string {
 
     let url = this.urlTF.value;
     let wishURL = this.wishURLTF.value;
-
-    console.log(url);
-    console.log(wishURL);
 
     if (URL_In_Database(wishURL) === true) {
       url = wishURL;
