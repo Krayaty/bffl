@@ -1,6 +1,6 @@
 import {KeycloakOptions} from 'keycloak-angular';
 
-const apiUrl = 'https://api.bfflshort.de';
+export const apiUrl = 'https://api.bfflshort.de';
 
 const keycloakOptions: KeycloakOptions = {
   config: {
