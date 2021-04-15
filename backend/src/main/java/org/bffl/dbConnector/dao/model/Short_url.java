@@ -12,7 +12,11 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "short_url", schema = "bffl")
+@Table(
+        name = "short_url",
+        schema = "bffl",
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"group_id", "custom_suffix"})}
+        )
 public class Short_url {
 
     @Id

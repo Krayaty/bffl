@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.bffl.dbConnector.dao.types.Protocoll;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -25,10 +26,11 @@ public class Target_url {
     @Column
     private String type;
 
+    @Column
+    @Enumerated(EnumType.STRING)
+    private Protocoll protocoll_name;
+
     @OneToMany(mappedBy = "url_history_target_url", cascade = CascadeType.ALL)
     private Set<Url_history> target_url_url_histories;
-
-    @OneToMany(mappedBy = "available_protocolls_target_url", cascade = CascadeType.ALL)
-    private Set<Available_protocolls> available_protocolls;
 
 }

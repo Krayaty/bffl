@@ -13,11 +13,15 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "tag", schema = "bffl")
+@Table(
+        name = "tag",
+        schema = "bffl",
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"group_id", "name"})}
+        )
 public class Tag {
 
     @Id
-    private String name;
+    private String id;
 
     @Column
     private String description;

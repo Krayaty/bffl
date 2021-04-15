@@ -14,7 +14,10 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @Entity
-@Table(name = "url_history", schema = "bffl")
+@Table(
+        name = "url_history",
+        schema = "bffl",
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"short_url_id", "timestamp"})})
 public class Url_history {
 
     @EmbeddedId
