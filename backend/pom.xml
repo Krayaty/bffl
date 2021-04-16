@@ -160,7 +160,7 @@
                 </configuration>
             </plugin>
         </plugins>
-        <finalName>${project.artifactId}-${project.version}.${buildNumber}</finalName>
+        <finalName>${project.artifactId}-${project.version}.${env.CODEBUILD_BUILD_NUMBER}</finalName>
     </build>
 
 </project>

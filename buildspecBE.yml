@@ -1,5 +1,9 @@
 version: 0.2
 
+env:
+  variables:
+    BUILD_NUMBER:
+
 phases:
   install:
     commands:
@@ -19,5 +23,5 @@ phases:
       - echo Build completed on `date`
 artifacts:
   files:
-    - backend/target/bffl-backend-1.0.{{buildNumber}}.jar
+    - backend/target/bffl-backend-1.0.$CODEBUILD_BUILD_NUMBER.jar
 discard-paths: yes
