@@ -19,5 +19,5 @@ phases:
       - echo Build completed on `date`
 artifacts:
   files:
-    - backend/target/bffl-backend-1.0.${buildNumber}.jar
+    - backend/target/bffl-backend-1.0.3.jar
 discard-paths: yes
