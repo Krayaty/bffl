@@ -28,7 +28,7 @@ public class Target_url {
 
     @Column
     @Enumerated(EnumType.STRING)
-    private Protocoll protocoll_name;
+    private Protocoll protocoll;
 
     @OneToMany(mappedBy = "url_history_target_url", cascade = CascadeType.ALL)
     private Set<Url_history> target_url_url_histories;

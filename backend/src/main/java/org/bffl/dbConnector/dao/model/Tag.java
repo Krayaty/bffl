@@ -16,7 +16,7 @@ import java.util.Set;
 @Table(
         name = "tag",
         schema = "bffl",
-        uniqueConstraints = {@UniqueConstraint(columnNames = {"group_id", "name"})}
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"group_id", "id"})}
         )
 public class Tag {
 
