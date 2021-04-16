@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {KeycloakService} from 'keycloak-angular';
-import {KeycloakTokenParsed} from 'keycloak-js';
+import {KeycloakTokenParsed} from "keycloak-js";
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
