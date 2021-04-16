@@ -23,5 +23,5 @@ phases:
       - echo Build completed on `date`
 artifacts:
   files:
-    - backend/target/bffl-backend-1.0.$CODEBUILD_BUILD_NUMBER.jar
+    - backend/target/bffl-backend-1.0.jar
 discard-paths: yes
