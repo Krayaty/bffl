@@ -18,9 +18,6 @@ public class AppService {
     private App_userRepo app_userRepo;
 
     @Autowired
-    private Available_protocollsRepo available_protocollsRepo;
-
-    @Autowired
     private CredentialRepo credentialRepo;
 
     @Autowired
