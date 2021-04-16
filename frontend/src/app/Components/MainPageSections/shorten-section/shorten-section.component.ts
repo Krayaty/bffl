@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {DbConnectorService} from '../../../Services/DB-Connect-Services/db-connector.service';
+import {KeycloakService} from 'keycloak-angular';
 
 @Component({
   selector: 'app-shorten-section',
@@ -18,7 +19,7 @@ export class ShortenSectionComponent implements OnInit {
 
   rowData = [];
 
-  constructor(private dbconnector: DbConnectorService) {}
+  constructor(private dbconnector: DbConnectorService, private keycloakService: KeycloakService) {}
 
   ngOnInit(): void {
     this.showAllURLsFromUser();
@@ -36,27 +37,35 @@ export class ShortenSectionComponent implements OnInit {
   }
 
   shortenURL(): string {
+    window.alert('Method Shorten URL reached');
 
     // Timestamp (needed in the database)
     const timestamp = Date.now();
-
+    window.alert('Timestamp: ' + timestamp);
     // User-ID
     // tslint:disable-next-line:variable-name
-    const user_id = this.getUserID();
-    // Group-ID
+    const user_id = this.getAccessToken();
+    window.alert('UserID: ' + user_id);
 
+    // Group-ID
     // tslint:disable-next-line:variable-name
-    const group_id = this.getGroupID();
-    //
+    const group_id: string[] = this.getRoles();
+    window.alert('GroupID: ' + group_id);
+    // aus der Datenbank abfragen
 
     let url = this.urlTF.value;
+    window.alert('URL: ' + url);
     let wishURL = this.wishURLTF.value;
+    window.alert('WishURL: ' + wishURL);
 
     if (this.URL_In_Database(wishURL) === true) {
       url = wishURL;
       // tslint:disable-next-line:variable-name
       const url_id = this.createID();
-      this.saveURL(url, url_id, user_id, group_id);
+
+      // ÄNDERN!!!
+      this.saveURL(url, url_id, user_id, 123);
+
     }
     else {
       const additionToURL = String(this.createRandomChar());
@@ -99,12 +108,16 @@ export class ShortenSectionComponent implements OnInit {
     }
   }
 
-  getUserID(): number {
-    return 0;
+  getAccessToken(): any {
+    try{
+      return this.keycloakService.getKeycloakInstance().tokenParsed;
+    } catch (e){
+      return undefined;
+    }
   }
 
-  getGroupID(): number {
-  return 0;
+  getRoles(): string[] {
+    return this.keycloakService.getUserRoles();
   }
 
   createID(): string {
