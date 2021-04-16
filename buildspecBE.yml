@@ -1,4 +1,4 @@
-version: 0.2
+version: 0.3
 
 phases:
   install:
@@ -19,5 +19,5 @@ phases:
       - echo Build completed on `date`
 artifacts:
   files:
-    - backend/target/bffl-backend.jar
+    - backend/target/bffl-backend-1.0.${buildNumber}.jar
 discard-paths: yes
