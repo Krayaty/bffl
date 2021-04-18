@@ -1,5 +1,5 @@
 import { AppPage } from './app.po';
-import { browser, logging } from 'protractor';
+import {browser, By, logging} from 'protractor';
 
 describe('workspace-project App', () => {
   let page: AppPage;
@@ -8,16 +8,20 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
+  it('should redirect to the login', () => {
+    browser.waitForAngularEnabled(false);
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('BFFL app is running!');
+    expect(browser.getCurrentUrl()).toContain('auth.bfflshort.de');
   });
 
-  afterEach(async () => {
-    // Assert that there are no errors emitted from the browser
-    const logs = await browser.manage().logs().get(logging.Type.BROWSER);
-    expect(logs).not.toContain(jasmine.objectContaining({
-      level: logging.Level.SEVERE,
-    } as logging.Entry));
+  it('should login', async () => {
+    // make sure to enter credentials when running the tests locally
+    const user = '';
+    const pw = '';
+    browser.findElement(By.css('#username')).sendKeys(user);
+    browser.findElement(By.css('#password')).sendKeys(pw);
+    await browser.element(By.id('kc-form-login')).submit();
+
+    expect(browser.findElements(By.css('app-root div'))).toBeTruthy();
   });
 });
