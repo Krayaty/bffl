@@ -1,5 +1,6 @@
 package org.bffl.dbConnector.dao.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,6 +32,7 @@ public class Target_url {
     private Protocoll protocoll;
 
     @OneToMany(mappedBy = "url_history_target_url", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Url_history> target_url_url_histories;
 
 }
