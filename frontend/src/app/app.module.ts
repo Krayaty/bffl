@@ -3,7 +3,7 @@ import {APP_INITIALIZER, NgModule} from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { ShortenSectionComponent } from './Components/MainPageSections/shorten-section/shorten-section.component';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BotbarComponent } from './Components/BottomBarComponents/botbar/botbar.component';
@@ -32,13 +32,14 @@ import {DbConnectorService} from './Services/DB-Connect-Services/db-connector.se
     TopbarComponent,
     UserSelectionComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
-    AgGridModule.withComponents([])
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        HttpClientModule,
+        AgGridModule.withComponents([]),
+        ReactiveFormsModule
+    ],
   providers: [
     AuthService,
     KeycloakService,

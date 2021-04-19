@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {DbConnectorService} from '../../../Services/DB-Connect-Services/db-connector.service';
+import { DbConnectorService } from '../../../Services/DB-Connect-Services/db-connector.service';
+import { AuthService } from '../../../Services/Iam-Services/auth.service';
+import { FormBuilder } from '@angular/forms';
+import { ShortenService } from '../../../Services/Shorten-Services/shorten.service';
 
 @Component({
   selector: 'app-shorten-section',
@@ -8,8 +11,20 @@ import {DbConnectorService} from '../../../Services/DB-Connect-Services/db-conne
 })
 export class ShortenSectionComponent implements OnInit {
   document: any;
-  private urlTF;
-  private wishURLTF;
+ /* private urlTF = document.getElementById('originalURL') as HTMLInputElement;
+  private wishURLTF = document.getElementById('wishURL') as HTMLInputElement;
+  private updateFlagTF = document.getElementById('update_flag') as HTMLInputElement;
+  private deleteFlagTF = document.getElementById('delete_flag') as HTMLInputElement;
+  private scopeTF = document.getElementById('scope') as HTMLInputElement;
+*/
+  items = this.shortenService.getItems();
+  shortenURLForm = this.formBuilder.group({
+    originalURL: '',
+    wishURL: '',
+    update_flag: '',
+    delete_flag: '',
+    scope: ''
+  });
 
   columnDefs = [
     { field: 'name', headerName: 'URL', sortable: true, resizable: true, filter: true, checkboxSelection: true },
@@ -18,61 +33,58 @@ export class ShortenSectionComponent implements OnInit {
 
   rowData = [];
 
-  constructor(private dbconnector: DbConnectorService) {}
-
-  ngOnInit(): void {
-    this.urlTF = document.getElementById('originalURL') as HTMLInputElement;
-    this.wishURLTF = document.getElementById('wishURL') as HTMLInputElement;
-    this.showAllURLsFromUser();
+  constructor(private dbconnector: DbConnectorService,
+              private authService: AuthService,
+              private formBuilder: FormBuilder,
+              private shortenService: ShortenService) {
   }
 
-  showAllURLsFromUser(): void {
-    this.dbconnector.getAllURLsFromUser()
-      .subscribe(
-        data => {
-          this.rowData = data;
+  onSubmit(): void {
+    window.alert(this.shortenURLForm.value);
+    this.shortenURLForm.reset();
+  }
+
+  ngOnInit(): void {
+  }
+
+  shortenURL(): void {
+    window.alert('Method shortenURL() reached');
+
+    // Timestamp
+    const timestamp = Date.now();
+    window.alert('Timestamp: ' + timestamp);
+
+    // User-ID
+    // später getAccessTokenParsed benutzen!
+    const userId = this.authService.getAccessToken().sub;
+    window.alert('UserID: ' + userId);
+
+    // Group-ID
+    let groupId: string;
+    this.dbconnector.getGroupID(userId)
+      .subscribe(data => {
+          groupId = data;
         },
         error => {
           console.log(error);
         });
-  }
-
-  shortenURL(): string {
-
-    // Timestamp (needed in the database)
-    const timestamp = Date.now();
-
-    // User-ID
-    // tslint:disable-next-line:variable-name
-    const user_id = this.getUserID();
-    // Group-ID
-
-    // tslint:disable-next-line:variable-name
-    const group_id = this.getGroupID();
-    //
-
-    let url = this.urlTF.value;
-    let wishURL = this.wishURLTF.value;
-
-    if (URL_In_Database(wishURL) === true) {
-      url = wishURL;
-      // tslint:disable-next-line:variable-name
-      const url_id = this.createID();
-      this.saveURL(url, url_id, user_id, group_id);
-    }
-    else {
-      const additionToURL = String(this.createRandomChar());
-      wishURL = wishURL + additionToURL;
-      this.shortenURL();
-    }
-    this.showAllURLsFromUser();
-    return url;
-  }
-
-  URL_In_Database(wishURL: string): boolean {
-    this.dbconnector.getAllTargetURLs();
-    return true;
-  }
+    window.alert('GroupID: ' + groupId);
+    /*
+    const url = this.urlTF.value;
+    window.alert('URL: ' + url);
+    const wishURL = this.wishURLTF.value;
+    window.alert('WishURL: ' + wishURL);
+    const updateFlag: string = this.updateFlagTF.value;
+    window.alert('UpdateFlag: ' + updateFlag);
+    const deleteFlag: string = this.deleteFlagTF.value;
+    window.alert('DeleteFlag: ' + deleteFlag);
+    const scope: string = this.scopeTF.value;
+    window.alert('Scope: ' + scope);
+    const urlId = this.createID();
+    const tagId = 'MeineURL';
+    this.dbconnector.saveNewURL(timestamp, deleteFlag, updateFlag, groupId, tagId, url, wishURL, scope);
+    */
+ }
 
   createRandomChar(): string {
     let max = 3;
@@ -101,14 +113,6 @@ export class ShortenSectionComponent implements OnInit {
     }
   }
 
-  getUserID(): number {
-    return 0;
-  }
-
-  getGroupID(): number {
-  return 0;
-  }
-
   createID(): string {
     let id = '';
     let i: number;
@@ -116,11 +120,5 @@ export class ShortenSectionComponent implements OnInit {
       id += this.createRandomChar();
     }
     return id;
-  }
-
-  // tslint:disable-next-line:variable-name
-  saveURL(url: string, id: string, user_id: number, group_id: number): boolean{
-    this.dbconnector.saveNewURL(url);
-    return true;
   }
 }

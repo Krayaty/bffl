@@ -3,8 +3,34 @@
   <h1>BFFL</h1>
   <p>Welcome to BFFL - the famous URL-Shortener </p>
 
-  <form>
+  <form [formGroup]="shortenURLForm" (ngSubmit)="onSubmit()" id = "myform">
     <label for="originalURL">Original URL</label>
+    <input type="text" id="originalURL" placeholder="Please insert your original URL here, for example 'https://mywebsite/impressum.com'"/>
+    <label for="wishURL">What do you want as your short URL?</label>
+    <input type="text" id = "wishURL" placeholder="If you want 'https://bffl.mywebsite.impressum.de' as a short URL please insert 'mywebsite.impressum'"/>
+
+    <div class="control-group">
+      <label class="control control-checkbox">
+        Do you want to allow updates?
+        <input type="checkbox" id = "update_flag" />
+        <div class="control_indicator"></div>
+      </label><br><br>
+      <label class="control control-checkbox">
+        Do you want to allow deletion?
+        <input type="checkbox" ud = "delete_flag"/>
+        <div class="control_indicator"></div>
+      </label>
+    </div><br><br>
+
+    <label for="scope">Add your Scope </label>
+    <select id="scope">
+        <option value="infinite">For ever</option>
+        <option value="onemonth">One Month</option>
+        <option value="oneyear">One Year</option>
+        <option value="tenyears">10 Years</option>
+    </select><br><br>
+
+    <button class="button" type = "submit">(click)="shortenURL()"Shorten URL</button><br><br>
     <input type="text" id="originalURL" required="required" placeholder="Insert Original URL here"/>
     <label for="type">Type </label>
     <select name="type" id="type" required="required">
