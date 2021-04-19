@@ -53,4 +53,15 @@ public class AppService {
         return new ResponseEntity<List<Target_url>>(this.target_urlRepo.findAll(), HttpStatus.OK);
     }
 
+    @RolesAllowed("APP-User")
+    public ResponseEntity<List<Target_url>> findGroupID(){
+        // To Do: Method Implementation getId()
+        return new ResponseEntity<List<Target_url>>(this.user_has_groupRepo.getId(), HttpStatus.OK);
+    }
+
+    @RolesAllowed("APP-User")
+    public ResponseEntity saveNewUrl(){
+        return new ResponseEntity( HttpStatus.OK );
+    }
+
 }

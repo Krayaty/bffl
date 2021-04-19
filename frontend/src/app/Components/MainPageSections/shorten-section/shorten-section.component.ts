@@ -36,7 +36,6 @@ export class ShortenSectionComponent implements OnInit {
   constructor(private dbconnector: DbConnectorService,
               private authService: AuthService,
               private formBuilder: FormBuilder,
-              // tslint:disable-next-line:no-shadowed-variable
               private shortenService: ShortenService) {
   }
 
@@ -46,18 +45,6 @@ export class ShortenSectionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.showAllURLsFromUser();
-  }
-
-  showAllURLsFromUser(): void {
-    this.dbconnector.getAllURLsFromUser()
-      .subscribe(
-        data => {
-          this.rowData = data;
-        },
-        error => {
-          console.log(error);
-        });
   }
 
   shortenURL(): void {
@@ -82,7 +69,8 @@ export class ShortenSectionComponent implements OnInit {
           console.log(error);
         });
     window.alert('GroupID: ' + groupId);
-   /* const url = this.urlTF.value;
+    /*
+    const url = this.urlTF.value;
     window.alert('URL: ' + url);
     const wishURL = this.wishURLTF.value;
     window.alert('WishURL: ' + wishURL);
@@ -95,7 +83,8 @@ export class ShortenSectionComponent implements OnInit {
     const urlId = this.createID();
     const tagId = 'MeineURL';
     this.dbconnector.saveNewURL(timestamp, deleteFlag, updateFlag, groupId, tagId, url, wishURL, scope);
- */ }
+    */
+ }
 
   createRandomChar(): string {
     let max = 3;
