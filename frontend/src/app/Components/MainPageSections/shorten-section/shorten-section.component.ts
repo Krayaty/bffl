@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {DbConnectorService} from '../../../Services/DB-Connect-Services/db-connector.service';
-import {AuthService} from '../../../Services/Iam-Services/auth.service';
+import { DbConnectorService } from '../../../Services/DB-Connect-Services/db-connector.service';
+import { AuthService } from '../../../Services/Iam-Services/auth.service';
+import { FormBuilder } from '@angular/forms';
+import { ShortenService } from '../../../Services/Shorten-Services/shorten.service';
 
 @Component({
   selector: 'app-shorten-section',
@@ -9,11 +11,20 @@ import {AuthService} from '../../../Services/Iam-Services/auth.service';
 })
 export class ShortenSectionComponent implements OnInit {
   document: any;
-  private urlTF = document.getElementById('originalURL') as HTMLInputElement;
+ /* private urlTF = document.getElementById('originalURL') as HTMLInputElement;
   private wishURLTF = document.getElementById('wishURL') as HTMLInputElement;
   private updateFlagTF = document.getElementById('update_flag') as HTMLInputElement;
   private deleteFlagTF = document.getElementById('delete_flag') as HTMLInputElement;
   private scopeTF = document.getElementById('scope') as HTMLInputElement;
+*/
+  items = this.shortenService.getItems();
+  shortenURLForm = this.formBuilder.group({
+    originalURL: '',
+    wishURL: '',
+    update_flag: '',
+    delete_flag: '',
+    scope: ''
+  });
 
   columnDefs = [
     { field: 'name', headerName: 'URL', sortable: true, resizable: true, filter: true, checkboxSelection: true },
@@ -22,7 +33,17 @@ export class ShortenSectionComponent implements OnInit {
 
   rowData = [];
 
-  constructor(private dbconnector: DbConnectorService, private authService: AuthService) {}
+  constructor(private dbconnector: DbConnectorService,
+              private authService: AuthService,
+              private formBuilder: FormBuilder,
+              // tslint:disable-next-line:no-shadowed-variable
+              private shortenService: ShortenService) {
+  }
+
+  onSubmit(): void {
+    window.alert(this.shortenURLForm.value);
+    this.shortenURLForm.reset();
+  }
 
   ngOnInit(): void {
     this.showAllURLsFromUser();
@@ -61,7 +82,7 @@ export class ShortenSectionComponent implements OnInit {
           console.log(error);
         });
     window.alert('GroupID: ' + groupId);
-    const url = this.urlTF.value;
+   /* const url = this.urlTF.value;
     window.alert('URL: ' + url);
     const wishURL = this.wishURLTF.value;
     window.alert('WishURL: ' + wishURL);
@@ -74,7 +95,7 @@ export class ShortenSectionComponent implements OnInit {
     const urlId = this.createID();
     const tagId = 'MeineURL';
     this.dbconnector.saveNewURL(timestamp, deleteFlag, updateFlag, groupId, tagId, url, wishURL, scope);
-  }
+ */ }
 
   createRandomChar(): string {
     let max = 3;
