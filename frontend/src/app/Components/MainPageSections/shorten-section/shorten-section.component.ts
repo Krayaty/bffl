@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {DbConnectorService} from '../../../Services/DB-Connect-Services/db-connector.service';
-import {KeycloakService} from 'keycloak-angular';
+import {AuthService} from '../../../Services/Iam-Services/auth.service';
 
 @Component({
   selector: 'app-shorten-section',
@@ -11,6 +11,9 @@ export class ShortenSectionComponent implements OnInit {
   document: any;
   private urlTF = document.getElementById('originalURL') as HTMLInputElement;
   private wishURLTF = document.getElementById('wishURL') as HTMLInputElement;
+  private updateFlagTF = document.getElementById('update_flag') as HTMLInputElement;
+  private deleteFlagTF = document.getElementById('delete_flag') as HTMLInputElement;
+  private scopeTF = document.getElementById('scope') as HTMLInputElement;
 
   columnDefs = [
     { field: 'name', headerName: 'URL', sortable: true, resizable: true, filter: true, checkboxSelection: true },
@@ -19,7 +22,7 @@ export class ShortenSectionComponent implements OnInit {
 
   rowData = [];
 
-  constructor(private dbconnector: DbConnectorService, private keycloakService: KeycloakService) {}
+  constructor(private dbconnector: DbConnectorService, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.showAllURLsFromUser();
@@ -36,49 +39,41 @@ export class ShortenSectionComponent implements OnInit {
         });
   }
 
-  shortenURL(): string {
-    window.alert('Method Shorten URL reached');
+  shortenURL(): void {
+    window.alert('Method shortenURL() reached');
 
-    // Timestamp (needed in the database)
+    // Timestamp
     const timestamp = Date.now();
     window.alert('Timestamp: ' + timestamp);
+
     // User-ID
-    // tslint:disable-next-line:variable-name
-    const user_id = this.getAccessToken();
-    window.alert('UserID: ' + user_id);
+    // später getAccessTokenParsed benutzen!
+    const userId = this.authService.getAccessToken().sub;
+    window.alert('UserID: ' + userId);
 
     // Group-ID
-    // tslint:disable-next-line:variable-name
-    const group_id: string[] = this.getRoles();
-    window.alert('GroupID: ' + group_id);
-    // aus der Datenbank abfragen
-
-    let url = this.urlTF.value;
+    let groupId: string;
+    this.dbconnector.getGroupID(userId)
+      .subscribe(data => {
+          groupId = data;
+        },
+        error => {
+          console.log(error);
+        });
+    window.alert('GroupID: ' + groupId);
+    const url = this.urlTF.value;
     window.alert('URL: ' + url);
-    let wishURL = this.wishURLTF.value;
+    const wishURL = this.wishURLTF.value;
     window.alert('WishURL: ' + wishURL);
-
-    if (this.URL_In_Database(wishURL) === true) {
-      url = wishURL;
-      // tslint:disable-next-line:variable-name
-      const url_id = this.createID();
-
-      // ÄNDERN!!!
-      this.saveURL(url, url_id, user_id, 123);
-
-    }
-    else {
-      const additionToURL = String(this.createRandomChar());
-      wishURL = wishURL + additionToURL;
-      this.shortenURL();
-    }
-    this.showAllURLsFromUser();
-    return url;
-  }
-
-  URL_In_Database(wishURL: string): boolean {
-    this.dbconnector.getAllTargetURLs();
-    return true;
+    const updateFlag: string = this.updateFlagTF.value;
+    window.alert('UpdateFlag: ' + updateFlag);
+    const deleteFlag: string = this.deleteFlagTF.value;
+    window.alert('DeleteFlag: ' + deleteFlag);
+    const scope: string = this.scopeTF.value;
+    window.alert('Scope: ' + scope);
+    const urlId = this.createID();
+    const tagId = 'MeineURL';
+    this.dbconnector.saveNewURL(timestamp, deleteFlag, updateFlag, groupId, tagId, url, wishURL, scope);
   }
 
   createRandomChar(): string {
@@ -108,18 +103,6 @@ export class ShortenSectionComponent implements OnInit {
     }
   }
 
-  getAccessToken(): any {
-    try{
-      return this.keycloakService.getKeycloakInstance().tokenParsed;
-    } catch (e){
-      return undefined;
-    }
-  }
-
-  getRoles(): string[] {
-    return this.keycloakService.getUserRoles();
-  }
-
   createID(): string {
     let id = '';
     let i: number;
@@ -127,11 +110,5 @@ export class ShortenSectionComponent implements OnInit {
       id += this.createRandomChar();
     }
     return id;
-  }
-
-  // tslint:disable-next-line:variable-name
-  saveURL(url: string, id: string, user_id: number, group_id: number): boolean{
-    this.dbconnector.saveNewURL(url);
-    return true;
   }
 }

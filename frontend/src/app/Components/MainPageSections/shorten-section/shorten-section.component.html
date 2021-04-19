@@ -6,8 +6,31 @@
   <form>
     <label for="originalURL">Original URL</label>
     <input type="text" id="originalURL" placeholder="Insert Original URL here"/>
-    <label for="wishURL">Wish for a short URL</label>
-    <input type="text" id = "wishURL" placeholder="https://bffl.wikipedia.com/12hjer783s"/>
+    <label for="wishURL">What do you want as your short URL?</label>
+    <input type="text" id = "wishURL" placeholder="If you want 'https://bffl.mywebsite.de' insert 'mywebsite'"/>
+    <p>
+    <div class="control-group">
+      <label class="control control-checkbox">
+        Do you want to allow updates?
+        <input type="checkbox" id = "update_flag" />
+        <div class="control_indicator"></div>
+      </label>
+    <br><br>
+      <label class="control control-checkbox">
+        Do you want to allow deletion?
+        <input type="checkbox" ud = "delete_flag"/>
+        <div class="control_indicator"></div>
+      </label>
+    </div>
+    <br><br>
+    <label for="scope">Add your Scope </label>
+    <select id="scope">
+        <option value="infinite">For ever</option>
+        <option value="onemonth">One Month</option>
+        <option value="oneyear">One Year</option>
+        <option value="tenyears">10 Years</option>
+      </select>
+    <br><br>
     <button class="button" (click)="shortenURL()">Shorten URL</button><br><br>
   </form>
 
