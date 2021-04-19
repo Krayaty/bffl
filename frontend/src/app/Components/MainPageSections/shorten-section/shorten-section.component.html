@@ -5,9 +5,39 @@
 
   <form>
     <label for="originalURL">Original URL</label>
-    <input type="text" id="originalURL" placeholder="Insert Original URL here"/>
+    <input type="text" id="originalURL" required="required" placeholder="Insert Original URL here"/>
+    <label for="type">Type </label>
+    <select name="type" id="type" required="required">
+      <option value="test1">Type 1</option>
+      <option value="test2">Type 2</option>
+      <option value="test3">Type 3</option>
+    </select><br>
+    <label for="owner">Owner (optional)</label>
+    <input type="text" id="owner" placeholder="Insert Owner"/>
+
     <label for="wishURL">Wish for a short URL</label>
-    <input type="text" id = "wishURL" placeholder="https://bffl.wikipedia.com/12hjer783s"/>
+    <input type="text" id = "wishURL" required="required" placeholder="https://bffl.wikipedia.com/12hjer783s"/>
+    <label for="scope">Scope</label>
+    <input type="date" id="scope" required="required"/><br>
+    <input type="checkbox" id="updateFlagBox"><label for="updateFlagBox">Update Flag Box</label><br>
+    <input type="checkbox" id="deleteFlagBox"><label for="deleteFlagBox">Delete Flag Box</label><br>
+
+    <label for="tags">Protocol</label><br>
+    <select name="protocol" id="protocol" required="required">
+      <option value="default"></option>
+      <option value="test1">Protocol 1</option>
+      <option value="test2">Protocol 2</option>
+      <option value="test3">Protocol 3</option>
+    </select><br>
+
+    <label for="tags">Selected Tags</label><br>
+    <select name="tags" id="tags" required="required">
+      <option value="default"></option>
+      <option value="test1">Tag 1</option>
+      <option value="test2">Tag 2</option>
+      <option value="test3">Tag 3</option>
+    </select><br>
+
     <button class="button" (click)="shortenURL()">Shorten URL</button><br><br>
   </form>
 
