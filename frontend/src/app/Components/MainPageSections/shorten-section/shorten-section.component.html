@@ -10,14 +10,14 @@
     <input type="text" id = "wishURL" placeholder="If you want 'https://bffl.mywebsite.impressum.de' as a short URL please insert 'mywebsite.impressum'"/>
 
     <div class="control-group">
-      <label class="control control-checkbox">
+      <label class="control control-checkbox" for="update_flag">
         Do you want to allow updates?
         <input type="checkbox" id = "update_flag" />
         <div class="control_indicator"></div>
       </label><br><br>
-      <label class="control control-checkbox">
+      <label class="control control-checkbox" for="delete_flag">
         Do you want to allow deletion?
-        <input type="checkbox" ud = "delete_flag"/>
+        <input type="checkbox" id = "delete_flag"/>
         <div class="control_indicator"></div>
       </label>
     </div><br><br>
@@ -30,7 +30,6 @@
         <option value="tenyears">10 Years</option>
     </select><br><br>
 
-    <button class="button" type = "submit">(click)="shortenURL()"Shorten URL</button><br><br>
     <input type="text" id="originalURL" required="required" placeholder="Insert Original URL here"/>
     <label for="type">Type </label>
     <select name="type" id="type" required="required">
@@ -41,14 +40,7 @@
     <label for="owner">Owner (optional)</label>
     <input type="text" id="owner" placeholder="Insert Owner"/>
 
-    <label for="wishURL">Wish for a short URL</label>
-    <input type="text" id = "wishURL" required="required" placeholder="https://bffl.wikipedia.com/12hjer783s"/>
-    <label for="scope">Scope</label>
-    <input type="date" id="scope" required="required"/><br>
-    <input type="checkbox" id="updateFlagBox"><label for="updateFlagBox">Update Flag Box</label><br>
-    <input type="checkbox" id="deleteFlagBox"><label for="deleteFlagBox">Delete Flag Box</label><br>
-
-    <label for="tags">Protocol</label><br>
+<label for="tags">Protocol</label><br>
     <select name="protocol" id="protocol" required="required">
       <option value="default"></option>
       <option value="test1">Protocol 1</option>
