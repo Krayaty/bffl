@@ -23,7 +23,11 @@ export class ShortenSectionComponent implements OnInit {
     wishURL: '',
     update_flag: '',
     delete_flag: '',
-    scope: ''
+    scope: '',
+    type: '',
+    owner: '',
+    protocol: '',
+    tags: ''
   });
 
   columnDefs = [
@@ -40,7 +44,8 @@ export class ShortenSectionComponent implements OnInit {
   }
 
   onSubmit(): void {
-    window.alert(this.shortenURLForm.value);
+    console.log(this.shortenURLForm.value);
+    // window.alert(this.shortenURLForm.value);
     this.shortenURLForm.reset();
   }
 

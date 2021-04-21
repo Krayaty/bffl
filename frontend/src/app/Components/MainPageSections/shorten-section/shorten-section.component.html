@@ -5,43 +5,42 @@
 
   <form [formGroup]="shortenURLForm" (ngSubmit)="onSubmit()" id = "myform">
     <label for="originalURL">Original URL</label>
-    <input type="text" id="originalURL" placeholder="Please insert your original URL here, for example 'https://mywebsite/impressum.com'"/>
+    <input type="text" id="originalURL" placeholder="Please insert your original URL here, for example 'https://mywebsite/impressum.com'" formControlName="originalURL"/>
     <label for="wishURL">What do you want as your short URL?</label>
-    <input type="text" id = "wishURL" placeholder="If you want 'https://bffl.mywebsite.impressum.de' as a short URL please insert 'mywebsite.impressum'"/>
+    <input type="text" id = "wishURL" placeholder="If you want 'https://bffl.mywebsite.impressum.de' as a short URL please insert 'mywebsite.impressum'" formControlName="wishURL"/>
 
     <div class="control-group">
       <label class="control control-checkbox" for="update_flag">
         Do you want to allow updates?
-        <input type="checkbox" id = "update_flag" />
+        <input type="checkbox" id = "update_flag" formControlName="update_flag"/>
         <div class="control_indicator"></div>
       </label><br><br>
       <label class="control control-checkbox" for="delete_flag">
         Do you want to allow deletion?
-        <input type="checkbox" id = "delete_flag"/>
+        <input type="checkbox" id = "delete_flag" formControlName="delete_flag"/>
         <div class="control_indicator"></div>
       </label>
     </div><br><br>
 
     <label for="scope">Add your Scope </label>
-    <select id="scope">
-        <option value="infinite">For ever</option>
+    <select id="scope" formControlName="scope">
+        <option value="infinite">Forever</option>
         <option value="onemonth">One Month</option>
         <option value="oneyear">One Year</option>
         <option value="tenyears">10 Years</option>
     </select><br><br>
 
-    <input type="text" id="originalURL" required="required" placeholder="Insert Original URL here"/>
     <label for="type">Type </label>
-    <select name="type" id="type" required="required">
+    <select name="type" id="type" required="required" formControlName="type">
       <option value="test1">Type 1</option>
       <option value="test2">Type 2</option>
       <option value="test3">Type 3</option>
     </select><br>
     <label for="owner">Owner (optional)</label>
-    <input type="text" id="owner" placeholder="Insert Owner"/>
+    <input type="text" id="owner" placeholder="Insert Owner" formControlName="owner"/>
 
-<label for="tags">Protocol</label><br>
-    <select name="protocol" id="protocol" required="required">
+<label for="protocol">Protocol</label><br>
+    <select name="protocol" id="protocol" required="required" formControlName="protocol">
       <option value="default"></option>
       <option value="test1">Protocol 1</option>
       <option value="test2">Protocol 2</option>
@@ -49,7 +48,7 @@
     </select><br>
 
     <label for="tags">Selected Tags</label><br>
-    <select name="tags" id="tags" required="required">
+    <select name="tags" id="tags" required="required" formControlName="tags">
       <option value="default"></option>
       <option value="test1">Tag 1</option>
       <option value="test2">Tag 2</option>
