@@ -10,6 +10,9 @@ import {DbConnectorService} from '../../../Services/DB-Connect-Services/db-conne
 export class MainPageComponent implements OnInit {
   @ViewChild('agGrid') agGrid: AgGridAngular;
 
+  api;
+  columnApi;
+
   columnDefs = [
     { field: 'name', headerName: 'URL', sortable: true, resizable: true, filter: true, checkboxSelection: true },
     { field: 'owner', headerName: 'Besitzer', sortable: true, filter: true, resizable: true },
@@ -18,7 +21,8 @@ export class MainPageComponent implements OnInit {
 
   rowData = [];
 
-  constructor(private dbconnector: DbConnectorService) {}
+  constructor(private dbconnector: DbConnectorService) {
+  }
 
   ngOnInit(): void {
     this.retrieveAllTargetURLs();
@@ -36,11 +40,16 @@ export class MainPageComponent implements OnInit {
   }
 
   getSelectedRows(): void {
-    const selectedNodes = this.agGrid.api.getSelectedNodes();
+    const selectedNodes = this.api.getSelectedNodes();
     const selectedData = selectedNodes.map(node => node.data );
     const selectedDataStringPresentation = selectedData.map(node => node.make + ' ' + node.model).join(', ');
 
     alert(`Selected nodes: ${selectedDataStringPresentation}`);
   }
 
+  onGridReady(params): void {
+    this.api = params.api;
+    this.columnApi = params.columnApi;
+    this.api.sizeColumnsToFit();
+  }
 }

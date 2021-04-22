@@ -1,6 +1,7 @@
 <div class="section-container">
   <div class="ag-grid-container">
     <ag-grid-angular
+      (gridReady)="onGridReady($event)"
       class="ag-theme-alpine"
       [rowData]="rowData"
       [columnDefs]="columnDefs"
