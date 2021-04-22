@@ -52,4 +52,8 @@ export class MainPageComponent implements OnInit {
     this.columnApi = params.columnApi;
     this.api.sizeColumnsToFit();
   }
+
+  onGridSizeChange(params): void {
+    this.api.sizeColumnsToFit();
+  }
 }
