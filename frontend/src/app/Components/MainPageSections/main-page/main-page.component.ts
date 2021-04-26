@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {AgGridAngular} from 'ag-grid-angular';
 import {DbConnectorService} from '../../../Services/DB-Connect-Services/db-connector.service';
+import {convertToShortURLWithTarget, ShortURLWithTarget} from '../../../DBReturnTypes/DBReturnTypes';
 
 @Component({
   selector: 'app-main-page',
@@ -8,27 +9,90 @@ import {DbConnectorService} from '../../../Services/DB-Connect-Services/db-conne
   styleUrls: ['./main-page.component.css']
 })
 export class MainPageComponent implements OnInit {
+
   @ViewChild('agGrid') agGrid: AgGridAngular;
 
-  columnDefs = [
-    { field: 'name', headerName: 'URL', sortable: true, resizable: true, filter: true, checkboxSelection: true },
-    { field: 'owner', headerName: 'Besitzer', sortable: true, filter: true, resizable: true },
-    { field: 'type',  headerName: 'Typ', sortable: true, filter: true, resizable: true }
-  ];
+  rowData: ShortURLWithTarget[];
 
-  rowData = [];
+  columnDefs = [{
+      field: 'shortURLId',
+      headerName: 'Id',
+      hide: true,
+      sortable: true,
+      filter: true,
+      resizable: true
+    }, {
+      field: 'groupName',
+      headerName: 'Gruppe',
+      hide: false,
+      sortable: true,
+      filter: true,
+      resizable: true
+    }, {
+      field: 'customSuffix',
+      headerName: 'Suffix',
+      hide: false,
+      sortable: true,
+      filter: true,
+      resizable: true
+    }, {
+      field: 'createTimestamp',
+      headerName: 'erstellt am',
+      hide: false,
+      sortable: true,
+      filter: true,
+      resizable: true
+    }, {
+      field: 'scope',
+      headerName: 'Gültigkeit (in s)',
+
+      hide: false,
+      sortable: true,
+      filter: true,
+      resizable: true
+    }, {
+      field: 'targetURL',
+      headerName: 'Ziel-URL',
+      hide: false,
+      sortable: true,
+      filter: true,
+      resizable: true
+    }, {
+      field: 'assignTimestamp',
+      headerName: 'zugewiesen am',
+      hide: false,
+      sortable: true,
+      filter: true,
+      resizable: true
+    }, {
+      field: 'deleteFlag',  headerName: 'löschbar?',
+      hide: false,
+      sortable: true,
+      filter: true,
+      resizable: true
+    }, {
+      field: 'updateFlag',
+      headerName: 'änderbar?',
+      hide: false,
+      sortable: true,
+      filter: true,
+      resizable: true
+    }];
 
   constructor(private dbconnector: DbConnectorService) {}
 
   ngOnInit(): void {
-    this.retrieveAllTargetURLs();
+    this.retrieveAllShortURLsByGroupName('Siemens');
   }
 
-  retrieveAllTargetURLs(): void {
-    this.dbconnector.getAllTargetURLs()
-      .subscribe(
-        data => {
-          this.rowData = data;
+  retrieveAllShortURLsByGroupName(groupName: string): void {
+    this.dbconnector.getAllShortURLsByGroupName(groupName)
+      .subscribe(data => {
+        let shortURLWithTargetList: ShortURLWithTarget[] = [];
+        data.forEach(entry => {
+            shortURLWithTargetList.push(convertToShortURLWithTarget(entry));
+        });
+        this.rowData = shortURLWithTargetList;
         },
         error => {
           console.log(error);

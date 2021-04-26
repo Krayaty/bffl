@@ -13,10 +13,10 @@ import java.io.Serializable;
 public class Composite_url_has_tags_id implements Serializable {
 
     @Column
-    private String short_url_id;
+    private int short_url_id;
 
     @Column
-    private String tag_id;
+    private int tag_id;
 
     @Override
     public boolean equals(Object o) {
@@ -28,8 +28,8 @@ public class Composite_url_has_tags_id implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = this.short_url_id.hashCode();
-        result = 31 * result + this.tag_id.hashCode();
+        int result = this.short_url_id;
+        result = 31 * result + this.tag_id;
         return result;
     }
 }

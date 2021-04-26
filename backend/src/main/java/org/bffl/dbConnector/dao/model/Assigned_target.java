@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.bffl.dbConnector.dao.idClasses.Composite_url_has_tags_id;
+import org.bffl.dbConnector.dao.idClasses.Composite_assigned_target_id;
 
 import javax.persistence.*;
 
@@ -13,21 +13,19 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "url_has_tags", schema = "bffl")
-public class Url_has_tags {
+@Table(name = "assigned_target", schema = "bffl")
+public class Assigned_target {
 
     @EmbeddedId
-    private Composite_url_has_tags_id id;
+    private Composite_assigned_target_id id;
 
-    @MapsId("tag_id")
-    @ManyToOne(targetEntity = Tag.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "tag_id")
-    private Tag url_has_tags_tag;
+    @Column
+    private String url;
 
     @MapsId("short_url_id")
     @ManyToOne(targetEntity = Short_url.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "short_url_id")
-    private Short_url url_has_tags_short_url;
+    private Short_url url_history_short_url;
 
 }
 

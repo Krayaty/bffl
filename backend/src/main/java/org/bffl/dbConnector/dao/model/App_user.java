@@ -1,5 +1,6 @@
 package org.bffl.dbConnector.dao.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -56,9 +57,11 @@ public class App_user {
     private int not_before;
 
     @OneToMany(mappedBy="user_has_group_user", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<User_has_group> user_user_has_groups;
 
     @OneToMany(mappedBy="credential_user", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Credential> user_credentials;
 
 }
