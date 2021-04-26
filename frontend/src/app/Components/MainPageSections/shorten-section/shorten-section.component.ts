@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { DbConnectorService } from '../../../Services/DB-Connect-Services/db-connector.service';
 import { AuthService } from '../../../Services/Iam-Services/auth.service';
 import { FormBuilder } from '@angular/forms';
+import {Validators} from '@angular/forms';
 import { ShortenService } from '../../../Services/Shorten-Services/shorten.service';
+
 
 @Component({
   selector: 'app-shorten-section',
@@ -11,21 +13,16 @@ import { ShortenService } from '../../../Services/Shorten-Services/shorten.servi
 })
 export class ShortenSectionComponent implements OnInit {
   document: any;
- /* private urlTF = document.getElementById('originalURL') as HTMLInputElement;
-  private wishURLTF = document.getElementById('wishURL') as HTMLInputElement;
-  private updateFlagTF = document.getElementById('update_flag') as HTMLInputElement;
-  private deleteFlagTF = document.getElementById('delete_flag') as HTMLInputElement;
-  private scopeTF = document.getElementById('scope') as HTMLInputElement;
-*/
+
   items = this.shortenService.getItems();
   shortenURLForm = this.formBuilder.group({
-    originalURL: '',
-    wishURL: '',
-    update_flag: '',
-    delete_flag: '',
+    originalURL: ['', Validators.required],
+    wishURL: ['', Validators.required],
+    updateFlag: '',
+    deleteFlag: '',
     scope: '',
     type: '',
-    owner: '',
+    owner: ['', Validators.required],
     protocol: '',
     tags: ''
   });
@@ -44,26 +41,19 @@ export class ShortenSectionComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.shortenURLForm.value);
-    // window.alert(this.shortenURLForm.value);
-    this.shortenURLForm.reset();
+     window.alert(this.shortenURLForm.value);
+      // window.alert(this.shortenURLForm.value);
+     this.shortenURLForm.reset();
   }
 
   ngOnInit(): void {
   }
 
   shortenURL(): void {
-    window.alert('Method shortenURL() reached');
-
     // Timestamp
     const timestamp = Date.now();
-    window.alert('Timestamp: ' + timestamp);
-
-    // User-ID
-    // später getAccessTokenParsed benutzen!
+    // User-ID - später getAccessTokenParsed benutzen!
     const userId = this.authService.getAccessToken().sub;
-    window.alert('UserID: ' + userId);
-
     // Group-ID
     let groupId: string;
     this.dbconnector.getGroupID(userId)
@@ -74,22 +64,25 @@ export class ShortenSectionComponent implements OnInit {
           console.log(error);
         });
     window.alert('GroupID: ' + groupId);
-    /*
-    const url = this.urlTF.value;
-    window.alert('URL: ' + url);
-    const wishURL = this.wishURLTF.value;
-    window.alert('WishURL: ' + wishURL);
-    const updateFlag: string = this.updateFlagTF.value;
-    window.alert('UpdateFlag: ' + updateFlag);
-    const deleteFlag: string = this.deleteFlagTF.value;
-    window.alert('DeleteFlag: ' + deleteFlag);
-    const scope: string = this.scopeTF.value;
-    window.alert('Scope: ' + scope);
+    const url: string = this.shortenURLForm.get('originalURL').value;
+    const wishURL: string = this.shortenURLForm.get('wishURL').value;
+    let updateFlag: boolean = this.shortenURLForm.get('updateFlag').value;
+    if ( updateFlag !== true){
+      updateFlag = false;
+    }
+    let deleteFlag: boolean = this.shortenURLForm.get('deleteFlag').value;
+    if ( deleteFlag !== true){
+      deleteFlag = false;
+    }
+    const scope = this.shortenURLForm.get('scope').value;
+    const type = this.shortenURLForm.get('type').value;
+    const protocol = this.shortenURLForm.get('protocol').value;
+    const owner = this.shortenURLForm.get('owner').value;
+    const tags = this.shortenURLForm.get('tags').value;
     const urlId = this.createID();
     const tagId = 'MeineURL';
     this.dbconnector.saveNewURL(timestamp, deleteFlag, updateFlag, groupId, tagId, url, wishURL, scope);
-    */
- }
+  }
 
   createRandomChar(): string {
     let max = 3;

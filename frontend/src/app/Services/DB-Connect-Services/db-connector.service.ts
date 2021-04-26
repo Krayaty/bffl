@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {AuthService} from '../Iam-Services/auth.service';
+import {AbstractControl} from '@angular/forms';
 
 @Injectable()
 export class DbConnectorService {
@@ -21,16 +22,47 @@ export class DbConnectorService {
   }
 
   // Eventuell zur Sicherheit noch ändern - user_id wird über URL verschickt
-  // tslint:disable-next-line:variable-name
-  getGroupID(user_id: string): Observable<any> {
-    return this.http.get(`${environment.endpoints.group_id}&user_id=${user_id}`, this.headers);
+  getGroupID(userId: string): Observable<any> {
+    return this.http.get(`${environment.endpoints.group_id}&user_id=${userId}`, this.headers);
   }
 
-  // tslint:disable-next-line:variable-name max-line-length
-  saveNewURL(timestamp: number, delete_flag: string, update_flag: string, group_id: string, tag_id: string, url: string, wishURL: string, scope: string): Observable<any> {
-    const body = { timestamp, delete_flag, update_flag, group_id, tag_id, url, wishURL, scope };
+  // tslint:disable-next-line:max-line-length
+  saveNewURL(timestamp: number, deleteFlag: boolean, updateFlag: boolean, groupId: string, tagId: string, url: string, wishURL: string, scope: AbstractControl): Observable<any> {
+    const body = { timestamp, deleteFlag, updateFlag, groupId, tagId, url, wishURL, scope };
     this.http.post<any>(`${environment.endpoints.save_url}`, body, this.headers ).subscribe(data => {
      // this.postId = data.id; ??
+    });
+    return this.http.post(`${environment.endpoints.save_url}`, this.headers);
+  }
+  // tslint:disable-next-line:max-line-length
+  saveNewURLProtocol(timestamp: number, deleteFlag: boolean, updateFlag: boolean, groupId: string, tagId: string, url: string, wishURL: string, scope: AbstractControl, protocol: any): Observable<any> {
+    const body = { timestamp, deleteFlag, updateFlag, groupId, tagId, url, wishURL, scope };
+    this.http.post<any>(`${environment.endpoints.save_url}`, body, this.headers ).subscribe(data => {
+      // this.postId = data.id; ??
+    });
+    return this.http.post(`${environment.endpoints.save_url}`, this.headers);
+  }
+  // tslint:disable-next-line:max-line-length
+  saveNewURLOwner(timestamp: number, deleteFlag: boolean, updateFlag: boolean, groupId: string, tagId: string, url: string, wishURL: string, scope: AbstractControl, protocol: any, owner: string): Observable<any> {
+    const body = { timestamp, deleteFlag, updateFlag, groupId, tagId, url, wishURL, scope };
+    this.http.post<any>(`${environment.endpoints.save_url}`, body, this.headers ).subscribe(data => {
+      // this.postId = data.id; ??
+    });
+    return this.http.post(`${environment.endpoints.save_url}`, this.headers);
+  }
+  // tslint:disable-next-line:max-line-length
+  saveNewURLTags(timestamp: number, deleteFlag: boolean, updateFlag: boolean, groupId: string, tagId: string, url: string, wishURL: string, scope: AbstractControl, protocol: any, tags: string): Observable<any> {
+    const body = { timestamp, deleteFlag, updateFlag, groupId, tagId, url, wishURL, scope };
+    this.http.post<any>(`${environment.endpoints.save_url}`, body, this.headers ).subscribe(data => {
+      // this.postId = data.id; ??
+    });
+    return this.http.post(`${environment.endpoints.save_url}`, this.headers);
+  }
+  // tslint:disable-next-line:max-line-length
+  saveNewURLOwnerAndTags(timestamp: number, deleteFlag: boolean, updateFlag: boolean, groupId: string, tagId: string, url: string, wishURL: string, scope: AbstractControl, protocol: any, owner: string, tags: string): Observable<any> {
+    const body = { timestamp, deleteFlag, updateFlag, groupId, tagId, url, wishURL, scope };
+    this.http.post<any>(`${environment.endpoints.save_url}`, body, this.headers ).subscribe(data => {
+      // this.postId = data.id; ??
     });
     return this.http.post(`${environment.endpoints.save_url}`, this.headers);
   }
