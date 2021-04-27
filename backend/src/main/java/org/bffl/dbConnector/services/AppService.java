@@ -43,8 +43,15 @@ public class AppService {
     }
 
     public ResponseEntity<List<Object>> getAllShortURLsWithCurrentTargetByGroupId(String group_id) {
+        System.out.println(group_id);
         return new ResponseEntity<List<Object>>(
                 this.short_urlRepo.findAllShortURLsWithCurrentTargetByGroupName(group_id),
+                HttpStatus.OK);
+    }
+
+    public ResponseEntity<List<Object>> getAllGroupsOfGivenUser(String user_id) {
+        return new ResponseEntity<List<Object>>(
+                this.user_has_groupRepo.findAlLGroupsOfGivenUser(user_id),
                 HttpStatus.OK);
     }
 

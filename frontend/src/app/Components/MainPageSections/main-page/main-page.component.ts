@@ -82,13 +82,13 @@ export class MainPageComponent implements OnInit {
   constructor(private dbconnector: DbConnectorService) {}
 
   ngOnInit(): void {
-    this.retrieveAllShortURLsByGroupName('Siemens');
+    setTimeout(() => { this.refreshAgGrid(); }, 200);
   }
 
   retrieveAllShortURLsByGroupName(groupName: string): void {
     this.dbconnector.getAllShortURLsByGroupName(groupName)
       .subscribe(data => {
-        let shortURLWithTargetList: ShortURLWithTarget[] = [];
+        const shortURLWithTargetList: ShortURLWithTarget[] = [];
         data.forEach(entry => {
             shortURLWithTargetList.push(convertToShortURLWithTarget(entry));
         });
@@ -97,6 +97,10 @@ export class MainPageComponent implements OnInit {
         error => {
           console.log(error);
         });
+  }
+
+  refreshAgGrid(): void {
+    this.retrieveAllShortURLsByGroupName(this.dbconnector.activeGroup);
   }
 
   getSelectedRows(): void {

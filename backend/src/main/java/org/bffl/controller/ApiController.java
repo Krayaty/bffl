@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@CrossOrigin(origins = "https://api.bffl.de")
+@CrossOrigin(origins = "https://api.bfflshort.de")
 @RestController
 @RequestMapping(value="/s", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ApiController {
 
-    //Controller für die weiterleitung von ShortURLs
+    //Controller für die Weiterleitung von ShortURLs
 
     @Autowired
     ApiService api;
