@@ -1,6 +1,6 @@
 package org.bffl.dbConnector.services;
 
-import org.bffl.dbConnector.dao.model.Target_url;
+import org.bffl.dbConnector.dao.model.Assigned_target;
 import org.bffl.dbConnector.dao.repos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,22 +27,32 @@ public class AppService {
     private TagRepo tagRepo;
 
     @Autowired
-    private Target_urlRepo target_urlRepo;
-
-    @Autowired
     private Url_callRepo url_callRepo;
 
     @Autowired
-    private Url_has_tagsRepo url_has_tagsRepo;
+    private Url_has_tagRepo url_has_tagRepo;
 
     @Autowired
-    private Url_historyRepo url_historyRepo;
+    private Assigned_targetRepo assigned_targetRepo;
 
     @Autowired
     private User_has_groupRepo user_has_groupRepo;
 
-    public ResponseEntity<List<Target_url>> findAllTarget_urls(){
-        return new ResponseEntity<List<Target_url>>(this.target_urlRepo.findAll(), HttpStatus.OK);
+    public ResponseEntity<List<Assigned_target>> findAllTargetURLs() {
+        return new ResponseEntity<List<Assigned_target>>(this.assigned_targetRepo.findAll(), HttpStatus.OK);
+    }
+
+    public ResponseEntity<List<Object>> getAllShortURLsWithCurrentTargetByGroupId(String group_id) {
+        System.out.println(group_id);
+        return new ResponseEntity<List<Object>>(
+                this.short_urlRepo.findAllShortURLsWithCurrentTargetByGroupName(group_id),
+                HttpStatus.OK);
+    }
+
+    public ResponseEntity<List<Object>> getAllGroupsOfGivenUser(String user_id) {
+        return new ResponseEntity<List<Object>>(
+                this.user_has_groupRepo.findAlLGroupsOfGivenUser(user_id),
+                HttpStatus.OK);
     }
 
 }

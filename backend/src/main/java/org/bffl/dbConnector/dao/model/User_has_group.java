@@ -25,9 +25,9 @@ public class User_has_group {
     @JoinColumn(name = "user_id")
     private App_user user_has_group_user;
 
-    @MapsId("group_id")
+    @MapsId("group_name")
     @ManyToOne(targetEntity = App_group.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "group_id")
+    @JoinColumn(name = "group_name")
     private App_group user_has_group_group;
 
     @Column
@@ -35,6 +35,9 @@ public class User_has_group {
 
     @Column
     private Timestamp end_timestamp;
+
+    @Column
+    private boolean admin_flag;
 
 }
 

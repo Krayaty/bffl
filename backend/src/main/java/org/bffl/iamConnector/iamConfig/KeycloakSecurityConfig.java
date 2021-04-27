@@ -1,9 +1,13 @@
 package org.bffl.iamConnector.iamConfig;
 
+import org.keycloak.KeycloakPrincipal;
+import org.keycloak.KeycloakSecurityContext;
 import org.keycloak.adapters.springboot.KeycloakSpringBootProperties;
 import org.keycloak.adapters.springsecurity.KeycloakConfiguration;
 import org.keycloak.adapters.springsecurity.authentication.KeycloakAuthenticationProvider;
 import org.keycloak.adapters.springsecurity.config.KeycloakWebSecurityConfigurerAdapter;
+import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
+import org.keycloak.representations.AccessToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
@@ -15,6 +19,8 @@ import org.springframework.security.core.authority.mapping.SimpleAuthorityMapper
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.session.NullAuthenticatedSessionStrategy;
 import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
+
+import javax.servlet.http.HttpServletRequest;
 
 @EnableWebSecurity
 @KeycloakConfiguration
@@ -46,7 +52,7 @@ public class KeycloakSecurityConfig extends KeycloakWebSecurityConfigurerAdapter
                 .sessionAuthenticationStrategy(sessionAuthenticationStrategy()).and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/target_urls").hasRole("APP-User")
+                .antMatchers("/api").hasRole("APP-User")
                 .anyRequest()
                 .permitAll();
     }
@@ -55,6 +61,13 @@ public class KeycloakSecurityConfig extends KeycloakWebSecurityConfigurerAdapter
     @Primary
     public CustomKeycloakConfigResolver keycloakConfigResolver(final KeycloakSpringBootProperties properties) {
         return new CustomKeycloakConfigResolver(properties);
+    }
+
+    public static AccessToken getAccessToken(HttpServletRequest request) {
+        KeycloakAuthenticationToken token = (KeycloakAuthenticationToken) request.getUserPrincipal();
+        KeycloakPrincipal principal=(KeycloakPrincipal)token.getPrincipal();
+        KeycloakSecurityContext session = principal.getKeycloakSecurityContext();
+        return session.getToken();
     }
 
 }
