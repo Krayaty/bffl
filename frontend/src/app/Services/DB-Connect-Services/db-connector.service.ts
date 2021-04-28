@@ -27,40 +27,32 @@ export class DbConnectorService {
   }
 
   // tslint:disable-next-line:max-line-length
-  saveNewURL(timestamp: number, deleteFlag: boolean, updateFlag: boolean, groupId: string, tagId: string, url: string, wishURL: string, scope: AbstractControl): Observable<any> {
-    const body = { timestamp, deleteFlag, updateFlag, groupId, tagId, url, wishURL, scope };
-    this.http.post<any>(`${environment.endpoints.save_url}`, body, this.headers ).subscribe(data => {
-     // this.postId = data.id; ??
-    });
-    return this.http.post(`${environment.endpoints.save_url}`, this.headers);
-  }
-  // tslint:disable-next-line:max-line-length
-  saveNewURLProtocol(timestamp: number, deleteFlag: boolean, updateFlag: boolean, groupId: string, tagId: string, url: string, wishURL: string, scope: AbstractControl, protocol: any): Observable<any> {
-    const body = { timestamp, deleteFlag, updateFlag, groupId, tagId, url, wishURL, scope };
+  saveNewURL(timestamp: number, deleteFlag: boolean, updateFlag: boolean, groupId: string, url: string, wishURL: string, scope: AbstractControl, protocol: any): Observable<any> {
+    const body = { timestamp, deleteFlag, updateFlag, groupId, url, wishURL, scope };
     this.http.post<any>(`${environment.endpoints.save_url}`, body, this.headers ).subscribe(data => {
       // this.postId = data.id; ??
     });
     return this.http.post(`${environment.endpoints.save_url}`, this.headers);
   }
   // tslint:disable-next-line:max-line-length
-  saveNewURLOwner(timestamp: number, deleteFlag: boolean, updateFlag: boolean, groupId: string, tagId: string, url: string, wishURL: string, scope: AbstractControl, protocol: any, owner: string): Observable<any> {
-    const body = { timestamp, deleteFlag, updateFlag, groupId, tagId, url, wishURL, scope };
+  saveNewURLPlusOwner(timestamp: number, deleteFlag: boolean, updateFlag: boolean, groupId: string, url: string, wishURL: string, scope: AbstractControl, protocol: any, owner: string): Observable<any> {
+    const body = { timestamp, deleteFlag, updateFlag, groupId, url, wishURL, scope, protocol, owner};
     this.http.post<any>(`${environment.endpoints.save_url}`, body, this.headers ).subscribe(data => {
       // this.postId = data.id; ??
     });
     return this.http.post(`${environment.endpoints.save_url}`, this.headers);
   }
   // tslint:disable-next-line:max-line-length
-  saveNewURLTags(timestamp: number, deleteFlag: boolean, updateFlag: boolean, groupId: string, tagId: string, url: string, wishURL: string, scope: AbstractControl, protocol: any, tags: string): Observable<any> {
-    const body = { timestamp, deleteFlag, updateFlag, groupId, tagId, url, wishURL, scope };
+  saveNewURLPlusTags(timestamp: number, deleteFlag: boolean, updateFlag: boolean, groupId: string, url: string, wishURL: string, scope: AbstractControl, protocol: any, tags: string): Observable<any> {
+    const body = { timestamp, deleteFlag, updateFlag, groupId, url, wishURL, scope, protocol, tags};
     this.http.post<any>(`${environment.endpoints.save_url}`, body, this.headers ).subscribe(data => {
       // this.postId = data.id; ??
     });
     return this.http.post(`${environment.endpoints.save_url}`, this.headers);
   }
   // tslint:disable-next-line:max-line-length
-  saveNewURLOwnerAndTags(timestamp: number, deleteFlag: boolean, updateFlag: boolean, groupId: string, tagId: string, url: string, wishURL: string, scope: AbstractControl, protocol: any, owner: string, tags: string): Observable<any> {
-    const body = { timestamp, deleteFlag, updateFlag, groupId, tagId, url, wishURL, scope };
+  saveNewURLPlusOwnerAndTags(timestamp: number, deleteFlag: boolean, updateFlag: boolean, groupId: string, url: string, wishURL: string, scope: AbstractControl, protocol: any, owner: string, tags: string): Observable<any> {
+    const body = { timestamp, deleteFlag, updateFlag, groupId, url, wishURL, scope, protocol, owner, tags};
     this.http.post<any>(`${environment.endpoints.save_url}`, body, this.headers ).subscribe(data => {
       // this.postId = data.id; ??
     });
