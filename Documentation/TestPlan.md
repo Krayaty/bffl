@@ -9,7 +9,7 @@ Version 1.0
   * [1.3 Definitions, Acronyms and Abbreviations](#13-definitions--acronyms-and-abbreviations)
   * [1.4 Document Terminology and Acronyms](#14-document-terminology-and-acronyms)
   * [1.5 References](#15-references)
-  * [1.6 Document Structure](#16-document-strucure)
+  * [1.6 Document Structure](#16-document-strucure).
 [2. Evaluation Mission and Test Motivation](#2-evaluation-mission-and-test-motivation)
   * [2.1 Background](#21-background)
   * [2.2 Evaluation Mission](#22-evaluation-mission)
