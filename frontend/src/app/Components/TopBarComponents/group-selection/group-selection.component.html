@@ -1,0 +1,3 @@
+<select [(ngModel)]="this.getDBConnector().activeGroup">
+  <option *ngFor="let group of this.groups;" [value]="group">{{group}}</option>
+</select>

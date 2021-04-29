@@ -13,7 +13,7 @@ import { DatenschutzComponent } from './Components/BottomBarComponents/datenschu
 import { AgGridModule } from 'ag-grid-angular';
 import { MainPageComponent } from './Components/MainPageSections/main-page/main-page.component';
 import { TopbarComponent } from './Components/TopBarComponents/topbar/topbar.component';
-import { UserSelectionComponent } from './Components/TopBarComponents/user-selection/user-selection.component';
+import { GroupSelectionComponent } from './Components/TopBarComponents/group-selection/group-selection.component';
 import {AuthService} from './Services/Iam-Services/auth.service';
 import {keycloakInitializer} from './AppInit';
 import {KeycloakService} from 'keycloak-angular';
@@ -31,7 +31,7 @@ import {AuthInterceptor} from './Services/Iam-Services/auth-interceptor.service'
     DatenschutzComponent,
     MainPageComponent,
     TopbarComponent,
-    UserSelectionComponent
+    GroupSelectionComponent
   ],
   imports: [
     BrowserModule,

@@ -4,7 +4,7 @@ import {TopbarComponent} from './Components/TopBarComponents/topbar/topbar.compo
 import {BotbarComponent} from './Components/BottomBarComponents/botbar/botbar.component';
 import {ChildrenOutletContexts, RouterOutlet} from '@angular/router';
 import {KeycloakService} from 'keycloak-angular';
-import {UserSelectionComponent} from './Components/TopBarComponents/user-selection/user-selection.component';
+import {GroupSelectionComponent} from './Components/TopBarComponents/group-selection/group-selection.component';
 
 let fixture;
 let app;
@@ -14,7 +14,7 @@ describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [
-        AppComponent, TopbarComponent, BotbarComponent, RouterOutlet, UserSelectionComponent
+        AppComponent, TopbarComponent, BotbarComponent, RouterOutlet, GroupSelectionComponent
       ],
       providers: [ KeycloakService, ChildrenOutletContexts ]
     }).compileComponents();
