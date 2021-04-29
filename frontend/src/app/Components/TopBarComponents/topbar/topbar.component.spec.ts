@@ -3,7 +3,7 @@ import {ComponentFixture, inject, TestBed} from '@angular/core/testing';
 import { TopbarComponent } from './topbar.component';
 import {AuthService} from '../../../Services/Iam-Services/auth.service';
 import {KeycloakService} from 'keycloak-angular';
-import {UserSelectionComponent} from '../user-selection/user-selection.component';
+import {GroupSelectionComponent} from '../group-selection/group-selection.component';
 import {By} from '@angular/platform-browser';
 
 describe('TopbarComponent', () => {
@@ -13,7 +13,7 @@ describe('TopbarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TopbarComponent, UserSelectionComponent ],
+      declarations: [ TopbarComponent, GroupSelectionComponent ],
       providers: [ KeycloakService ]
     })
     .compileComponents();
