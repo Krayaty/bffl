@@ -21,11 +21,6 @@ public class MainController {
     @Autowired
     private AppService app_Service;
 
-    @GetMapping("/target_urls")
-    public ResponseEntity<List<Assigned_target>> getAllTargetURLs() {
-        return app_Service.findAllTargetURLs();
-    }
-
     @GetMapping("/allShortURLsByGroup")
     public ResponseEntity<List<Object>> getAllShortURLsByGroup(@RequestParam("group_name") String group_name){
         return this.app_Service.getAllShortURLsWithCurrentTargetByGroupId(group_name);
