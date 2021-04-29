@@ -3,26 +3,26 @@ BFFL | Test Plan
 Version 1.0
 ======
 
-- [1. Introduction](#1-introduction)
+[1. Introduction](#1-introduction)
   * [1.1 Purpose](#11-purpose)
   * [1.2 Scope](#12-scope)
   * [1.3 Definitions, Acronyms and Abbreviations](#13-definitions--acronyms-and-abbreviations)
   * [1.4 Document Terminology and Acronyms](#14-document-terminology-and-acronyms)
   * [1.5 References](#15-references)
   * [1.6 Document Structure](#16-document-strucure)
-- [2. Evaluation Mission and Test Motivation](#2-evaluation-mission-and-test-motivation)
+[2. Evaluation Mission and Test Motivation](#2-evaluation-mission-and-test-motivation)
   * [2.1 Background](#21-background)
   * [2.2 Evaluation Mission](#22-evaluation-mission)
   * [2.3 Test Motivators](#23-test-motivators)
-- [3. Target Test Items](#3-atarget-test-items)
-- [4. Outline of Planned Tests](#4-outline-of-planned-tests)
+[3. Target Test Items](#3-atarget-test-items)
+[4. Outline of Planned Tests](#4-outline-of-planned-tests)
   * [4.1 Outline of Test Inclusions](#41-outline-of-test-inclusion)
   * [4.2 Outline of Other Candidates for Potential Inclusion](#42-outline-of-other-candidates-for-potential-inclusion)
   * [4.3 Outline of Test Exclusions](#43-outline-of-test-exclusion)
-- [5. Test Approach](#5-test-approach)
+[5. Test Approach](#5-test-approach)
   * [5.1 Initial Test-Idea Catalogs and Other Reference Sources](#51-initialitest-idea-catalogs-and-other-reference-sources)
   * [5.2 Testing Techniques and Types](#52-testing-techniques-and-types)
-    ** [5.2.1  Data and Database Integrity Testing](#521-data-and-database-integrity-testing)
+     - [5.2.1  Data and Database Integrity Testing](#521-data-and-database-integrity-testing)
 5.2.2         Function Testing
 5.2.3         Business Cycle Testing
 5.2.4         User Interface Testing
