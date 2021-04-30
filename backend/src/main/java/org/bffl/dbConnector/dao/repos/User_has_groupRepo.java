@@ -18,6 +18,6 @@ public interface User_has_groupRepo extends JpaRepository<User_has_group, Compos
                     "AND (end_timestamp IS NULL " +
                     "OR end_timestamp > CURRENT_TIMESTAMP) " +
                     "ORDER BY end_timestamp DESC;")
-    public List<Object> findAlLGroupsOfGivenUser(String searched_user_id);
+    public List<Object> findAlLGroupsOfUser(String searched_user_id);
 
 }
