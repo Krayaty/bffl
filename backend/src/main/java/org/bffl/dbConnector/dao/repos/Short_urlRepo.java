@@ -22,7 +22,25 @@ public interface Short_urlRepo extends JpaRepository<Short_url, String> {
                 ") FROM assigned_target X " +
                 "GROUP BY X.short_url_id" +
             ") AS T ON S.id = T.short_url_id;")
-    public List<Object> findAllShortURLsWithCurrentTargetByGroupName(String searched_group_name);
+    public List<Object> findAllShortURLsWithCurrentTargetByGroup(String searched_group_name);
+
+
+    @Query(nativeQuery = true, value =
+            "SELECT S.*, T.url, T.assign_timestamp " +
+            "FROM (" +
+                    "SELECT *" +
+                    "FROM short_url " +
+                    "WHERE id = :searched_short_url_id" +
+            ") AS S INNER JOIN (" +
+                    "SELECT X.short_url_id, MAX(X.assign_timestamp) AS assign_timestamp, (" +
+                        "SELECT url " +
+                        "FROM assigned_target " +
+                        "WHERE short_url_id = X.short_url_id AND assign_timestamp = MAX(X.assign_timestamp)" +
+                    ") FROM assigned_target X " +
+                    "WHERE X.short_url_id = :searched_short_url_id " +
+                    "GROUP BY X.short_url_id" +
+            ") AS T ON S.id = T.short_url_id")
+    public List<Object> findShortURLWithCurrentTargetByID(int searched_short_url_id);
 
 }
 

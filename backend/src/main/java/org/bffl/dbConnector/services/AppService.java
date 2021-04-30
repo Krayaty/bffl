@@ -1,6 +1,6 @@
 package org.bffl.dbConnector.services;
 
-import org.bffl.dbConnector.dao.model.Assigned_target;
+import org.bffl.dbConnector.dao.model.Tag;
 import org.bffl.dbConnector.dao.repos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,20 +38,39 @@ public class AppService {
     @Autowired
     private User_has_groupRepo user_has_groupRepo;
 
-    public ResponseEntity<List<Assigned_target>> findAllTargetURLs() {
-        return new ResponseEntity<List<Assigned_target>>(this.assigned_targetRepo.findAll(), HttpStatus.OK);
-    }
-
-    public ResponseEntity<List<Object>> getAllShortURLsWithCurrentTargetByGroupId(String group_id) {
-        System.out.println(group_id);
+    public ResponseEntity<List<Object>> getAllShortURLsWithCurrentTargetByGroup(String group_name) {
         return new ResponseEntity<List<Object>>(
-                this.short_urlRepo.findAllShortURLsWithCurrentTargetByGroupName(group_id),
+                this.short_urlRepo.findAllShortURLsWithCurrentTargetByGroup(group_name),
                 HttpStatus.OK);
     }
 
-    public ResponseEntity<List<Object>> getAllGroupsOfGivenUser(String user_id) {
+    public ResponseEntity<List<Object>> getAllGroupsOfUser(String user_id) {
         return new ResponseEntity<List<Object>>(
-                this.user_has_groupRepo.findAlLGroupsOfGivenUser(user_id),
+                this.user_has_groupRepo.findAlLGroupsOfUser(user_id),
+                HttpStatus.OK);
+    }
+
+    public ResponseEntity<List<Object>> getShortURLWithCurrentTargetByID(int short_url_id){
+        return new ResponseEntity<List<Object>>(
+                this.short_urlRepo.findShortURLWithCurrentTargetByID(short_url_id),
+                HttpStatus.OK);
+    }
+
+    public ResponseEntity<List<Object>> getAllTagsAssignedToShortURL(int short_url_id){
+        return new ResponseEntity<List<Object>>(
+                this.tagRepo.findAllTagsAssignedToShortURL(short_url_id),
+                HttpStatus.OK);
+    }
+
+    public ResponseEntity<List<Object>> getAllPossibleTagsForShortURL(int short_url_id){
+        return new ResponseEntity<List<Object>>(
+                this.tagRepo.findAllPossibleTagsForShortURL(short_url_id),
+                HttpStatus.OK);
+    }
+
+    public ResponseEntity<List<Tag>> getAllTagsOfGroup(String group_name){
+        return new ResponseEntity<List<Tag>>(
+                this.tagRepo.findAllTagsOfGroup(group_name),
                 HttpStatus.OK);
     }
 

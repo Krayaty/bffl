@@ -1,6 +1,6 @@
 package org.bffl.controller;
 
-import org.bffl.dbConnector.dao.model.Assigned_target;
+import org.bffl.dbConnector.dao.model.Tag;
 import org.bffl.dbConnector.services.AppService;
 import org.bffl.iamConnector.iamConfig.KeycloakSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,15 +21,35 @@ public class MainController {
     @Autowired
     private AppService app_Service;
 
-    @GetMapping("/allShortURLsByGroup")
-    public ResponseEntity<List<Object>> getAllShortURLsByGroup(@RequestParam("group_name") String group_name){
-        return this.app_Service.getAllShortURLsWithCurrentTargetByGroupId(group_name);
+    @GetMapping("/shortURLsByGroup")
+    public ResponseEntity<List<Object>> getAllShortURLsWithCurrentTargetByGroup(@RequestParam("group_name") String group_name){
+        return this.app_Service.getAllShortURLsWithCurrentTargetByGroup(group_name);
     }
 
     @GetMapping("/groupsOfUser")
     public ResponseEntity<List<Object>> getAllGroupsByUser(HttpServletRequest request){
         String user_id = KeycloakSecurityConfig.getAccessToken(request).getSubject();
-        return this.app_Service.getAllGroupsOfGivenUser(user_id);
+        return this.app_Service.getAllGroupsOfUser(user_id);
+    }
+
+    @GetMapping("/shortURLByID")
+    public ResponseEntity<List<Object>> getShortURLWithCurrentTargetByID(@RequestParam("short_url_id") int short_url_id){
+        return this.app_Service.getShortURLWithCurrentTargetByID(short_url_id);
+    }
+
+    @GetMapping("/tagsAssignedToShortURL")
+    public ResponseEntity<List<Object>> getAllTagsAssignedToShortURL(@RequestParam("short_url_id") int short_url_id){
+        return this.app_Service.getAllTagsAssignedToShortURL(short_url_id);
+    }
+
+    @GetMapping("/possibleTagsForShortURL")
+    public ResponseEntity<List<Object>> getAllTagsOfGroup(@RequestParam("short_url_id") int short_url_id){
+        return this.app_Service.getAllPossibleTagsForShortURL(short_url_id);
+    }
+
+    @GetMapping("/tagsByGroup")
+    public ResponseEntity<List<Tag>> getAllTagsOfGroup(@RequestParam("group_name") String group_name){
+        return this.app_Service.getAllTagsOfGroup(group_name);
     }
 
 }
