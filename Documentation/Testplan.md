@@ -96,7 +96,7 @@ In addition, this document is intended to provide orientation in the development
 | ------------------------------------------------------------------------|:----------:| ------------------------- |
 | [Blog](https://bffl612917651.wordpress.com)                             | Apr. 2021  | BFFL                      |
 | [GitHub Repository](https://github.com/Krayaty/bffl)                    | Apr. 2021  | BFFL                      |
-| [Test Plan](./TestPlan.md)                                              | Apr. 2021  | BFFL                      |
+| [Test Plan](./Testplan.md)                                              | Apr. 2021  | BFFL                      |
 | [SRS](./SRS.md)                                                         | Apr. 2021  | BFFL                      |
 | [SAD](./SAD.md)                                                         | Apr. 2021  | BFFL                      |
 
