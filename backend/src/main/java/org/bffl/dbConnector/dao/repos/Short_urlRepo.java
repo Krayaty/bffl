@@ -42,5 +42,10 @@ public interface Short_urlRepo extends JpaRepository<Short_url, String> {
             ") AS T ON S.id = T.short_url_id")
     public List<Object> findShortURLWithCurrentTargetByID(int searched_short_url_id);
 
+    @Query(nativeQuery = true, value =
+            "INSERT INTO short_url (group_name, custom_suffix, scope, delete_flag, update_flag, create_timestamp) " +
+            "VALUES (:new_group_name:, :new_custom_suffix:, :new_scope, :new_delete_flag, :new_update_flag, CURRENT_TIMESTAMP); ")
+    public void saveShortURL(String new_group_name, String new_custom_suffix, String new_scope, String new_delete_flag, String new_update_flag);
+
 }
 
