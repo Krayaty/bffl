@@ -8,18 +8,14 @@ export class DbConnectorService {
 
   public activeGroup: string;
 
-  constructor(private http: HttpClient) {
-    this.getAllGroupsOfUser().subscribe(data => {
-      this.activeGroup = data;
-    });
-  }
+  constructor(private http: HttpClient) {}
 
   getAllGroupsOfUser(): Observable<any> {
     return this.http.get(`${endpoints.groups_of_user}`);
   }
 
-  getAllShortURLsByGroupName(groupName: string): Observable<any> {
-    return this.http.get(`${endpoints.short_urls_with_current_target}`, {params: {group_name: groupName}});
+  getAllShortURLsByGroupName(): Observable<any> {
+    return this.http.get(`${endpoints.short_urls_with_current_target}`, {params: {group_name: this.activeGroup}});
   }
 
 }
