@@ -11,11 +11,11 @@ export class DbConnectorService {
   constructor(private http: HttpClient) {}
 
   getAllGroupsOfUser(): Observable<any> {
-    return this.http.get(`${endpoints.groups_of_user}`);
+    return this.http.get(`${endpoints.get.groups_of_user}`);
   }
 
   getAllShortURLsByGroupName(): Observable<any> {
-    return this.http.get(`${endpoints.short_urls_with_current_target}`, {params: {group_name: this.activeGroup}});
+    return this.http.get(`${endpoints.get.short_urls_by_group}`, {params: {group_name: this.activeGroup}});
   }
 
 }

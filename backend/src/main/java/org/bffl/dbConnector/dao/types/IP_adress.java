@@ -28,6 +28,38 @@ public class IP_adress {
         this.fourthPart = fourthPart;
     }
 
+    public IP_adress(String ip){
+        int firstPart = -1;
+        int secondPart = -1;
+        int thirdPart = -1;
+        int fourthPart = -1;
+
+        String [] ipParts = ip.split(".");
+        if(ipParts != null && ipParts.length > 0 && ipParts.length != 4) {
+            String errormsg = "The given Parameters: " + ipParts[0];
+            for(int i = 1; i < ipParts.length; i++){
+                errormsg += ", " + ipParts[i];
+            }
+            errormsg += " do not match the pattern [192-233]\\.[1-255]\\.[1-255]\\.[1-255]";
+            throw new InvalidParameterException(errormsg);
+        }
+
+        firstPart = Integer.parseInt(ipParts[0]);
+        secondPart = Integer.parseInt(ipParts[1]);
+        thirdPart = Integer.parseInt(ipParts[2]);
+        fourthPart = Integer.parseInt(ipParts[3]);
+
+        if(!isValidIp(firstPart, secondPart, thirdPart, fourthPart)){
+            throw new InvalidParameterException("The given Parameters firstPart:" + firstPart +
+                    ", secondPart:" + secondPart + ", thirdPart: " + thirdPart + ", fourthPart: " + fourthPart +
+                    "can't be used to create a valid IP-adress");
+        }
+        this.firstPart = firstPart;
+        this.secondPart = secondPart;
+        this.thirdPart = thirdPart;
+        this.fourthPart = fourthPart;
+    }
+
     public String toString(){
         return this.firstPart + "." + this.secondPart + "." + this.thirdPart + "." + this.fourthPart;
     }
