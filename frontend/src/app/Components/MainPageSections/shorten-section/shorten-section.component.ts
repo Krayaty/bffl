@@ -28,8 +28,8 @@ export class ShortenSectionComponent implements OnInit {
   });
 
   columnDefs = [
-    { field: 'name', headerName: 'URL', sortable: true, resizable: true, filter: true, checkboxSelection: true },
-    { field: 'type',  headerName: 'Typ', sortable: true, filter: true, resizable: true }
+    {field: 'name', headerName: 'URL', sortable: true, resizable: true, filter: true, checkboxSelection: true},
+    {field: 'type', headerName: 'Typ', sortable: true, filter: true, resizable: true}
   ];
 
   rowData = [];
@@ -41,9 +41,9 @@ export class ShortenSectionComponent implements OnInit {
   }
 
   onSubmit(): void {
-     window.alert(this.shortenURLForm.value);
-      // window.alert(this.shortenURLForm.value);
-     this.shortenURLForm.reset();
+    window.alert(this.shortenURLForm.value);
+    // window.alert(this.shortenURLForm.value);
+    this.shortenURLForm.reset();
   }
 
   ngOnInit(): void {
@@ -52,85 +52,30 @@ export class ShortenSectionComponent implements OnInit {
   shortenURL(): void {
     // Timestamp
     const timestamp = Date.now();
-    // User-ID - später getAccessTokenParsed benutzen!
-    const userId = this.authService.getAccessToken().sub;
-    // Group-ID
-    let groupId: string;
-    this.dbconnector.getGroupID(userId)
-      .subscribe(data => {
-          groupId = data;
-        },
-        error => {
-          console.log(error);
-        });
-    window.alert('GroupID: ' + groupId);
     const url: string = this.shortenURLForm.get('originalURL').value;
     const wishURL: string = this.shortenURLForm.get('wishURL').value;
     let updateFlag: boolean = this.shortenURLForm.get('updateFlag').value;
-    if ( updateFlag !== true){
+    if (updateFlag !== true) {
       updateFlag = false;
     }
     let deleteFlag: boolean = this.shortenURLForm.get('deleteFlag').value;
-    if ( deleteFlag !== true){
+    if (deleteFlag !== true) {
       deleteFlag = false;
     }
-
-    // Do we need the urlID?
-    const urlId = this.createID();
-
     const scope = this.shortenURLForm.get('scope').value;
     const type = this.shortenURLForm.get('type').value;
     const protocol = this.shortenURLForm.get('protocol').value;
     const owner = this.shortenURLForm.get('owner').value;
     const tags = this.shortenURLForm.get('tags').value;
     // Select the right method to write to the endpoint, dependent of the optional arguments
-    if ( tags != null && owner != null){
-      this.dbconnector.saveNewURLPlusOwnerAndTags(timestamp, deleteFlag, updateFlag, groupId, url, wishURL, scope, protocol, owner, tags);
+    if (tags != null && owner != null) {
+      this.dbconnector.saveNewURLPlusOwnerAndTags(timestamp, deleteFlag, updateFlag, url, wishURL, scope, protocol, owner, tags);
+    } else if (tags != null) {
+      this.dbconnector.saveNewURLPlusTags(timestamp, deleteFlag, updateFlag, url, wishURL, scope, protocol, tags);
+    } else if (tags != null) {
+      this.dbconnector.saveNewURLPlusOwner(timestamp, deleteFlag, updateFlag, url, wishURL, scope, protocol, owner);
+    } else {
+      this.dbconnector.saveNewURL(timestamp, deleteFlag, updateFlag, url, wishURL, scope, protocol);
     }
-    else if ( tags != null){
-      this.dbconnector.saveNewURLPlusTags(timestamp, deleteFlag, updateFlag, groupId, url, wishURL, scope, protocol, tags);
-    }
-    else if ( tags != null){
-      this.dbconnector.saveNewURLPlusOwner(timestamp, deleteFlag, updateFlag, groupId, url, wishURL, scope, protocol, owner);
-    }
-    else{
-      this.dbconnector.saveNewURL(timestamp, deleteFlag, updateFlag, groupId, url, wishURL, scope, protocol);
-    }
-  }
-
-  createRandomChar(): string {
-    let max = 3;
-    let min = 1;
-    let randomNumber: number = Math.floor(Math.random() * (max - min + 1)) + min;
-
-    switch (randomNumber) {
-      case(1):
-        max = 57;
-        min = 48;
-        randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-        let res = String.fromCharCode(randomNumber);
-        return res;
-      case(2):
-        max = 90;
-        min = 65;
-        randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-        res = String.fromCharCode(randomNumber);
-        return res;
-      case(3):
-        max = 122;
-        min = 97;
-        randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-        res = String.fromCharCode(randomNumber);
-        return res;
-    }
-  }
-
-  createID(): string {
-    let id = '';
-    let i: number;
-    for ( i = 0; i < 10; i++){
-      id += this.createRandomChar();
-    }
-    return id;
   }
 }

@@ -27,32 +27,32 @@ export class DbConnectorService {
   }
 
   // tslint:disable-next-line:max-line-length
-  saveNewURL(timestamp: number, deleteFlag: boolean, updateFlag: boolean, groupId: string, url: string, wishURL: string, scope: AbstractControl, protocol: any): Observable<any> {
-    const body = { timestamp, deleteFlag, updateFlag, groupId, url, wishURL, scope };
+  saveNewURL(timestamp: number, deleteFlag: boolean, updateFlag: boolean, url: string, wishURL: string, scope: AbstractControl, protocol: any): Observable<any> {
+    const body = { timestamp, deleteFlag, updateFlag, url, wishURL, scope };
     this.http.post<any>(`${environment.endpoints.save_url}`, body, this.headers ).subscribe(data => {
       // this.postId = data.id; ??
     });
     return this.http.post(`${environment.endpoints.save_url}`, this.headers);
   }
   // tslint:disable-next-line:max-line-length
-  saveNewURLPlusOwner(timestamp: number, deleteFlag: boolean, updateFlag: boolean, groupId: string, url: string, wishURL: string, scope: AbstractControl, protocol: any, owner: string): Observable<any> {
-    const body = { timestamp, deleteFlag, updateFlag, groupId, url, wishURL, scope, protocol, owner};
+  saveNewURLPlusOwner(timestamp: number, deleteFlag: boolean, updateFlag: boolean, url: string, wishURL: string, scope: AbstractControl, protocol: any, owner: string): Observable<any> {
+    const body = { timestamp, deleteFlag, updateFlag, url, wishURL, scope, protocol, owner};
     this.http.post<any>(`${environment.endpoints.save_url}`, body, this.headers ).subscribe(data => {
       // this.postId = data.id; ??
     });
     return this.http.post(`${environment.endpoints.save_url}`, this.headers);
   }
   // tslint:disable-next-line:max-line-length
-  saveNewURLPlusTags(timestamp: number, deleteFlag: boolean, updateFlag: boolean, groupId: string, url: string, wishURL: string, scope: AbstractControl, protocol: any, tags: string): Observable<any> {
-    const body = { timestamp, deleteFlag, updateFlag, groupId, url, wishURL, scope, protocol, tags};
+  saveNewURLPlusTags(timestamp: number, deleteFlag: boolean, updateFlag: boolean, url: string, wishURL: string, scope: AbstractControl, protocol: any, tags: string): Observable<any> {
+    const body = { timestamp, deleteFlag, updateFlag, url, wishURL, scope, protocol, tags};
     this.http.post<any>(`${environment.endpoints.save_url}`, body, this.headers ).subscribe(data => {
       // this.postId = data.id; ??
     });
     return this.http.post(`${environment.endpoints.save_url}`, this.headers);
   }
   // tslint:disable-next-line:max-line-length
-  saveNewURLPlusOwnerAndTags(timestamp: number, deleteFlag: boolean, updateFlag: boolean, groupId: string, url: string, wishURL: string, scope: AbstractControl, protocol: any, owner: string, tags: string): Observable<any> {
-    const body = { timestamp, deleteFlag, updateFlag, groupId, url, wishURL, scope, protocol, owner, tags};
+  saveNewURLPlusOwnerAndTags(timestamp: number, deleteFlag: boolean, updateFlag: boolean, url: string, wishURL: string, scope: AbstractControl, protocol: any, owner: string, tags: string): Observable<any> {
+    const body = { timestamp, deleteFlag, updateFlag, url, wishURL, scope, protocol, owner, tags};
     this.http.post<any>(`${environment.endpoints.save_url}`, body, this.headers ).subscribe(data => {
       // this.postId = data.id; ??
     });
