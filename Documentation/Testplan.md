@@ -189,10 +189,10 @@ Api Testing is part of integration testing. Integration tests test multiple modu
 
 |                       | Description                                                          |
 |-----------------------|----------------------------------------------------------------------|
-|Technique Objective    | Test the provided Apis with (???) and the FEs BE-calls               |
+|Technique Objective    | Test the provided Apis manually with Postman and FEs BE-calls        |
 |Technique              | Pending decision of tool                                             |
 |Oracles                | Test execution logs results to the command line, in Pipeline and Code coverage tool |
-|Required Tools         | JUnit, Cucumber, (???)                                               |
+|Required Tools         | JUnit, Postman                                                       |
 |Success Criteria       | All tests pass. Code coverage > 50%. Pipeline is able to test BE     |
 |Special Considerations | -                                                                    |
 
@@ -230,9 +230,10 @@ The tests in FE and BE produce evaluation summaries. Thus, each time a pipeline 
 
 ## 7.2 Reporting on Test Coverage
 
-For reporting our test coverage we use (???).
+For reporting our test coverage we use surefire in BE and istanbul in FE.
 
-[Here]() the test coverage can be viewed.
+[Here](../backend/surefire-reports) the test coverage of BE can be viewed.
+[Here](../frontend/coverage/BFFL/index.html) the test coverage of FE can be viewed.
 
 ## 7.3 Perceived Quality Reports
 
@@ -282,7 +283,8 @@ The following tools will be employed to support the test process for this Test P
 | Tool Category or Type | Tool Brand Name                              |
 |-----------------------|----------------------------------------------|
 | Repository            | [github.com](https://github.com/Krayaty/bffl)|
-| Test Coverage Monitor | [(???))]()                                   |
+| Test Coverage FE | [Istanbul Test Coverage](../frontend/coverage/BFFL/index.html) |
+| Test Coverage BE | [Surefire Test Coverage](../backend/surefire-reports) |
 | Pipeline Service      | [AWS Codepipeline](aws codepipeline cdk)     |
 
 ## 10. Responsibilities, Staffing, and Training Needs
