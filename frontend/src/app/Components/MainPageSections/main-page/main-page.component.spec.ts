@@ -36,11 +36,11 @@ describe('MainPageComponent', () => {
   });
 
   it('should reload', () => {
-    spyOn(component, 'retrieveAllTargetURLs');
+    spyOn(component, 'refreshAgGrid');
 
     const button = fixture.debugElement.nativeElement.querySelectorAll('.button')[1];
     button.click();
 
-    expect(component.retrieveAllTargetURLs).toHaveBeenCalled();
+    expect(component.refreshAgGrid).toHaveBeenCalled();
   });
 });
