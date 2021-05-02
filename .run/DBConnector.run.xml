@@ -1,15 +1,17 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="DBConnector" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" singleton="false">
+    <module name="backend" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="org.bffl.*" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>
-    <option name="SPRING_BOOT_MAIN_CLASS" value="org.bffl.TestStart" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="org.bffl.Start" />
     <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$/backend" />
     <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
     <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
+    <option name="SHORTEN_COMMAND_LINE" value="NONE" />
     <option name="UPDATE_ACTION_UPDATE_POLICY" value="UpdateClassesAndTriggerFile" />
     <additionalParameters>
       <param>
