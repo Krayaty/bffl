@@ -9,9 +9,16 @@ import {AbstractControl} from '@angular/forms';
 @Injectable({ providedIn: 'root' })
 export class DbConnectorService {
 
+  private headers = {};
+
   public activeGroup: string;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, authService: AuthService) {
+    this.headers = {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${authService.getAccessToken()}`,
+    };
+  }
 
   getAllGroupsOfUser(): Observable<any> {
     return this.http.get(`${endpoints.get.groups_of_user}`);
