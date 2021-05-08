@@ -34,6 +34,7 @@ export class DbConnectorService {
     });
     return this.http.post(`${environment.endpoints.save_url}`, this.headers);
   }
+
   // tslint:disable-next-line:max-line-length
   saveNewURLPlusOwner(timestamp: number, deleteFlag: boolean, updateFlag: boolean, url: string, wishURL: string, scope: AbstractControl, protocol: any, owner: string): Observable<any> {
     const body = { timestamp, deleteFlag, updateFlag, url, wishURL, scope, protocol, owner};
@@ -42,6 +43,7 @@ export class DbConnectorService {
     });
     return this.http.post(`${environment.endpoints.save_url}`, this.headers);
   }
+
   // tslint:disable-next-line:max-line-length
   saveNewURLPlusTags(timestamp: number, deleteFlag: boolean, updateFlag: boolean, url: string, wishURL: string, scope: AbstractControl, protocol: any, tags: string): Observable<any> {
     const body = { timestamp, deleteFlag, updateFlag, url, wishURL, scope, protocol, tags};
@@ -50,6 +52,7 @@ export class DbConnectorService {
     });
     return this.http.post(`${environment.endpoints.save_url}`, this.headers);
   }
+
   // tslint:disable-next-line:max-line-length
   saveNewURLPlusOwnerAndTags(timestamp: number, deleteFlag: boolean, updateFlag: boolean, url: string, wishURL: string, scope: AbstractControl, protocol: any, owner: string, tags: string): Observable<any> {
     const body = { timestamp, deleteFlag, updateFlag, url, wishURL, scope, protocol, owner, tags};

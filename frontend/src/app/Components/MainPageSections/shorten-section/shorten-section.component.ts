@@ -72,8 +72,6 @@ export class ShortenSectionComponent implements OnInit {
       this.dbconnector.saveNewURLPlusOwnerAndTags(timestamp, deleteFlag, updateFlag, url, wishURL, scope, protocol, owner, tags);
     } else if (tags != null) {
       this.dbconnector.saveNewURLPlusTags(timestamp, deleteFlag, updateFlag, url, wishURL, scope, protocol, tags);
-    } else if (tags != null) {
-      this.dbconnector.saveNewURLPlusOwner(timestamp, deleteFlag, updateFlag, url, wishURL, scope, protocol, owner);
     } else {
       this.dbconnector.saveNewURL(timestamp, deleteFlag, updateFlag, url, wishURL, scope, protocol);
     }
