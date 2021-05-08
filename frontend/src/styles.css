@@ -9,8 +9,31 @@ body{
   min-width: 100%;
   width: 100%;
   background-color: white;
-  font-family: "Arial", sanserif;
+  font-family: "Lucida Console", serif;
   color: black;
+}
+
+input[type=text] {
+  font-family: "Lucida Console", serif;
+  border-radius: 25px;
+  background: #394B73;
+  color: #FFFFFF;
+  font-size: medium;
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid #555;
+  outline: none;
+  box-shadow: 2px 2px 5px 1px rgba(0,0,0,.3);
+}
+
+input[type=text]:hover {
+  background-color: #4F5E8C;
+}
+
+input[type=text]:focus {
+  background-color: #7AA5EA;
 }
 
 .section-container{
@@ -53,7 +76,41 @@ body{
   color: aliceblue;
 }
 
-.button:visited{
-  background: #555555;
-  color: white;
+button:hover{
+  cursor: pointer;
+}
+
+button{
+  font-family: "Lucida Console", serif;
+  border-radius: 25px;
+  background: #394B73;
+  color: #FFFFFF;
+  font-size: medium;
+  width: 20%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid #555;
+  outline: none;
+  box-shadow: 2px 2px 5px 1px rgba(0,0,0,.3);
+}
+
+select {
+  background: #394B73;
+  border: 0px solid #394B73;
+  border-radius: 25px;
+  background: #394B73;
+  color: #FFFFFF;
+  font-size: medium;
+  width: 10%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid #555;
+  outline: none;
+  box-shadow: 2px 2px 5px 1px rgba(0,0,0,.3);
+}
+
+select:hover {
+  background: #4F5E8C;
 }

@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ShortenSectionComponent } from './shorten-section.component';
 import {By} from '@angular/platform-browser';
 

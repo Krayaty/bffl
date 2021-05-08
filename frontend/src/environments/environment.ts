@@ -30,5 +30,10 @@ export const environment = {
     public: '',
     admin: 'admin',
     user: 'user',
+  },
+  endpoints: {
+    target_urls: `${apiUrl}/api/target_urls`,
+    group_id: `${apiUrl}/api/group_id`,
+    save_url: `${apiUrl}/api/save_url`
   }
 };

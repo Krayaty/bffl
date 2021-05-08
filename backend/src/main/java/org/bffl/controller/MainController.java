@@ -347,4 +347,9 @@ public class MainController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @GetMapping("/target_urls")
+    public ResponseEntity<List<Target_url>> getGroupID() { return app_Service.findGroupID(); }
+
+    @GetMapping("/save_url")
+    public ResponseEntity saveNewUrl() { return app_Service.saveNewUrl(); }
 }
