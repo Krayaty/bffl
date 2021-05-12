@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -35,6 +36,7 @@ public interface Assigned_targetRepo extends JpaRepository<Assigned_target, Comp
     String findAssignedTargetOfShortUrl(String searched_group_name, String searched_custom_suffix);
     
     @Modifying
+    @Transactional
     @Query(nativeQuery = true, value =
             "INSERT INTO assigned_target (short_url_id, assign_timestamp, url) " +
             "VALUES ((" +
@@ -42,9 +44,10 @@ public interface Assigned_targetRepo extends JpaRepository<Assigned_target, Comp
                     "FROM short_url " +
                     "WHERE custom_suffix = :new_custom_suffix AND group_name = :new_group_name" +
             "), CURRENT_TIMESTAMP, :new_target_url); ")
-    Boolean saveTargetOfNewShortURL(String new_group_name, String new_custom_suffix, String new_target_url);
+    int saveTargetOfNewShortURL(String new_group_name, String new_custom_suffix, String new_target_url);
 
     @Modifying
+    @Transactional
     @Query(nativeQuery = true, value =
             "INSERT INTO assigned_target(url, assign_timestamp, short_url_id) " +
             "VALUES (:new_target_url, CURRENT_TIMESTAMP, (" +
@@ -52,6 +55,6 @@ public interface Assigned_targetRepo extends JpaRepository<Assigned_target, Comp
                     "FROM short_url " +
                     "WHERE update_flag = true AND id = :searched_short_url_id" +
             "));")
-    Boolean saveNewTargetOfShortURL(int searched_short_url_id, String new_target_url);
+    int saveNewTargetOfShortURL(int searched_short_url_id, String new_target_url);
 
 }

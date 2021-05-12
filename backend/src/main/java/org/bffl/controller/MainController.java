@@ -1,6 +1,7 @@
 package org.bffl.controller;
 
 import org.bffl.dbConnector.dao.repos.*;
+import org.bffl.dbConnector.dao.types.postParamTypes.ShortURLWithTargetAndTags;
 import org.bffl.iamConnector.iamConfig.KeycloakSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @CrossOrigin(origins = {"http://localhost:4200", "https://bfflshort.de"}, maxAge = 3600L)
@@ -129,29 +132,27 @@ public class MainController {
     }
 
     @PostMapping("/createShortURLForGroupWithTags")
-    public ResponseEntity insertNewShortURLWithTarget(
-            @RequestParam("group_name") String group_name,
-            @RequestParam("custom_suffix") String custom_suffix,
-            @RequestParam("scope") int scope,
-            @RequestParam("delete_flag") boolean delete_flag,
-            @RequestParam("update_flag") boolean update_flag,
-            @RequestParam("target_url") String target_url,
-            @RequestParam("assigned_tag_ids") List<Integer> assigned_tag_ids){
+    public int insertNewShortURLWithTarget(@RequestBody ShortURLWithTargetAndTags body){
 
-        boolean isSuccessfull = this.short_urlRepo.saveShortURL(group_name, custom_suffix, scope, delete_flag, update_flag);
-        if(!isSuccessfull) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        int modifiedRows = this.short_urlRepo.saveShortURL(body.getGroup_name(), body.getCustom_suffix(), body.getScope(), body.isDelete_flag(), body.isUpdate_flag());
+        if(modifiedRows != 1) return HttpStatus.BAD_REQUEST.value();
 
-        isSuccessfull = this.assigned_targetRepo.saveTargetOfNewShortURL(group_name, custom_suffix, target_url);
-        if(!isSuccessfull) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        modifiedRows = this.assigned_targetRepo.saveTargetOfNewShortURL(body.getGroup_name(), body.getCustom_suffix(), body.getTarget_url());
+        if(modifiedRows != 1) return HttpStatus.BAD_REQUEST.value();
+
+        List<Integer> assigned_tag_ids = new ArrayList<>();
+        for (int i = 0; i < body.getAssigned_tag_ids().length; i++) {
+            assigned_tag_ids.add(Integer.parseInt(String.valueOf(body.getAssigned_tag_ids()[i])));
+        }
 
         if (assigned_tag_ids != null && assigned_tag_ids.size() > 0) {
             for(int tag_id: assigned_tag_ids){
-                isSuccessfull = this.url_has_tagRepo.saveTagOfGroupToShortURLBySuffix(tag_id, group_name, custom_suffix);
-                if(!isSuccessfull) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+                modifiedRows = this.url_has_tagRepo.saveTagOfGroupToShortURLBySuffix(tag_id, body.getGroup_name(), body.getCustom_suffix());
+                if(modifiedRows != 1) return HttpStatus.BAD_REQUEST.value();
             }
         }
 
-        return new ResponseEntity(HttpStatus.CREATED);
+        return HttpStatus.CREATED.value();
     }
 
     @PostMapping("/assignTagToShortURL")
@@ -159,8 +160,8 @@ public class MainController {
             @RequestParam("tag_id") int tag_id,
             @RequestParam("short_url_id") int short_url_id){
 
-        boolean isSuccessfull = this.url_has_tagRepo.saveTagOfGroupToShortURLByID(tag_id, short_url_id);
-        if(!isSuccessfull) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        int modifiedRows = this.url_has_tagRepo.saveTagOfGroupToShortURLByID(tag_id, short_url_id);
+        if(modifiedRows != 1) return new ResponseEntity(HttpStatus.BAD_REQUEST);
 
         return new ResponseEntity(HttpStatus.CREATED);
     }
@@ -170,8 +171,8 @@ public class MainController {
             @RequestParam("group_name") String group_name,
             @RequestParam("max_size") int max_size){
 
-        boolean isSuccessfull = this.app_groupRepo.saveGroup(group_name, max_size);
-        if(!isSuccessfull) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        int modifiedRows = this.app_groupRepo.saveGroup(group_name, max_size);
+        if(modifiedRows != 1) return new ResponseEntity(HttpStatus.BAD_REQUEST);
 
         return new ResponseEntity(HttpStatus.CREATED);
     }
@@ -182,8 +183,8 @@ public class MainController {
             @RequestParam("user_id") String user_id,
             @RequestParam("end_timestamp") Integer end_timestamp){
 
-        boolean isSuccessfull = this.user_has_groupRepo.saveUserAssignToGroup(group_name, user_id, end_timestamp);
-        if(!isSuccessfull) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        int modifiedRows = this.user_has_groupRepo.saveUserAssignToGroup(group_name, user_id, end_timestamp);
+        if(modifiedRows != 1) return new ResponseEntity(HttpStatus.BAD_REQUEST);
 
         return new ResponseEntity(HttpStatus.CREATED);
     }
@@ -197,8 +198,8 @@ public class MainController {
 
         String groupmember_user_id = KeycloakSecurityConfig.getAccessToken(request).getSubject();
 
-        boolean isSuccessfull = this.user_has_groupRepo.saveUserAssignAsAdminToGroup(groupmember_user_id, group_name, new_user_id, end_timestamp);
-        if(!isSuccessfull) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        int modifiedRows = this.user_has_groupRepo.saveUserAssignAsAdminToGroup(groupmember_user_id, group_name, new_user_id, end_timestamp);
+        if(modifiedRows != 1) return new ResponseEntity(HttpStatus.BAD_REQUEST);
 
         return new ResponseEntity(HttpStatus.CREATED);
     }
@@ -212,32 +213,32 @@ public class MainController {
             @RequestParam("update_flag") Boolean update_flag,
             @RequestParam("target_url") String target_url){
 
-        boolean isSuccessfull = false;
+        int modifiedRows = 0;
 
         if(custom_suffix != null && custom_suffix.length() > 0){
-            isSuccessfull = this.short_urlRepo.updateSuffixOfShortURL(short_url_id, custom_suffix);
+            modifiedRows = this.short_urlRepo.updateSuffixOfShortURL(short_url_id, custom_suffix);
         }
-        if(!isSuccessfull) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        if(modifiedRows < 1) return new ResponseEntity(HttpStatus.BAD_REQUEST);
 
         if(scope >= (System.currentTimeMillis() / 1000) + 3600){
-            isSuccessfull = this.short_urlRepo.updateScopeOfShortURL(short_url_id, scope);
+            modifiedRows = this.short_urlRepo.updateScopeOfShortURL(short_url_id, scope);
         }
-        if(!isSuccessfull) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        if(modifiedRows < 1) return new ResponseEntity(HttpStatus.BAD_REQUEST);
 
         if(delete_flag != null){
-            isSuccessfull = this.short_urlRepo.updateDeleteFlagOfShortURL(short_url_id, delete_flag);
+            modifiedRows = this.short_urlRepo.updateDeleteFlagOfShortURL(short_url_id, delete_flag);
         }
-        if(!isSuccessfull) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        if(modifiedRows < 1) return new ResponseEntity(HttpStatus.BAD_REQUEST);
 
         if(update_flag != null){
-            isSuccessfull = this.short_urlRepo.updateUpdateFlagOfShortURL(short_url_id, update_flag);
+            modifiedRows = this.short_urlRepo.updateUpdateFlagOfShortURL(short_url_id, update_flag);
         }
-        if(!isSuccessfull) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        if(modifiedRows < 1) return new ResponseEntity(HttpStatus.BAD_REQUEST);
 
         if(target_url != null && target_url.length() > 0){
-            isSuccessfull = this.assigned_targetRepo.saveNewTargetOfShortURL(short_url_id, target_url);
+            modifiedRows = this.assigned_targetRepo.saveNewTargetOfShortURL(short_url_id, target_url);
         }
-        if(!isSuccessfull) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        if(modifiedRows < 1) return new ResponseEntity(HttpStatus.BAD_REQUEST);
 
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -249,22 +250,22 @@ public class MainController {
             @RequestParam("description") String description,
             @RequestParam("color") String color){
 
-        boolean isSuccessfull = false;
+        int modifiedRows = 0;
 
         if(title != null && title.length() > 0){
-            isSuccessfull = this.tagRepo.updateTitleOfTag(tag_id, title);
+            modifiedRows = this.tagRepo.updateTitleOfTag(tag_id, title);
         }
-        if(!isSuccessfull) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        if(modifiedRows < 1) return new ResponseEntity(HttpStatus.BAD_REQUEST);
 
         if(description != null && description.length() > 0){
-            isSuccessfull = this.tagRepo.updateDescriptionOfTag(tag_id, description);
+            modifiedRows = this.tagRepo.updateDescriptionOfTag(tag_id, description);
         }
-        if(!isSuccessfull) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        if(modifiedRows < 1) return new ResponseEntity(HttpStatus.BAD_REQUEST);
 
         if(color != null && color.length() == 6){
-            isSuccessfull = this.tagRepo.updateColorOfTag(tag_id, color);
+            modifiedRows = this.tagRepo.updateColorOfTag(tag_id, color);
         }
-        if(!isSuccessfull) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        if(modifiedRows < 1) return new ResponseEntity(HttpStatus.BAD_REQUEST);
 
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -274,8 +275,8 @@ public class MainController {
             @RequestParam("group_name") String group_name,
             @RequestParam("max_size") int max_size){
 
-        boolean isSuccessfull = this.app_groupRepo.updateMaxSizeOfGroup(group_name, max_size);
-        if(!isSuccessfull) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        int modifiedRows = this.app_groupRepo.updateMaxSizeOfGroup(group_name, max_size);
+        if(modifiedRows < 1) return new ResponseEntity(HttpStatus.BAD_REQUEST);
 
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -289,17 +290,17 @@ public class MainController {
             @RequestParam("admin_flag") Boolean admin_flag){
 
         String groupmember_user_id = KeycloakSecurityConfig.getAccessToken(request).getSubject();
-        boolean isSuccessfull = false;
+        int modifiedRows = 0;
 
         if(end_timestamp != null && end_timestamp > 0){
-            isSuccessfull = this.user_has_groupRepo.updateEndTimestampOfUser(groupmember_user_id, searched_user_id, group_name, end_timestamp);
+            modifiedRows = this.user_has_groupRepo.updateEndTimestampOfUser(groupmember_user_id, searched_user_id, group_name, end_timestamp);
         }
-        if(!isSuccessfull) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        if(modifiedRows < 1) return new ResponseEntity(HttpStatus.BAD_REQUEST);
 
         if(admin_flag != null){
-            isSuccessfull = this.user_has_groupRepo.updateAdminStateOfUser(groupmember_user_id, group_name, searched_user_id, admin_flag);
+            modifiedRows = this.user_has_groupRepo.updateAdminStateOfUser(groupmember_user_id, group_name, searched_user_id, admin_flag);
         }
-        if(!isSuccessfull) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        if(modifiedRows < 1) return new ResponseEntity(HttpStatus.BAD_REQUEST);
 
         return new ResponseEntity(HttpStatus.OK);
 
@@ -313,8 +314,8 @@ public class MainController {
 
         String groupmember_user_id = KeycloakSecurityConfig.getAccessToken(request).getSubject();
 
-        boolean isSuccessfull = this.user_has_groupRepo.deleteUserOfGroupAssignment(groupmember_user_id, searched_user_id, group_name);
-        if(!isSuccessfull) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        int removedRows = this.user_has_groupRepo.deleteUserOfGroupAssignment(groupmember_user_id, searched_user_id, group_name);
+        if(removedRows < 1) return new ResponseEntity(HttpStatus.BAD_REQUEST);
 
         return new ResponseEntity(HttpStatus.OK);
 
@@ -323,8 +324,8 @@ public class MainController {
     @PostMapping("/deleteShortURL")
     public ResponseEntity deleteShortURLByID(@RequestParam("short_url_id") int short_url_id){
 
-        boolean isSuccessfull = this.short_urlRepo.deleteShortURL(short_url_id);
-        if(!isSuccessfull) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        int modifiedRows = this.short_urlRepo.deleteShortURL(short_url_id);
+        if(modifiedRows < 1) return new ResponseEntity(HttpStatus.BAD_REQUEST);
 
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -332,8 +333,8 @@ public class MainController {
     @PostMapping("/deleteTag")
     public ResponseEntity deleteTagByID(@RequestParam("tag_id") int tag_id){
 
-        boolean isSuccessfull = this.tagRepo.deleteTagById(tag_id);
-        if(!isSuccessfull) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        int modifiedRows = this.tagRepo.deleteTagById(tag_id);
+        if(modifiedRows < 1) return new ResponseEntity(HttpStatus.BAD_REQUEST);
 
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -341,8 +342,8 @@ public class MainController {
     @PostMapping("/deleteGroup")
     public ResponseEntity deleteGroupByID(@RequestParam("group_name") String group_name){
 
-        boolean isSuccessfull = this.app_groupRepo.deleteGroupById(group_name);
-        if(!isSuccessfull) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        int modifiedRows = this.app_groupRepo.deleteGroupById(group_name);
+        if(modifiedRows < 1) return new ResponseEntity(HttpStatus.BAD_REQUEST);
 
         return new ResponseEntity(HttpStatus.OK);
     }

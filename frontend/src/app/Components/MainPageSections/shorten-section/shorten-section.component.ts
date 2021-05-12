@@ -32,26 +32,20 @@ export class ShortenSectionComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onSubmit(): void {
-    window.alert(this.shortenURLForm.value);
-    this.shortenURLForm.reset();
-  }
-
   shortenURL(): void {
-    const targetURL: string = this.shortenURLForm.get('originalURL').value;
-    const customSuffix: string = this.shortenURLForm.get('wishURL').value;
-    let updateFlag: boolean = this.shortenURLForm.get('updateFlag').value;
-    if (updateFlag !== true) {
-      updateFlag = false;
+    const assignedTagIds: number[] = [];
+    if (this.shortenURLForm.get('tags').value != null) {
+      assignedTagIds.push();
     }
-    let deleteFlag: boolean = this.shortenURLForm.get('deleteFlag').value;
-    if (deleteFlag !== true) {
-      deleteFlag = false;
-    }
-    const scope = this.shortenURLForm.get('scope').value;
-    const assignedTagIds = this.shortenURLForm.get('tags').value;
 
-    this.dbconnector.saveNewShortURLWithTags(customSuffix, scope, deleteFlag, updateFlag, targetURL, assignedTagIds);
-
+    this.dbconnector.saveNewShortURLWithTags(
+      this.shortenURLForm.get('customSuffix').value,
+      this.shortenURLForm.get('scope').value,
+      this.shortenURLForm.get('deleteFlag').value,
+      this.shortenURLForm.get('updateFlag').value,
+      this.shortenURLForm.get('targetURL').value,
+      assignedTagIds
+    );
+    this.shortenURLForm.reset();
   }
 }

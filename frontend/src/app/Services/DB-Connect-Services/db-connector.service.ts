@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {endpoints} from '../../../assets/endpoints/endpoints';
 
@@ -23,18 +23,24 @@ export class DbConnectorService {
                           deleteFlag: boolean,
                           updateFlag: boolean,
                           targetURL: string,
-                          assignedTagIds: []): void {
+                          assignedTagIds: number[]): void {
 
     const body = {
       group_name: this.activeGroup,
-      custom_suffix: customSuffix,
-      scope: newScope,
-      delete_flag: deleteFlag,
-      update_flag: updateFlag,
-      target_url: targetURL,
-      assigned_tag_ids: assignedTagIds
+        custom_suffix: customSuffix,
+        scope: newScope,
+        delete_flag: deleteFlag,
+        update_flag: updateFlag,
+        target_url: targetURL,
+        assigned_tag_ids: assignedTagIds
     };
 
-    this.http.post<any>(`${endpoints.post.create_short_url_for_group_with_tags}`, body);
+    window.alert(JSON.stringify(body));
+
+    this.http.post<any>(
+      `${endpoints.post.create_short_url_for_group_with_tags}`,
+      JSON.stringify(body),
+      {headers: new HttpHeaders({ 'Content-Type': 'application/json' })}
+    ).subscribe(res => res.json());
   }
 }

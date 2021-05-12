@@ -3,11 +3,11 @@
   <h1>BFFL</h1>
   <p>Welcome to BFFL - the famous URL-Shortener </p>
 
-  <form [formGroup]="shortenURLForm" (ngSubmit)="onSubmit()" id = "myform">
-    <label for="originalURL">Original URL</label>
-    <input type="text" id="originalURL" placeholder="e.g. 'https://mywebsite/impressum.com'" formControlName="originalURL" required/>
-    <label for="wishURL">What do you want as your short URL?</label>
-    <input type="text" id = "wishURL" placeholder="e.g. 'impressum'" formControlName="wishURL" required/>
+  <form [formGroup]="shortenURLForm" (ngSubmit)="this.shortenURL()" id = "myform">
+    <label for="targetURL">Original URL</label>
+    <input type="text" id="targetURL" placeholder="e.g. 'https://mywebsite/impressum.com'" formControlName="targetURL" required/>
+    <label for="customSuffix">What do you want as your short URL?</label>
+    <input type="text" id = "customSuffix" placeholder="e.g. 'impressum'" formControlName="customSuffix" required/>
 
     <div class="control-group">
       <label class="control control-checkbox" for="updateFlag">
@@ -24,21 +24,20 @@
 
     <label for="scope">Add your Scope </label>
     <select id="scope" formControlName="scope">
-        <option value="infinite">Forever</option>
-        <option value="onemonth">One Month</option>
-        <option value="oneyear">One Year</option>
-        <option value="tenyears">10 Years</option>
+      <option value="-1">Forever</option>
+      <option value="2592000">One month</option>
+      <option value="31536000">One year</option>
+      <option value="315360000">Ten years</option>
     </select><br><br>
 
     <label for="tags">Selected Tags</label><br>
     <select name="tags" id="tags" required="required" formControlName="tags">
       <option value="default"></option>
-      <option value="test1">Tag 1</option>
-      <option value="test2">Tag 2</option>
-      <option value="test3">Tag 3</option>
+      <option value="1">Tag 1</option>
+      <option value="2">Tag 2</option>
+      <option value="3">Tag 3</option>
     </select><br>
 
-    <button class="button" (click)="shortenURL()">Shorten URL</button><br><br>
+    <input type="submit" class="button" value="Shorten URL" />
   </form>
-
 </div>
