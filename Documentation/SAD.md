@@ -62,16 +62,7 @@ The static requirement analysis of the BFFL webapp shows what the core requireme
  ![alt text](./Pictures/Static%20Requirement%20Analysis.png?raw=true)
 Figure 1: Static Requirement Analysis
 
-The dynamic requirement analysis of the BFFL webapp concretises the static requirement analysis. It consists out of the documentation of the processes of the core requirements shown in the static requirement analysis. For more details, you can read our [Software Requirement Specifications](https://github.com/Krayaty/bffl/blob/master/Documentation/SRS.md). The following figures show three of the most important requirements, which are in fact, our use cases:
-
- ![alt text](./Pictures/Dynamic%20Requirement%20Analysis%20of%20show%20Short-URLs.png?raw=true)
-Figure 2: Dynamic Requirement Analysis of “show Short-URLs”
-
-![alt text](./Pictures/Dynamic%20Requirement%20Analysis%20of%20create%20a%20Short-URL.png?raw=true)
-Figure 3: Dynamic Requirement Analysis of “create a Short-URL”
-
- ![alt text](./Pictures/Dynamic%20Requirement%20Analysis%20of%20update%20Short-URLs.png?raw=true)
-Figure 4: Dynamic Requirement Analysis of “update Short-URLs”
+The dynamic requirement analysis of the BFFL webapp concretises the static requirement analysis. It consists out of the documentation of the processes of the core requirements shown in the static requirement analysis. For more details, you can read our [Software Requirement Specifications](https://github.com/Krayaty/bffl/blob/master/Documentation/SRS.md). 
 
 ## [5. Logical View](#5-logical-view)
 ![alt text](./Pictures/Logical%20View.png?raw=true)
