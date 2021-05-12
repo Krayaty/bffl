@@ -65,14 +65,18 @@ Figure 1: Static Requirement Analysis
 The dynamic requirement analysis of the BFFL webapp concretises the static requirement analysis. It consists out of the documentation of the processes of the core requirements shown in the static requirement analysis. For more details, you can read our [Software Requirement Specifications](https://github.com/Krayaty/bffl/blob/master/Documentation/SRS.md). 
 
 ## [5. Logical View](#5-logical-view)
-![alt text](./Pictures/Logical%20View.png?raw=true)
 
-Figure 5: The following figure shows the architecture of the BFFL webapp and gives information of central functionalities, attributes and dependencies of all major components.
+![alt text](./Pictures/Angular%20Model-View-Controller.jpg?raw=true)
+![alt text](./Pictures/Screenshot%20(888).png?raw=true)
+Figure 2 and 3: In the second figure, you can see how the components in angular usually belong to rather model, view or controller. The third figure shows how our application is structured. As visible in the second picture, the spec.ts and .ts -files belong to the controller and the .html and .css files belong to the view.
+
+![alt text](./Pictures/Logical%20View%20with%20Model%20View%20and%20Model%20View.jpg?raw=true)
+Figure 4: This figure shows the architecture of the BFFL webapp and gives information of central functionalities, attributes and dependencies of all major components. You can also see the parts which belong to the model, the model-view and the view.
 
 ## [6. Deployment View](#6-deployment-view)
  ![alt text](./Pictures/Digital%20Infrastructure%20Diagram.png?raw=true)
-Figure 6: Digital Infrastructure Diagram
+Figure 5: Digital Infrastructure Diagram
 
 ## [7. Data View](#7-data-view)
  ![alt text](./Pictures/DB%20Schema.png?raw=true)
-Figure 7: Database scheme
+Figure 5: Database scheme
