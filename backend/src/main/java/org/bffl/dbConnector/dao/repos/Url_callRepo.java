@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -27,6 +28,7 @@ public interface Url_callRepo extends JpaRepository<Url_call, Composite_url_call
     List<Object> findAllCallsOfShortURL(int searched_short_url_id);
 
     @Modifying
+    @Transactional
     @Query(nativeQuery = true, value =
             "INSERT INTO url_call (client_ip, short_url_id, call_timestamp, region)" +
             "VALUES (:new_client_ip, (" +
@@ -37,6 +39,7 @@ public interface Url_callRepo extends JpaRepository<Url_call, Composite_url_call
     Boolean saveUrlCall(String searched_group_name, String searched_custom_suffix, IP_adress new_client_ip, String new_region);
 
     @Modifying
+    @Transactional
     @Query(nativeQuery = true, value =
             "INSERT INTO url_call (client_ip, short_url_id, call_timestamp)" +
             "VALUES (:new_client_ip, (" +

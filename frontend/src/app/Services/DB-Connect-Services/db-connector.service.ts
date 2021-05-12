@@ -1,24 +1,14 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {endpoints} from '../../../assets/endpoints/endpoints';
-import {environment} from '../../../environments/environment';
-import {AuthService} from '../Iam-Services/auth.service';
-import {AbstractControl} from '@angular/forms';
 
 @Injectable({ providedIn: 'root' })
 export class DbConnectorService {
 
-  private headers = {};
-
   public activeGroup: string;
 
-  constructor(private http: HttpClient, authService: AuthService) {
-    this.headers = {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${authService.getAccessToken()}`,
-    };
-  }
+  constructor(private http: HttpClient) {}
 
   getAllGroupsOfUser(): Observable<any> {
     return this.http.get(`${endpoints.get.groups_of_user}`);
@@ -28,44 +18,29 @@ export class DbConnectorService {
     return this.http.get(`${endpoints.get.short_urls_by_group}`, {params: {group_name: this.activeGroup}});
   }
 
-  // Eventuell zur Sicherheit noch ändern - user_id wird über URL verschickt
-  getGroupID(userId: string): Observable<any> {
-    return this.http.get(`${environment.endpoints.group_id}&user_id=${userId}`, this.headers);
-  }
+  saveNewShortURLWithTags(customSuffix: string,
+                          newScope: number,
+                          deleteFlag: boolean,
+                          updateFlag: boolean,
+                          targetURL: string,
+                          assignedTagIds: number[]): void {
 
-  // tslint:disable-next-line:max-line-length
-  saveNewURL(timestamp: number, deleteFlag: boolean, updateFlag: boolean, url: string, wishURL: string, scope: AbstractControl, protocol: any): Observable<any> {
-    const body = { timestamp, deleteFlag, updateFlag, url, wishURL, scope };
-    this.http.post<any>(`${environment.endpoints.save_url}`, body, this.headers ).subscribe(data => {
-      // this.postId = data.id; ??
-    });
-    return this.http.post(`${environment.endpoints.save_url}`, this.headers);
-  }
+    const body = {
+      group_name: this.activeGroup,
+        custom_suffix: customSuffix,
+        scope: newScope,
+        delete_flag: deleteFlag,
+        update_flag: updateFlag,
+        target_url: targetURL,
+        assigned_tag_ids: assignedTagIds
+    };
 
-  // tslint:disable-next-line:max-line-length
-  saveNewURLPlusOwner(timestamp: number, deleteFlag: boolean, updateFlag: boolean, url: string, wishURL: string, scope: AbstractControl, protocol: any, owner: string): Observable<any> {
-    const body = { timestamp, deleteFlag, updateFlag, url, wishURL, scope, protocol, owner};
-    this.http.post<any>(`${environment.endpoints.save_url}`, body, this.headers ).subscribe(data => {
-      // this.postId = data.id; ??
-    });
-    return this.http.post(`${environment.endpoints.save_url}`, this.headers);
-  }
+    window.alert(JSON.stringify(body));
 
-  // tslint:disable-next-line:max-line-length
-  saveNewURLPlusTags(timestamp: number, deleteFlag: boolean, updateFlag: boolean, url: string, wishURL: string, scope: AbstractControl, protocol: any, tags: string): Observable<any> {
-    const body = { timestamp, deleteFlag, updateFlag, url, wishURL, scope, protocol, tags};
-    this.http.post<any>(`${environment.endpoints.save_url}`, body, this.headers ).subscribe(data => {
-      // this.postId = data.id; ??
-    });
-    return this.http.post(`${environment.endpoints.save_url}`, this.headers);
-  }
-
-  // tslint:disable-next-line:max-line-length
-  saveNewURLPlusOwnerAndTags(timestamp: number, deleteFlag: boolean, updateFlag: boolean, url: string, wishURL: string, scope: AbstractControl, protocol: any, owner: string, tags: string): Observable<any> {
-    const body = { timestamp, deleteFlag, updateFlag, url, wishURL, scope, protocol, owner, tags};
-    this.http.post<any>(`${environment.endpoints.save_url}`, body, this.headers ).subscribe(data => {
-      // this.postId = data.id; ??
-    });
-    return this.http.post(`${environment.endpoints.save_url}`, this.headers);
+    this.http.post<any>(
+      `${endpoints.post.create_short_url_for_group_with_tags}`,
+      JSON.stringify(body),
+      {headers: new HttpHeaders({ 'Content-Type': 'application/json' })}
+    ).subscribe(res => res.json());
   }
 }

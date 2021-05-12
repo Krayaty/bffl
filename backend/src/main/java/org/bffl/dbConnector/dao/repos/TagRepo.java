@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -31,30 +32,34 @@ public interface TagRepo extends JpaRepository<Tag, Integer> {
     List<Object> findAllPossibleTagsForShortURL(int searched_short_url_id);
 
     @Modifying
+    @Transactional
     @Query(nativeQuery = true, value =
             "UPDATE tag " +
             "SET title = :new_title " +
             "WHERE title != :new_title AND id = :searched_tag_id;")
-    Boolean updateTitleOfTag(int searched_tag_id, String new_title);
+    Integer updateTitleOfTag(int searched_tag_id, String new_title);
 
     @Modifying
+    @Transactional
     @Query(nativeQuery = true, value =
             "UPDATE tag " +
             "SET description = :new_description " +
             "WHERE description != :new_description AND id = :searched_tag_id;")
-    Boolean updateDescriptionOfTag(int searched_tag_id, String new_description);
+    Integer updateDescriptionOfTag(int searched_tag_id, String new_description);
 
     @Modifying
+    @Transactional
     @Query(nativeQuery = true, value =
             "UPDATE tag " +
             "SET color = :new_color " +
             "WHERE color != :new_color AND id = :searched_tag_id;")
-    Boolean updateColorOfTag(int searched_tag_id, String new_color);
+    Integer updateColorOfTag(int searched_tag_id, String new_color);
 
     @Modifying
+    @Transactional
     @Query(nativeQuery = true, value =
             "DELETE FROM tag " +
             "WHERE id = :searched_tag_id;")
-    Boolean deleteTagById(int searched_tag_id);
+    Integer deleteTagById(int searched_tag_id);
 
 }

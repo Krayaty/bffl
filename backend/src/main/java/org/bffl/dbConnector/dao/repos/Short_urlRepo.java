@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 @Repository
@@ -44,19 +46,22 @@ public interface Short_urlRepo extends JpaRepository<Short_url, Integer> {
     List<Object> findShortURLWithCurrentTargetByID(int searched_short_url_id);
 
     @Modifying
+    @Transactional
     @Query(nativeQuery = true, value =
             "INSERT INTO short_url (group_name, custom_suffix, scope, delete_flag, update_flag, create_timestamp) " +
-            "VALUES (:new_group_name:, :new_custom_suffix:, :new_scope, :new_delete_flag, :new_update_flag, CURRENT_TIMESTAMP); ")
-    Boolean saveShortURL(String new_group_name, String new_custom_suffix, int new_scope, boolean new_delete_flag, boolean new_update_flag);
+            "VALUES (:new_group_name, :new_custom_suffix, :new_scope, :new_delete_flag, :new_update_flag, CURRENT_TIMESTAMP); ")
+    Integer saveShortURL(String new_group_name, String new_custom_suffix, int new_scope, boolean new_delete_flag, boolean new_update_flag);
 
     @Modifying
+    @Transactional
     @Query(nativeQuery = true, value =
             "UPDATE short_url " +
             "SET custom_suffix = :new_custom_suffix " +
             "WHERE id = :searched_short_url_id AND custom_suffix != :new_custom_suffix AND update_flag = true;")
-    Boolean updateSuffixOfShortURL(int searched_short_url_id, String new_custom_suffix);
+    Integer updateSuffixOfShortURL(int searched_short_url_id, String new_custom_suffix);
 
     @Modifying
+    @Transactional
     @Query(nativeQuery = true, value =
             "UPDATE short_url " +
             "SET scope = :new_scope " +
@@ -65,27 +70,30 @@ public interface Short_urlRepo extends JpaRepository<Short_url, Integer> {
                     "FROM short_url " +
                     "WHERE id = :searched_short_url_id) + :new_scope * interval '1 second'" +
             ") AND scope != :new_scope AND id = :searched_short_url_id AND update_flag = true;")
-    Boolean updateScopeOfShortURL(int searched_short_url_id, int new_scope);
+    Integer updateScopeOfShortURL(int searched_short_url_id, int new_scope);
 
     @Modifying
+    @Transactional
     @Query(nativeQuery = true, value =
             "UPDATE short_url " +
             "SET delete_flag = :new_delete_flag " +
             "WHERE delete_flag != :new_delete_flag AND id = :searched_short_url_id AND update_flag = true;")
-    Boolean updateDeleteFlagOfShortURL(int searched_short_url_id, boolean new_delete_flag);
+    Integer updateDeleteFlagOfShortURL(int searched_short_url_id, boolean new_delete_flag);
 
     @Modifying
+    @Transactional
     @Query(nativeQuery = true, value =
             "UPDATE short_url " +
             "SET update_flag = :new_update_flag " +
             "WHERE update_flag != :new_update_flag AND id = :searched_short_url_id AND update_flag = true;")
-    Boolean updateUpdateFlagOfShortURL(int searched_short_url_id, boolean new_update_flag);
+    Integer updateUpdateFlagOfShortURL(int searched_short_url_id, boolean new_update_flag);
 
     @Modifying
+    @Transactional
     @Query(nativeQuery = true, value =
             "DELETE FROM short_url " +
             "WHERE id = :searched_short_url_id AND delete_tag = true;")
-    Boolean deleteShortURL(int searched_short_url_id);
+    Integer deleteShortURL(int searched_short_url_id);
 
 }
 

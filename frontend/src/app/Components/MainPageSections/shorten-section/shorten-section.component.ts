@@ -12,27 +12,17 @@ import { ShortenService } from '../../../Services/Shorten-Services/shorten.servi
   styleUrls: ['./shorten-section.component.css']
 })
 export class ShortenSectionComponent implements OnInit {
-  document: any;
 
   items = this.shortenService.getItems();
+
   shortenURLForm = this.formBuilder.group({
-    originalURL: ['', Validators.required],
-    wishURL: ['', Validators.required],
+    targetURL: ['', Validators.required],
+    customSuffix: ['', Validators.required],
     updateFlag: '',
     deleteFlag: '',
     scope: '',
-    type: '',
-    owner: ['', Validators.required],
-    protocol: '',
     tags: ''
   });
-
-  columnDefs = [
-    {field: 'name', headerName: 'URL', sortable: true, resizable: true, filter: true, checkboxSelection: true},
-    {field: 'type', headerName: 'Typ', sortable: true, filter: true, resizable: true}
-  ];
-
-  rowData = [];
 
   constructor(private dbconnector: DbConnectorService,
               private authService: AuthService,
@@ -40,40 +30,22 @@ export class ShortenSectionComponent implements OnInit {
               private shortenService: ShortenService) {
   }
 
-  onSubmit(): void {
-    window.alert(this.shortenURLForm.value);
-    // window.alert(this.shortenURLForm.value);
-    this.shortenURLForm.reset();
-  }
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   shortenURL(): void {
-    // Timestamp
-    const timestamp = Date.now();
-    const url: string = this.shortenURLForm.get('originalURL').value;
-    const wishURL: string = this.shortenURLForm.get('wishURL').value;
-    let updateFlag: boolean = this.shortenURLForm.get('updateFlag').value;
-    if (updateFlag !== true) {
-      updateFlag = false;
+    const assignedTagIds: number[] = [];
+    if (this.shortenURLForm.get('tags').value != null) {
+      assignedTagIds.push();
     }
-    let deleteFlag: boolean = this.shortenURLForm.get('deleteFlag').value;
-    if (deleteFlag !== true) {
-      deleteFlag = false;
-    }
-    const scope = this.shortenURLForm.get('scope').value;
-    const type = this.shortenURLForm.get('type').value;
-    const protocol = this.shortenURLForm.get('protocol').value;
-    const owner = this.shortenURLForm.get('owner').value;
-    const tags = this.shortenURLForm.get('tags').value;
-    // Select the right method to write to the endpoint, dependent of the optional arguments
-    if (tags != null && owner != null) {
-      this.dbconnector.saveNewURLPlusOwnerAndTags(timestamp, deleteFlag, updateFlag, url, wishURL, scope, protocol, owner, tags);
-    } else if (tags != null) {
-      this.dbconnector.saveNewURLPlusTags(timestamp, deleteFlag, updateFlag, url, wishURL, scope, protocol, tags);
-    } else {
-      this.dbconnector.saveNewURL(timestamp, deleteFlag, updateFlag, url, wishURL, scope, protocol);
-    }
+
+    this.dbconnector.saveNewShortURLWithTags(
+      this.shortenURLForm.get('customSuffix').value,
+      this.shortenURLForm.get('scope').value,
+      this.shortenURLForm.get('deleteFlag').value,
+      this.shortenURLForm.get('updateFlag').value,
+      this.shortenURLForm.get('targetURL').value,
+      assignedTagIds
+    );
+    this.shortenURLForm.reset();
   }
 }

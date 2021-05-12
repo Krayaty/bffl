@@ -6,8 +6,7 @@ import { Injectable } from '@angular/core';
 export class ShortenService {
   items = [];
 
-  // tslint:disable-next-line:typedef
-  getItems() {
+  getItems(): any[] {
     return this.items;
   }
 
