@@ -24,11 +24,6 @@ export const environment = {
       user: 'APP-User',
       admin: 'APP-Admin',
     },
-  },
-  paths: {
-    public: '',
-    admin: 'admin',
-    user: 'user',
   }
 };
 
