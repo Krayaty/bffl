@@ -19,7 +19,7 @@ input[type=text] {
   background: #394B73;
   color: #FFFFFF;
   font-size: medium;
-  width: 100%;
+  width: 75%;
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
@@ -40,7 +40,10 @@ input[type=text]:focus {
   margin: 10px 10px 10px 0px;
   overflow: auto;
   display: block;
-  text-align: center;
+}
+
+.shorten-section-container{
+  padding: 2%;
 }
 
 .bar{
@@ -102,7 +105,7 @@ select {
   background: #394B73;
   color: #FFFFFF;
   font-size: medium;
-  width: 10%;
+  width: 75%;
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
