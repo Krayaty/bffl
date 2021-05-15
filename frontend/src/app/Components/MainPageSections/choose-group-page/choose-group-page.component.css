@@ -1,0 +1,186 @@
+div{
+  background: #394B73 !important;
+  font-size: 1.5em;
+  color: aliceblue;
+}
+
+b{
+  padding-right: 6em;
+}
+
+a{
+  color: aliceblue;
+  width: 10em;
+  text-decoration: none;
+  padding-right: 3em;
+}
+
+a:hover{
+  color: white;
+  cursor: pointer;
+}
+
+app-user-selection{
+  float: right;
+}
+
+#menu, #menu ul, #menu nav, #menu li, #menu a {
+  border: none;
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+}
+
+#menu {
+  height: 37px;
+  display: block;
+  border: 1px solid;
+  border-radius: 5px;
+  width: auto;
+  border-color: black;
+  margin: 0;
+  padding: 0;
+}
+#menu > ul > nav{
+  list-style: inside none;
+  margin: 0;
+  padding: 0;
+}
+#menu > ul > nav > li {
+  list-style: inside none;
+  float: left;
+  display: inline-block;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+#menu.align-center > ul > nav {
+  text-align: center;
+}
+#menu.align-center > ul > nav > li {
+  float: none;
+  margin-left: -3px;
+}
+#menu.align-center ul ul {
+  text-align: left;
+}
+#menu.align-center > ul > nav > li:first-child > a {
+  border-radius: 0;
+}
+#menu > ul > nav> li > a {
+  outline: none;
+  display: block;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.4);
+  font-weight: 700;
+  font-size: 13px;
+  border-right: 2px solid #080808;
+  color: #ffffff;
+  padding: 12px 20px;
+}
+#menu > ul > nav > li:first-child > a {
+  border-radius: 5px 0 0 5px;
+}
+#menu > ul > nav > li > a:after {
+  content: "";
+  position: absolute;
+  border-right: 1px solid;
+  top: -1px;
+  bottom: -1px;
+  right: -2px;
+  z-index: 99;
+  border-color: #3c3c3c;
+}
+#menu ul nav li.has-sub:hover > a:after {
+  top: 0;
+  bottom: 0;
+}
+#menu > ul > nav > li.has-sub > a:before {
+  content: "";
+  position: absolute;
+  top: 18px;
+  right: 6px;
+  border: 5px solid transparent;
+  border-top: 5px solid #ffffff;
+}
+#menu > ul > nav > li.has-sub:hover > a:before {
+  top: 19px;
+}
+#menu > ul > nav > li.has-sub:hover > a {
+  padding-bottom: 14px;
+  z-index: 999;
+  border-color: #ffffff;
+}
+#menu ul nav li.has-sub:hover > ul nav, #menu ul nav li.has-sub:hover > div {
+  display: block;
+}
+#menu > ul > nav > li.has-sub > a:hover, #menu > ul > li.has-sub:hover > a {
+  background: #7AA5EA;
+  border-color: #3f3f3f;
+}
+#menu ul nav li > nav > ul, #menu ul nav li > div {
+  display: none;
+  width: auto;
+  position: absolute;
+  top: 38px;
+  background: #7AA5EA;
+  border-radius: 0 0 5px 5px;
+  z-index: 999;
+  padding: 10px 0;
+}
+#menu ul nav li > nav > ul {
+  width: 200px;
+}
+#menu ul ul ul {
+  position: absolute;
+}
+#menu ul ul li:hover > nav > ul {
+  left: 100%;
+  top: -10px;
+  border-radius: 5px;
+}
+#menu ul nav li > > nav ul li {
+  display: block;
+  list-style: inside none;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+#menu ul li > nav > ul li a {
+  outline: none;
+  display: block;
+  position: relative;
+  font: 10pt "Lucida Console", serif;
+  color: #ffffff;
+  text-decoration: none;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
+  margin: 0;
+  padding: 8px 20px;
+}
+#menu, #menu ul ul > nav > li:hover > a, #menu ul ul nav li a:hover {
+  background: #394B73;
+}
+#menu > ul > nav > li > a:hover {
+  background: #7AA5EA;
+  color: #ffffff;
+}
+#menu ul ul a:hover {
+  color: #ffffff;
+}
+#menu > ul > nav > li.has-sub > a:hover:before {
+  border-top: 5px solid #ffffff;
+}
+
+.logout {
+  position: absolute;
+  top: 2em;
+  right: 0%;
+}
+
+button{
+  background: aliceblue;
+  color: #7AA5EA;
+}
+
