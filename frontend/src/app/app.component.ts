@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {DbConnectorService} from './Services/DB-Connect-Services/db-connector.service';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +9,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'BFFL-Shortener';
 
-  constructor() {}
-
+  constructor(public dbconnector: DbConnectorService) {}
 }
+
+

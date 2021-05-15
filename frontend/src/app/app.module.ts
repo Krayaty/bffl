@@ -14,12 +14,13 @@ import { AgGridModule } from 'ag-grid-angular';
 import { MainPageComponent } from './Components/MainPageSections/main-page/main-page.component';
 import { TopbarComponent } from './Components/TopBarComponents/topbar/topbar.component';
 import { GroupSelectionComponent } from './Components/TopBarComponents/group-selection/group-selection.component';
-import {AuthService} from './Services/Iam-Services/auth.service';
-import {keycloakInitializer} from './AppInit';
-import {KeycloakService} from 'keycloak-angular';
-import {AuthGuardService} from './Services/Iam-Services/auth-guard.service';
-import {DbConnectorService} from './Services/DB-Connect-Services/db-connector.service';
-import {AuthInterceptor} from './Services/Iam-Services/auth-interceptor.service';
+import { AuthService} from './Services/Iam-Services/auth.service';
+import { keycloakInitializer} from './AppInit';
+import { KeycloakService} from 'keycloak-angular';
+import { AuthGuardService} from './Services/Iam-Services/auth-guard.service';
+import { DbConnectorService} from './Services/DB-Connect-Services/db-connector.service';
+import { AuthInterceptor} from './Services/Iam-Services/auth-interceptor.service';
+import { ChooseGroupPageComponent } from './Components/MainPageSections/choose-group-page/choose-group-page.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import {AuthInterceptor} from './Services/Iam-Services/auth-interceptor.service'
     DatenschutzComponent,
     MainPageComponent,
     TopbarComponent,
-    GroupSelectionComponent
+    GroupSelectionComponent,
+    ChooseGroupPageComponent
   ],
     imports: [
         BrowserModule,
