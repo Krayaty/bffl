@@ -184,3 +184,17 @@ button{
   color: #7AA5EA;
 }
 
+.ag-grid-container{
+  height:500px;
+  width: 96%;
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-top: 20px;
+  margin-bottom: 1.4em;
+  padding: 0;
+}
+
+ag-grid-angular{
+  width: 100%;
+  height: 100%;
+}

@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {AgGridAngular} from 'ag-grid-angular';
 import {DbConnectorService} from '../../../Services/DB-Connect-Services/db-connector.service';
 import {AuthService} from '../../../Services/Iam-Services/auth.service';
+import {GroupName} from '../../../DBReturnTypes/DBReturnTypes';
 
 @Component({
   selector: 'app-choose-group-page',
@@ -15,7 +16,7 @@ export class ChooseGroupPageComponent implements OnInit {
   api;
   columnApi;
 
-  rowData: string[];
+  rowData: GroupName[];
 
   columnDefs = [{
     field: 'groupName',
@@ -35,9 +36,9 @@ export class ChooseGroupPageComponent implements OnInit {
   retrieveAllGroups(): void {
     this.dbconnector.getAllGroupsOfUser()
       .subscribe(data => {
-          const groupNames: string[] = [];
+          const groupNames: GroupName[] = [];
           data.forEach(entry => {
-            groupNames.push(entry);
+            groupNames.push(new GroupName(entry));
           });
           this.rowData = groupNames;
         },
@@ -46,19 +47,30 @@ export class ChooseGroupPageComponent implements OnInit {
         });
   }
 
+  onRowClicked(event: GroupName): void {
+    window.alert('row' + event);
+  }
+
+  onCellClicked(event: any): void {
+    window.alert('cell' + event);
+  }
+
+  onSelectionChanged(event: any): void {
+    window.alert('selection' + event);
+  }
+
   getSelectedRows(): void {
     const selectedNodes = this.api.getSelectedNodes();
-    const selectedData = selectedNodes.map(node => node.data );
-    const selectedDataStringPresentation = selectedData.map(node => node.make + ' ' + node.model).join(', ');
-
-    alert(`Selected nodes: ${selectedDataStringPresentation}`);
+    const selectedData = selectedNodes.map(node => node.data);
+    alert(`Your selected Group:\n${JSON.stringify(selectedData)}`);
+    window.alert(JSON.stringify(selectedData));
+    this.dbconnector.activeGroup = JSON.stringify(selectedData);
   }
 
   onGridReady(params): void {
     this.api = params.api;
     this.columnApi = params.columnApi;
     this.api.sizeColumnsToFit();
-    this.api.setRowData(this.rowData);
   }
 
   onGridSizeChange(params): void {

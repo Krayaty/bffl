@@ -1,18 +1,17 @@
 <div class="bar">
-  <h3><b class="bar-button">BFFL – URL Shortener</b>
-  <a class="bar-button logout" (click)="this.logout()">Logout</a></h3>
+  <h1><b class="bar-button">BFFL – URL Shortener</b></h1>
+  <h4><a class="bar-button logout" (click)="this.logout()">Logout</a></h4>
 </div>
 
 <div class="shorten-section-container">
-
-  <h1>BFFL</h1>
-  <p>Welcome to BFFL - please choose your group, first! </p><br><br>
+  <p>Welcome to BFFL - please choose your group, first! </p>
 
   <div class="section-container">
     <div class="ag-grid-container">
       <ag-grid-angular
         (gridReady)="onGridReady($event)"
         (gridSizeChanged)="onGridSizeChange($event)"
+        (rowClicked)='getSelectedRows()'
         class="ag-theme-alpine"
         colResizeDefault='shift'
         [rowData]="rowData"
@@ -22,5 +21,4 @@
     </div>
     <button class="button" (click)="submit()">Submit</button><br><br><br><br>
   </div>
-
 </div>
