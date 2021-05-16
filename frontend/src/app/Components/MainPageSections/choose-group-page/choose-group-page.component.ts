@@ -11,11 +11,13 @@ import {GroupName} from '../../../DBReturnTypes/DBReturnTypes';
 })
 export class ChooseGroupPageComponent implements OnInit {
 
+  constructor(private dbconnector: DbConnectorService, private authService: AuthService) { }
+
   @ViewChild('agGrid') agGrid: AgGridAngular;
 
   api;
   columnApi;
-
+  selectedData;
   rowData: GroupName[];
 
   columnDefs = [{
@@ -26,8 +28,6 @@ export class ChooseGroupPageComponent implements OnInit {
     filter: true,
     resizable: true
   }];
-
-  constructor(private dbconnector: DbConnectorService, private authService: AuthService) { }
 
   ngOnInit(): void {
     setTimeout(() => { this.retrieveAllGroups(); }, 200);
@@ -47,24 +47,14 @@ export class ChooseGroupPageComponent implements OnInit {
         });
   }
 
-  onRowClicked(event: GroupName): void {
-    window.alert('row' + event);
-  }
-
-  onCellClicked(event: any): void {
-    window.alert('cell' + event);
-  }
-
-  onSelectionChanged(event: any): void {
-    window.alert('selection' + event);
-  }
-
   getSelectedRows(): void {
     const selectedNodes = this.api.getSelectedNodes();
-    const selectedData = selectedNodes.map(node => node.data);
-    alert(`Your selected Group:\n${JSON.stringify(selectedData)}`);
-    window.alert(JSON.stringify(selectedData));
-    this.dbconnector.activeGroup = JSON.stringify(selectedData);
+    this.selectedData = selectedNodes.map(node => node.data);
+    this.selectedData = JSON.stringify(this.selectedData);
+    this.selectedData = this.selectedData.split('"groupName":"', 2).pop();
+    this.selectedData = this.selectedData.split('"}]', 1);
+    this.dbconnector.activeGroup = this.selectedData;
+    this.dbconnector.testConnection();
   }
 
   onGridReady(params): void {
@@ -82,6 +72,7 @@ export class ChooseGroupPageComponent implements OnInit {
   }
 
   submit(): void {
+    this.dbconnector.testConnection();
     window.location.reload();
   }
 }
