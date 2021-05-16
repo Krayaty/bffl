@@ -26,5 +26,4 @@ export class GroupSelectionComponent implements OnInit {
   public getDBConnector(): DbConnectorService {
     return this.dbconnector;
   }
-
 }
