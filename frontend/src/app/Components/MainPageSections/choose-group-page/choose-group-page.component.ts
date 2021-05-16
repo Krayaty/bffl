@@ -1,7 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {AgGridAngular} from 'ag-grid-angular';
 import {DbConnectorService} from '../../../Services/DB-Connect-Services/db-connector.service';
-import {Observable} from 'rxjs';
 import {AuthService} from '../../../Services/Iam-Services/auth.service';
 
 @Component({
@@ -30,17 +29,15 @@ export class ChooseGroupPageComponent implements OnInit {
   constructor(private dbconnector: DbConnectorService, private authService: AuthService) { }
 
   ngOnInit(): void {
-    // this.rowData = this.dbconnector.getAllGroupsOfUser();
-    // setTimeout(() => { this.dbconnector.getAllGroupsOfUser(); }, 200);
     setTimeout(() => { this.retrieveAllGroups(); }, 200);
   }
 
-  public retrieveAllGroups(): void {
-    this.dbconnector.getAllShortURLsByGroupName()
+  retrieveAllGroups(): void {
+    this.dbconnector.getAllGroupsOfUser()
       .subscribe(data => {
           const groupNames: string[] = [];
           data.forEach(entry => {
-            this.dbconnector.getAllGroupsOfUser();
+            groupNames.push(entry);
           });
           this.rowData = groupNames;
         },
@@ -61,6 +58,7 @@ export class ChooseGroupPageComponent implements OnInit {
     this.api = params.api;
     this.columnApi = params.columnApi;
     this.api.sizeColumnsToFit();
+    this.api.setRowData(this.rowData);
   }
 
   onGridSizeChange(params): void {
