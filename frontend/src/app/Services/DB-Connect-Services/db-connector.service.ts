@@ -43,4 +43,8 @@ export class DbConnectorService {
       {headers: new HttpHeaders({ 'Content-Type': 'application/json' })}
     ).subscribe(res => res.json());
   }
+
+  testConnection(): void {
+    window.alert('activeGroup: ' + this.activeGroup);
+  }
 }
