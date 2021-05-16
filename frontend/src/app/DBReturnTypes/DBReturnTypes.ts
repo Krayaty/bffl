@@ -36,3 +36,11 @@ export function convertToShortURLWithTarget(object: any[]): ShortURLWithTarget {
     object[6],
   );
 }
+
+export class GroupName {
+  private groupName: string;
+
+  public constructor(groupName: string) {
+    this.groupName = groupName;
+  }
+}
