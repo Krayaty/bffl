@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ShortURLWithTargetAndTags {
+public class POST_ShortURLWithTargetAndTags {
     private String group_name;
     private String custom_suffix;
     private int scope;
@@ -14,13 +14,13 @@ public class ShortURLWithTargetAndTags {
     private String target_url;
     private Integer[] assigned_tag_ids;
 
-    public ShortURLWithTargetAndTags(String group_name,
-                                     String custom_suffix,
-                                     int scope,
-                                     boolean delete_flag,
-                                     boolean update_flag,
-                                     String target_url,
-                                     String[] assigned_tag_ids){
+    public POST_ShortURLWithTargetAndTags(String group_name,
+                                          String custom_suffix,
+                                          int scope,
+                                          boolean delete_flag,
+                                          boolean update_flag,
+                                          String target_url,
+                                          String[] assigned_tag_ids){
 
         this.group_name = group_name;
         this.custom_suffix = custom_suffix;
