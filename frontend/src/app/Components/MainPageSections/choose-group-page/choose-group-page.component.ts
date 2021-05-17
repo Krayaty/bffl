@@ -54,7 +54,6 @@ export class ChooseGroupPageComponent implements OnInit {
     this.selectedData = this.selectedData.split('"groupName":"', 2).pop();
     this.selectedData = this.selectedData.split('"}]', 1);
     this.dbconnector.activeGroup = this.selectedData;
-    this.dbconnector.testConnection();
   }
 
   onGridReady(params): void {
@@ -63,16 +62,11 @@ export class ChooseGroupPageComponent implements OnInit {
     this.api.sizeColumnsToFit();
   }
 
-  onGridSizeChange(params): void {
+  onGridSizeChange(): void {
     this.api.sizeColumnsToFit();
   }
 
   logout(): void{
     this.authService.logout();
-  }
-
-  submit(): void {
-    this.dbconnector.testConnection();
-    window.location.reload();
   }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {endpoints} from '../../../assets/endpoints/endpoints';
 
@@ -42,9 +42,5 @@ export class DbConnectorService {
       JSON.stringify(body),
       {headers: new HttpHeaders({ 'Content-Type': 'application/json' })}
     ).subscribe(res => res.json());
-  }
-
-  testConnection(): void {
-    window.alert('activeGroup: ' + this.activeGroup);
   }
 }

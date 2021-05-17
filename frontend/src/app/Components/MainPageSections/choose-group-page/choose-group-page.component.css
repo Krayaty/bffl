@@ -176,7 +176,7 @@ app-user-selection{
 .logout {
   position: absolute;
   top: 2em;
-  right: 0%;
+  right: 0;
 }
 
 button{
@@ -185,8 +185,8 @@ button{
 }
 
 .ag-grid-container{
-  height:500px;
-  width: 96%;
+  height: 300px;
+  width: 30%;
   margin-left: 2%;
   margin-right: 2%;
   margin-top: 20px;
