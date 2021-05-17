@@ -4,13 +4,13 @@
 </div>
 
 <div class="shorten-section-container">
-  <p>Welcome to BFFL - please choose your group, first! </p>
+  <p>Welcome to BFFL - please click on your group, first! </p>
 
   <div class="section-container">
     <div class="ag-grid-container">
       <ag-grid-angular
         (gridReady)="onGridReady($event)"
-        (gridSizeChanged)="onGridSizeChange($event)"
+        (gridSizeChanged)="onGridSizeChange()"
         (rowClicked)='getSelectedRows()'
         class="ag-theme-alpine"
         colResizeDefault='shift'
@@ -18,7 +18,6 @@
         [columnDefs]="columnDefs"
         rowSelection="single">
       </ag-grid-angular>
-    </div>
-    <button class="button" (click)="submit()">Submit</button><br><br><br><br>
+    </div><br><br><br><br>
   </div>
 </div>
