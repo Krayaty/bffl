@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {endpoints} from '../../../assets/endpoints/endpoints';
+import {DbIterator} from './DbIterator';
+import {convertToShortURLWithTarget, ShortURLWithTarget} from '../../DBReturnTypes/DBReturnTypes';
+
 
 @Injectable({ providedIn: 'root' })
 export class DbConnectorService {
@@ -16,6 +19,22 @@ export class DbConnectorService {
 
   getAllShortURLsByGroupName(): Observable<any> {
     return this.http.get(`${endpoints.get.short_urls_by_group}`, {params: {group_name: this.activeGroup}});
+  }
+
+  getIterator(): Promise<DbIterator> {
+    const shortURLWithTargetList: ShortURLWithTarget[] = [];
+    return new Promise((resolve, reject) => {
+      this.getAllShortURLsByGroupName()
+        .subscribe(data => {
+            data.forEach(entry => {
+              shortURLWithTargetList.push(convertToShortURLWithTarget(entry));
+            });
+            resolve(new DbIterator(shortURLWithTargetList));
+          },
+          error => {
+            reject(error);
+          });
+    });
   }
 
   saveNewShortURLWithTags(customSuffix: string,

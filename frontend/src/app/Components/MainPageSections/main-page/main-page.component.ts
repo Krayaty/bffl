@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {AgGridAngular} from 'ag-grid-angular';
 import {DbConnectorService} from '../../../Services/DB-Connect-Services/db-connector.service';
-import {convertToShortURLWithTarget, ShortURLWithTarget} from '../../../DBReturnTypes/DBReturnTypes';
+import {ShortURLWithTarget} from '../../../DBReturnTypes/DBReturnTypes';
 
 @Component({
   selector: 'app-main-page',
@@ -86,21 +86,17 @@ export class MainPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    setTimeout(() => { this.retrieveAllShortURLsByGroupName(); }, 200);
   }
 
   retrieveAllShortURLsByGroupName(): void {
-    this.dbconnector.getAllShortURLsByGroupName()
-      .subscribe(data => {
-        const shortURLWithTargetList: ShortURLWithTarget[] = [];
-        data.forEach(entry => {
-            shortURLWithTargetList.push(convertToShortURLWithTarget(entry));
-        });
-        this.rowData = shortURLWithTargetList;
-        },
-        error => {
-          console.log(error);
-        });
+    this.dbconnector.getIterator().then(iterator => {
+      const list = [];
+      while (iterator.hasNext()) {
+        list.push(iterator.next());
+      }
+      this.rowData = list;
+    });
+
   }
 
   getSelectedRows(): void {
