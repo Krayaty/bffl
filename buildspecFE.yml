@@ -16,14 +16,14 @@ phases:
       - npm install -g @angular/cli
   build:
     commands:
-      - echo Build started
+      - echo Started build on `date`
       - ng build --prod
-      - echo Build finished
-  test:
+      - echo Finished build on `date`
+  post_build:
     commands:
-      - echo Build started
+      - echo Started build on `date`
       - npm run test:coverage
-      - echo Test finished
+      - echo Finished Test on `date`
 artifacts:
   files:
     - '**/*'
