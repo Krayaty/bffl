@@ -52,6 +52,7 @@ public class KeycloakSecurityConfig extends KeycloakWebSecurityConfigurerAdapter
                 .sessionAuthenticationStrategy(sessionAuthenticationStrategy()).and()
                 .csrf().disable()
                 .authorizeRequests()
+                .antMatchers("/actuator/health").permitAll()
                 .antMatchers("/api").hasRole("APP-User")
                 .anyRequest()
                 .permitAll();
