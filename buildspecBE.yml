@@ -19,9 +19,6 @@ phases:
       - echo Starting build on `date`
       - mvn clean install
       - echo Finished build on `date`
-  test:
-    commands:
-
 artifacts:
   files:
     - /backend/target/bffl-backend-1.0-exec.jar
