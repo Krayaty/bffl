@@ -17,13 +17,8 @@ phases:
   build:
     commands:
       - echo Started build on `date`
-      - ng build --prod
+      - ng ci
       - echo Finished build on `date`
-  post_build:
-    commands:
-      - echo Started build on `date`
-      - npm run test:coverage
-      - echo Finished Test on `date`
 artifacts:
   files:
     - '**/*'
