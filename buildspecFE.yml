@@ -18,6 +18,12 @@ phases:
     commands:
       - echo Build started
       - ng build --prod
+      - echo Build finished
+  test:
+    commands:
+      - echo Build started
+      - npm run test:coverage
+      - echo Test finished
 artifacts:
   files:
     - '**/*'

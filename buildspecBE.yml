@@ -21,7 +21,11 @@ phases:
   post_build:
     commands:
       - echo Build completed on `date`
+  test:
+    commands:
+      - echo Starting test `date`
+      - mvn test
 artifacts:
   files:
-    - backend/target/bffl-backend-1.0.jar
+    - /backend/target/bffl-backend-1.0-exec.jar
 discard-paths: yes
