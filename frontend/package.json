@@ -9,7 +9,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "ci": "ng test --watch=false && ng build",
-    "test:coverage": "ng test --no-watch --code-coverage"
+    "test:coverage": "ng test --no-watch --code-coverage",
+    "test:pipeline": "ng test --sourceMap=false --browsers=ChromeHeadless --watch=false"
   },
   "private": true,
   "dependencies": {
