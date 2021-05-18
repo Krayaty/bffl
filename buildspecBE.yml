@@ -8,23 +8,20 @@ phases:
   install:
     commands:
       - yum update -y
+      - cd backend
   pre_build:
     commands:
-      - echo starting pre-build `date`
-      - java -version
-      - mvn -version
+      - echo Starting test on `date`
+      - mvn test
+      - echo Finished test on `date`
   build:
     commands:
-      - cd backend
-      - echo Starting build `date`
+      - echo Starting build on `date`
       - mvn clean install
-  post_build:
-    commands:
-      - echo Build completed on `date`
+      - echo Finished build on `date`
   test:
     commands:
-      - echo Starting test `date`
-      - mvn test
+
 artifacts:
   files:
     - /backend/target/bffl-backend-1.0-exec.jar
