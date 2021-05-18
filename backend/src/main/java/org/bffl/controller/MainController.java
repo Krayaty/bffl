@@ -1,7 +1,7 @@
 package org.bffl.controller;
 
 import org.bffl.dbConnector.dao.repos.*;
-import org.bffl.dbConnector.dao.types.postParamTypes.ShortURLWithTargetAndTags;
+import org.bffl.dbConnector.dao.types.postParamTypes.*;
 import org.bffl.iamConnector.iamConfig.KeycloakSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @CrossOrigin(origins = {"http://localhost:4200", "https://bfflshort.de"}, maxAge = 3600L)
@@ -132,7 +131,7 @@ public class MainController {
     }
 
     @PostMapping("/createShortURLForGroupWithTags")
-    public int insertNewShortURLWithTarget(@RequestBody ShortURLWithTargetAndTags body){
+    public int insertNewShortURLWithTarget(@RequestBody POST_ShortURLWithTargetAndTags body){
 
         int modifiedRows = this.short_urlRepo.saveShortURL(body.getGroup_name(), body.getCustom_suffix(), body.getScope(), body.isDelete_flag(), body.isUpdate_flag());
         if(modifiedRows != 1) return HttpStatus.BAD_REQUEST.value();
@@ -156,195 +155,164 @@ public class MainController {
     }
 
     @PostMapping("/assignTagToShortURL")
-    public ResponseEntity assignTagOfGroupToShortURLByID(
-            @RequestParam("tag_id") int tag_id,
-            @RequestParam("short_url_id") int short_url_id){
+    public int assignTagOfGroupToShortURLByID(@RequestBody POST_TagToShortURLAssignment body){
 
-        int modifiedRows = this.url_has_tagRepo.saveTagOfGroupToShortURLByID(tag_id, short_url_id);
-        if(modifiedRows != 1) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        int modifiedRows = this.url_has_tagRepo.saveTagOfGroupToShortURLByID(body.getTag_id(), body.getShort_url_id());
+        if(modifiedRows != 1) return HttpStatus.BAD_REQUEST.value();
 
-        return new ResponseEntity(HttpStatus.CREATED);
+        return HttpStatus.CREATED.value();
     }
 
     @PostMapping("/createGroup")
-    public ResponseEntity createGroup(
-            @RequestParam("group_name") String group_name,
-            @RequestParam("max_size") int max_size){
+    public int createGroup(@RequestBody POST_Group body){
 
-        int modifiedRows = this.app_groupRepo.saveGroup(group_name, max_size);
-        if(modifiedRows != 1) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        int modifiedRows = this.app_groupRepo.saveGroup(body.getGroup_name(), body.getMax_size());
+        if(modifiedRows != 1) return HttpStatus.BAD_REQUEST.value();
 
-        return new ResponseEntity(HttpStatus.CREATED);
+        return HttpStatus.CREATED.value();
     }
 
     @PostMapping("/addUserToGroup")
-    public ResponseEntity assignUserToGroup(
-            @RequestParam("group_name") String group_name,
-            @RequestParam("user_id") String user_id,
-            @RequestParam("end_timestamp") Integer end_timestamp){
+    public int assignUserToGroup(@RequestBody POST_UserToGroupAssignment body){
 
-        int modifiedRows = this.user_has_groupRepo.saveUserAssignToGroup(group_name, user_id, end_timestamp);
-        if(modifiedRows != 1) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        int modifiedRows = this.user_has_groupRepo.saveUserAssignToGroup(body.getGroup_name(), body.getUser_id(), body.getEnd_timestamp());
+        if(modifiedRows != 1) return HttpStatus.BAD_REQUEST.value();
 
-        return new ResponseEntity(HttpStatus.CREATED);
+        return HttpStatus.CREATED.value();
     }
 
     @PostMapping("/addUserAsAdminToGroup")
-    public ResponseEntity assignUserAsAdminToGroup(
-            HttpServletRequest request,
-            @RequestParam("group_name") String group_name,
-            @RequestParam("new_user_id") String new_user_id,
-            @RequestParam("end_timestamp") Integer end_timestamp){
+    public int assignUserAsAdminToGroup(@RequestBody POST_UserToGroupAssignment body, HttpServletRequest request){
 
         String groupmember_user_id = KeycloakSecurityConfig.getAccessToken(request).getSubject();
 
-        int modifiedRows = this.user_has_groupRepo.saveUserAssignAsAdminToGroup(groupmember_user_id, group_name, new_user_id, end_timestamp);
-        if(modifiedRows != 1) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        int modifiedRows = this.user_has_groupRepo.saveUserAssignAsAdminToGroup(groupmember_user_id, body.getGroup_name(), body.getUser_id(), body.getEnd_timestamp());
+        if(modifiedRows != 1) return HttpStatus.BAD_REQUEST.value();
 
-        return new ResponseEntity(HttpStatus.CREATED);
+        return HttpStatus.CREATED.value();
     }
 
     @PostMapping("/updateShortURL")
-    public ResponseEntity updateAttributesOfShortURL(
-            @RequestParam("short_url_id") int short_url_id,
-            @RequestParam("custom_suffix") String custom_suffix,
-            @RequestParam("scope") int scope,
-            @RequestParam("delete_flag") Boolean delete_flag,
-            @RequestParam("update_flag") Boolean update_flag,
-            @RequestParam("target_url") String target_url){
+    public int updateAttributesOfShortURL(@RequestBody POST_ShortURL body){
 
         int modifiedRows = 0;
 
-        if(custom_suffix != null && custom_suffix.length() > 0){
-            modifiedRows = this.short_urlRepo.updateSuffixOfShortURL(short_url_id, custom_suffix);
+        if(body.getCustom_suffix() != null && body.getCustom_suffix().length() > 0){
+            modifiedRows = this.short_urlRepo.updateSuffixOfShortURL(body.getShort_url_id(), body.getCustom_suffix());
         }
-        if(modifiedRows < 1) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        if(modifiedRows < 1) return HttpStatus.BAD_REQUEST.value();
 
-        if(scope >= (System.currentTimeMillis() / 1000) + 3600){
-            modifiedRows = this.short_urlRepo.updateScopeOfShortURL(short_url_id, scope);
+        if(body.getScope() >= (System.currentTimeMillis() / 1000) + 3600){
+            modifiedRows = this.short_urlRepo.updateScopeOfShortURL(body.getShort_url_id(), body.getScope());
         }
-        if(modifiedRows < 1) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        if(modifiedRows < 1) return HttpStatus.BAD_REQUEST.value();
 
-        if(delete_flag != null){
-            modifiedRows = this.short_urlRepo.updateDeleteFlagOfShortURL(short_url_id, delete_flag);
+        if(body.getDelete_flag() != null){
+            modifiedRows = this.short_urlRepo.updateDeleteFlagOfShortURL(body.getShort_url_id(), body.getDelete_flag());
         }
-        if(modifiedRows < 1) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        if(modifiedRows < 1) return HttpStatus.BAD_REQUEST.value();
 
-        if(update_flag != null){
-            modifiedRows = this.short_urlRepo.updateUpdateFlagOfShortURL(short_url_id, update_flag);
+        if(body.getUpdate_flag() != null){
+            modifiedRows = this.short_urlRepo.updateUpdateFlagOfShortURL(body.getShort_url_id(), body.getUpdate_flag());
         }
-        if(modifiedRows < 1) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        if(modifiedRows < 1) return HttpStatus.BAD_REQUEST.value();
 
-        if(target_url != null && target_url.length() > 0){
-            modifiedRows = this.assigned_targetRepo.saveNewTargetOfShortURL(short_url_id, target_url);
+        if(body.getTarget_url() != null && body.getTarget_url().length() > 0){
+            modifiedRows = this.assigned_targetRepo.saveNewTargetOfShortURL(body.getShort_url_id(), body.getTarget_url());
         }
-        if(modifiedRows < 1) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        if(modifiedRows < 1) return HttpStatus.BAD_REQUEST.value();
 
-        return new ResponseEntity(HttpStatus.OK);
+        return HttpStatus.OK.value();
     }
 
     @PostMapping("/updateTag")
-    public ResponseEntity updateAttributesOfShortURL(
-            @RequestParam("tag_id") int tag_id,
-            @RequestParam("title") String title,
-            @RequestParam("description") String description,
-            @RequestParam("color") String color){
+    public int updateAttributesOfTag(@RequestBody POST_Tag body){
 
         int modifiedRows = 0;
 
-        if(title != null && title.length() > 0){
-            modifiedRows = this.tagRepo.updateTitleOfTag(tag_id, title);
+        if(body.getTitle() != null && body.getTitle().length() > 0){
+            modifiedRows = this.tagRepo.updateTitleOfTag(body.getTag_id(), body.getTitle());
         }
-        if(modifiedRows < 1) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        if(modifiedRows < 1) return HttpStatus.BAD_REQUEST.value();
 
-        if(description != null && description.length() > 0){
-            modifiedRows = this.tagRepo.updateDescriptionOfTag(tag_id, description);
+        if(body.getDescription() != null && body.getDescription().length() > 0){
+            modifiedRows = this.tagRepo.updateDescriptionOfTag(body.getTag_id(), body.getDescription());
         }
-        if(modifiedRows < 1) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        if(modifiedRows < 1) return HttpStatus.BAD_REQUEST.value();
 
-        if(color != null && color.length() == 6){
-            modifiedRows = this.tagRepo.updateColorOfTag(tag_id, color);
+        if(body.getColor() != null && body.getColor().length() == 6){
+            modifiedRows = this.tagRepo.updateColorOfTag(body.getTag_id(), body.getColor());
         }
-        if(modifiedRows < 1) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        if(modifiedRows < 1) return HttpStatus.BAD_REQUEST.value();
 
-        return new ResponseEntity(HttpStatus.OK);
+        return HttpStatus.OK.value();
     }
 
     @PostMapping("/updateGroupSize")
-    public ResponseEntity updateAttributesOfShortURL(
-            @RequestParam("group_name") String group_name,
-            @RequestParam("max_size") int max_size){
+    public int updateGroupSize(@RequestBody POST_Group body){
 
-        int modifiedRows = this.app_groupRepo.updateMaxSizeOfGroup(group_name, max_size);
-        if(modifiedRows < 1) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        int modifiedRows = this.app_groupRepo.updateMaxSizeOfGroup(body.getGroup_name(), body.getMax_size());
+        if(modifiedRows < 1) return HttpStatus.BAD_REQUEST.value();
 
-        return new ResponseEntity(HttpStatus.OK);
+        return HttpStatus.OK.value();
     }
 
     @PostMapping("/updateUserOfGroupAssignment")
-    public ResponseEntity updateAdminStateOfUser(
-            HttpServletRequest request,
-            @RequestParam("group_name") String group_name,
-            @RequestParam("searched_user_id") String searched_user_id,
-            @RequestParam("end_timestamp") Integer end_timestamp,
-            @RequestParam("admin_flag") Boolean admin_flag){
+    public int updateAdminStateOfUser(@RequestBody POST_AdminToGroupAssignment body, HttpServletRequest request){
 
         String groupmember_user_id = KeycloakSecurityConfig.getAccessToken(request).getSubject();
         int modifiedRows = 0;
 
-        if(end_timestamp != null && end_timestamp > 0){
-            modifiedRows = this.user_has_groupRepo.updateEndTimestampOfUser(groupmember_user_id, searched_user_id, group_name, end_timestamp);
+        if(body.getEnd_timestamp() != null && body.getEnd_timestamp() > 0){
+            modifiedRows = this.user_has_groupRepo.updateEndTimestampOfUser(groupmember_user_id, body.getUser_id(), body.getGroup_name(), body.getEnd_timestamp());
         }
-        if(modifiedRows < 1) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        if(modifiedRows < 1) return HttpStatus.BAD_REQUEST.value();
 
-        if(admin_flag != null){
-            modifiedRows = this.user_has_groupRepo.updateAdminStateOfUser(groupmember_user_id, group_name, searched_user_id, admin_flag);
+        if(body.getAdmin_flag() != null){
+            modifiedRows = this.user_has_groupRepo.updateAdminStateOfUser(groupmember_user_id, body.getGroup_name(), body.getUser_id(), body.getAdmin_flag());
         }
-        if(modifiedRows < 1) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        if(modifiedRows < 1) return HttpStatus.BAD_REQUEST.value();
 
-        return new ResponseEntity(HttpStatus.OK);
+        return HttpStatus.OK.value();
 
     }
 
     @PostMapping("/deleteUserFromGroup")
-    public ResponseEntity deleteUserOfGroupAssignment(
-            HttpServletRequest request,
-            @RequestParam("group_name") String group_name,
-            @RequestParam("searched_user_id") String searched_user_id){
+    public int deleteUserOfGroupAssignment(@RequestBody POST_UserToGroupAssignmentWithoutTimestamp body, HttpServletRequest request){
 
         String groupmember_user_id = KeycloakSecurityConfig.getAccessToken(request).getSubject();
 
-        int removedRows = this.user_has_groupRepo.deleteUserOfGroupAssignment(groupmember_user_id, searched_user_id, group_name);
-        if(removedRows < 1) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        int modifiedRows = this.user_has_groupRepo.deleteUserOfGroupAssignment(groupmember_user_id, body.getUser_id(), body.getGroup_name());
+        if(modifiedRows < 1) return HttpStatus.BAD_REQUEST.value();
 
-        return new ResponseEntity(HttpStatus.OK);
+        return HttpStatus.OK.value();
 
     }
 
     @PostMapping("/deleteShortURL")
-    public ResponseEntity deleteShortURLByID(@RequestParam("short_url_id") int short_url_id){
+    public int deleteShortURLByID(@RequestBody POST_ShortURLId body){
 
-        int modifiedRows = this.short_urlRepo.deleteShortURL(short_url_id);
-        if(modifiedRows < 1) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        int modifiedRows = this.short_urlRepo.deleteShortURL(body.getShort_url_id());
+        if(modifiedRows < 1) return HttpStatus.BAD_REQUEST.value();
 
-        return new ResponseEntity(HttpStatus.OK);
+        return HttpStatus.OK.value();
     }
 
     @PostMapping("/deleteTag")
-    public ResponseEntity deleteTagByID(@RequestParam("tag_id") int tag_id){
+    public int deleteTagByID(@RequestBody POST_TagId body){
 
-        int modifiedRows = this.tagRepo.deleteTagById(tag_id);
-        if(modifiedRows < 1) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        int modifiedRows = this.tagRepo.deleteTagById(body.getTag_id());
+        if(modifiedRows < 1) return HttpStatus.BAD_REQUEST.value();
 
-        return new ResponseEntity(HttpStatus.OK);
+        return HttpStatus.OK.value();
     }
 
     @PostMapping("/deleteGroup")
-    public ResponseEntity deleteGroupByID(@RequestParam("group_name") String group_name){
+    public int deleteGroupByID(@RequestBody POST_GroupName body){
 
-        int modifiedRows = this.app_groupRepo.deleteGroupById(group_name);
-        if(modifiedRows < 1) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        int modifiedRows = this.app_groupRepo.deleteGroupById(body.getGroup_name());
+        if(modifiedRows < 1) return HttpStatus.BAD_REQUEST.value();
 
-        return new ResponseEntity(HttpStatus.OK);
+        return HttpStatus.OK.value();
     }
 }
