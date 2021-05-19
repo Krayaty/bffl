@@ -19,7 +19,7 @@ input[type=text] {
   background: #394B73;
   color: #FFFFFF;
   font-size: medium;
-  width: 75%;
+  width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
@@ -110,7 +110,7 @@ select {
   background: #394B73;
   color: #FFFFFF;
   font-size: medium;
-  width: 75%;
+  width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
@@ -123,3 +123,7 @@ select:hover {
   background: #4F5E8C;
 }
 
+.horizCenter{
+  display: flex;
+  justify-content: center;
+}

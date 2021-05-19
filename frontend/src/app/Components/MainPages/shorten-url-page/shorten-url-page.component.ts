@@ -8,10 +8,10 @@ import { ShortenService } from '../../../Services/Shorten-Services/shorten.servi
 
 @Component({
   selector: 'app-shorten-section',
-  templateUrl: './shorten-section.component.html',
-  styleUrls: ['./shorten-section.component.css']
+  templateUrl: './shorten-url-page.component.html',
+  styleUrls: ['./shorten-url-page.component.css']
 })
-export class ShortenSectionComponent implements OnInit {
+export class ShortenUrlPageComponent implements OnInit {
 
   items = this.shortenService.getItems();
 

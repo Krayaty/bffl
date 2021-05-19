@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {MainPageComponent} from './Components/MainPageSections/main-page/main-page.component';
-import {ShortenSectionComponent} from './Components/MainPageSections/shorten-section/shorten-section.component';
+import {MainPageComponent} from './Components/MainPages/main-page/main-page.component';
+import {ShortenUrlPageComponent} from './Components/MainPages/shorten-url-page/shorten-url-page.component';
 import {AuthGuardService} from './Services/Iam-Services/auth-guard.service';
 import {environment} from '../environments/environment';
 
@@ -14,7 +14,7 @@ const routes: Routes = [
   },
   {
     path: 'shorten',
-    component: ShortenSectionComponent,
+    component: ShortenUrlPageComponent,
     canActivate: [ AuthGuardService ],
     data: { roles: [ environment.idp.roles.user ] }
   },
