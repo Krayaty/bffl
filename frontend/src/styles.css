@@ -40,12 +40,15 @@ input[type=text]:focus {
   margin: 10px 10px 10px 0px;
   overflow: auto;
   display: block;
-  text-align: center;
+}
+
+.shorten-section-container{
+  padding: 2%;
 }
 
 .bar{
   width: 100%;
-  padding: 1.2em;
+  padding: 2em;
   background: lightgray;
   border: none;
   vertical-align: center;
@@ -56,6 +59,7 @@ input[type=text]:focus {
   width: 10em;
   padding-right: 2em;
   text-align: center;
+
 }
 
 .button{
@@ -69,6 +73,10 @@ input[type=text]:focus {
   box-sizing: border-box;
   border: 2px solid #555;
   outline: none;
+}
+
+bar-select{
+  background: aliceblue;
 }
 
 .button:hover{
@@ -102,7 +110,7 @@ select {
   background: #394B73;
   color: #FFFFFF;
   font-size: medium;
-  width: 10%;
+  width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
@@ -113,4 +121,9 @@ select {
 
 select:hover {
   background: #4F5E8C;
+}
+
+.horizCenter{
+  display: flex;
+  justify-content: center;
 }

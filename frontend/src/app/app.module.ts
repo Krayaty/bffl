@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import {APP_INITIALIZER, NgModule} from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { ShortenSectionComponent } from './Components/MainPageSections/shorten-section/shorten-section.component';
+import { ShortenUrlPageComponent } from './Components/MainPages/shorten-url-page/shorten-url-page.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
@@ -11,27 +11,29 @@ import { ImpressumComponent } from './Components/BottomBarComponents/impressum/i
 import { KontaktComponent } from './Components/BottomBarComponents/kontakt/kontakt.component';
 import { DatenschutzComponent } from './Components/BottomBarComponents/datenschutz/datenschutz.component';
 import { AgGridModule } from 'ag-grid-angular';
-import { MainPageComponent } from './Components/MainPageSections/main-page/main-page.component';
+import { MainPageComponent } from './Components/MainPages/main-page/main-page.component';
 import { TopbarComponent } from './Components/TopBarComponents/topbar/topbar.component';
 import { GroupSelectionComponent } from './Components/TopBarComponents/group-selection/group-selection.component';
-import {AuthService} from './Services/Iam-Services/auth.service';
-import {keycloakInitializer} from './AppInit';
-import {KeycloakService} from 'keycloak-angular';
-import {AuthGuardService} from './Services/Iam-Services/auth-guard.service';
-import {DbConnectorService} from './Services/DB-Connect-Services/db-connector.service';
-import {AuthInterceptor} from './Services/Iam-Services/auth-interceptor.service';
+import { AuthService} from './Services/Iam-Services/auth.service';
+import { keycloakInitializer} from './AppInit';
+import { KeycloakService} from 'keycloak-angular';
+import { AuthGuardService} from './Services/Iam-Services/auth-guard.service';
+import { DbConnectorService} from './Services/DB-Connect-Services/db-connector.service';
+import { AuthInterceptor} from './Services/Iam-Services/auth-interceptor.service';
+import { ChooseGroupPageComponent } from './Components/MainPages/choose-group-page/choose-group-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ShortenSectionComponent,
+    ShortenUrlPageComponent,
     BotbarComponent,
     ImpressumComponent,
     KontaktComponent,
     DatenschutzComponent,
     MainPageComponent,
     TopbarComponent,
-    GroupSelectionComponent
+    GroupSelectionComponent,
+    ChooseGroupPageComponent
   ],
     imports: [
         BrowserModule,

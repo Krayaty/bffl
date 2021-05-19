@@ -1,9 +1,9 @@
-<div>
-
-  <app-topbar></app-topbar>
-
-  <router-outlet></router-outlet>
-
-  <app-botbar></app-botbar>
-
+<div *ngIf='this.dbconnector.activeGroup == null; else elseBlock'>
+  <app-choose-group-page></app-choose-group-page>
 </div>
+<ng-template #elseBlock>
+  <app-topbar></app-topbar>
+  <router-outlet></router-outlet>
+</ng-template>
+
+<app-botbar></app-botbar>

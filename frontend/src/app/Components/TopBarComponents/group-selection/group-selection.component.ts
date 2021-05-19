@@ -14,7 +14,6 @@ export class GroupSelectionComponent implements OnInit {
 
   ngOnInit(): void {
     this.retrieveAllGroupsOfUser();
-    this.dbconnector.activeGroup = this.groups[0];
   }
 
   private retrieveAllGroupsOfUser(): void {
@@ -26,5 +25,4 @@ export class GroupSelectionComponent implements OnInit {
   public getDBConnector(): DbConnectorService {
     return this.dbconnector;
   }
-
 }

@@ -5,7 +5,8 @@ div{
 }
 
 b{
-  padding-right: 6em;
+  font-size: 25pt;
+  padding-right: 3em;
 }
 
 a{
@@ -16,12 +17,13 @@ a{
 }
 
 a:hover{
-  color: white;
+  color: #7AA5EA;
   cursor: pointer;
 }
 
 app-user-selection{
   float: right;
+  margin-right: 1em;
 }
 
 #menu, #menu ul, #menu nav, #menu li, #menu a {

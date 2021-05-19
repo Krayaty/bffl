@@ -1,0 +1,21 @@
+<div class="shorten-section-container">
+  <div class="top">
+    <h1>BFFL – URL Shortener</h1>
+    <a class="bar-button" (click)="this.logout()"><b>Logout</b></a>
+  </div>
+  <div class="horizCenter bottomSpace">
+    <div>
+      <p>Wählen Sie eine der Ihnen zugewiesenen Gruppen aus, um zu beginnen.</p>
+      <ag-grid-angular
+        (gridReady)="onGridReady($event)"
+        (gridSizeChanged)="onGridSizeChange()"
+        (rowClicked)='getSelectedRows()'
+        class="ag-theme-alpine"
+        colResizeDefault='shift'
+        [rowData]="rowData"
+        [columnDefs]="columnDefs"
+        rowSelection="single">
+      </ag-grid-angular>
+    </div>
+  </div>
+</div>
