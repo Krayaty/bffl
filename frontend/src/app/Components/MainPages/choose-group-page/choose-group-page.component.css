@@ -1,0 +1,54 @@
+div{
+  background: #394B73 !important;
+  color: aliceblue;
+}
+
+h1{
+  font-size: 40pt;
+  margin: 0em 0em 1em 0em !important;
+}
+
+a {
+  font-size: 20pt;
+  color: aliceblue;
+  position: absolute;
+  top: 50px;
+  right: 0;
+  padding-right: 0 !important;
+  width: 10em;
+  text-decoration: none;
+  padding-right: 3em;
+}
+
+a:hover{
+  cursor: pointer;
+}
+
+app-user-selection{
+  float: right;
+}
+
+button{
+  background: aliceblue;
+  color: #7AA5EA;
+}
+
+p{
+  font-size: 16pt;
+}
+
+ag-grid-angular{
+  height: 300px;
+  width: 100%;
+  margin-top: 20px;
+  padding: 0;
+}
+
+.top{
+  vertical-align: center;
+  margin-bottom: 1em;
+}
+
+.bottomSpace{
+  margin-bottom: 18em;
+}

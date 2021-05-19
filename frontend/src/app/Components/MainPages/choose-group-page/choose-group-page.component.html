@@ -1,13 +1,11 @@
-<div class="bar">
-  <h1><b class="bar-button">BFFL – URL Shortener</b></h1>
-  <h4><a class="bar-button logout" (click)="this.logout()">Logout</a></h4>
-</div>
-
 <div class="shorten-section-container">
-  <p>Welcome to BFFL - please click on your group, first! </p>
-
-  <div class="section-container">
-    <div class="ag-grid-container">
+  <div class="top">
+    <h1>BFFL – URL Shortener</h1>
+    <a class="bar-button" (click)="this.logout()"><b>Logout</b></a>
+  </div>
+  <div class="horizCenter bottomSpace">
+    <div>
+      <p>Wählen Sie eine der Ihnen zugewiesenen Gruppen aus, um zu beginnen.</p>
       <ag-grid-angular
         (gridReady)="onGridReady($event)"
         (gridSizeChanged)="onGridSizeChange()"
@@ -18,6 +16,6 @@
         [columnDefs]="columnDefs"
         rowSelection="single">
       </ag-grid-angular>
-    </div><br><br><br><br>
+    </div>
   </div>
 </div>

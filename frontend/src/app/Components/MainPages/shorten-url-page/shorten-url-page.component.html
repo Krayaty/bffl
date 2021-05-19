@@ -1,0 +1,43 @@
+<div class="horizCenter">
+  <div class="shorten-section-container">
+    <form [formGroup]="shortenURLForm" (ngSubmit)="this.shortenURL()" id = "myform">
+      <label for="targetURL">Ziel-URL</label><br>
+      <input type="text" id="targetURL" placeholder="https://mywebsite/impressum.com" formControlName="targetURL" required/><br><br>
+      <label for="customSuffix">Welches Suffix wollen Sie für Ihre ShortURL</label><br>
+      <input type="text" id = "customSuffix" placeholder="e.g. 'impressum'" formControlName="customSuffix" required/><br><br>
+
+      <div>
+        <label class="control control-checkbox" for="updateFlag">
+          Soll die ShortURL durch alle User verändert werden können?
+          <input type="checkbox" id = "updateFlag" formControlName="updateFlag"/>
+          <div class="control_indicator"></div>
+        </label><br><br>
+        <label class="control control-checkbox" for="deleteFlag">
+          Soll die ShortURL durch alle User gelöscht werden können?
+          <input type="checkbox" id = "deleteFlag" formControlName="deleteFlag"/>
+          <div class="control_indicator"></div>
+        </label>
+      </div><br><br><br>
+
+      <label for="scope">(optional) Wie lange soll die ShortURL gültig sein?</label><br>
+      <select id="scope" formControlName="scope">
+        <option value="-1">Forever</option>
+        <option value="2592000">One month</option>
+        <option value="31536000">One year</option>
+        <option value="315360000">Ten years</option>
+      </select><br><br>
+
+      <label for="tags">(optional) Weisen Sie Tags ihrer ShortURL zu.</label><br>
+      <select name="tags" id="tags" required="required" formControlName="tags">
+        <option value="default"></option>
+        <option value="1">Tag 1</option>
+        <option value="2">Tag 2</option>
+        <option value="3">Tag 3</option>
+      </select><br>
+
+      <div class="horizCenter bottomSpace">
+        <input type="submit" class="button" value="Abschicken" />
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ShortenSectionComponent } from './shorten-section.component';
+import { ShortenUrlPageComponent } from './shorten-url-page.component';
 import {By} from '@angular/platform-browser';
 
 describe('ShortenSectionComponent', () => {
-  let component: ShortenSectionComponent;
-  let fixture: ComponentFixture<ShortenSectionComponent>;
+  let component: ShortenUrlPageComponent;
+  let fixture: ComponentFixture<ShortenUrlPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ShortenSectionComponent ]
+      declarations: [ ShortenUrlPageComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ShortenSectionComponent);
+    fixture = TestBed.createComponent(ShortenUrlPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
