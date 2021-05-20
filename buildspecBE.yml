@@ -26,4 +26,4 @@ phases:
       - ls
 artifacts:
   files:
-    - backend/bffl-backend-1.0.jar
+    - bffl-backend-1.0.jar
