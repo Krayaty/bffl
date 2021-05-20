@@ -24,4 +24,4 @@ phases:
       - mv target/bffl-backend-1.0.jar /
 artifacts:
   files:
-    - bffl-backend-1.0.jar
+    - backend/bffl-backend-1.0.jar
