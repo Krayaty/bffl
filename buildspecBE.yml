@@ -16,9 +16,12 @@ phases:
       - echo Finished test on `date`
   build:
     commands:
-      - echo Starting build on `date`ˆ
+      - echo Starting build on `date`
       - mvn clean install
       - echo Finished build on `date`
+  post_build:
+    commands:
+      - mv backend/target/bffl-backend-1.0.jar bffl-backend-1.0.jar
 artifacts:
   files:
-    - backend/target/bffl-backend-1.0.jar
+    - bffl-backend-1.0.jar
