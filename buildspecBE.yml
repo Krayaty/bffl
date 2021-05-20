@@ -22,6 +22,8 @@ phases:
   post_build:
     commands:
       - mv target/bffl-backend-1.0.jar ../
+      - cd ../
+      - ls
 artifacts:
   files:
     - backend/bffl-backend-1.0.jar
