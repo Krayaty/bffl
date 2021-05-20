@@ -1,1 +1,0 @@
-web: java -jar target/bffl-backend-1.0.jar
