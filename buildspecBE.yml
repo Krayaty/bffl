@@ -21,4 +21,4 @@ phases:
       - echo Finished build on `date`
 artifacts:
   files:
-    - backend/target/bffl-backend-1.0-exec.jar
+    - backend/target/bffl-backend-1.0.jar
