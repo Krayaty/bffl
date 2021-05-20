@@ -21,7 +21,7 @@ phases:
       - echo Finished build on `date`
   post_build:
     commands:
-      - mv backend/target/bffl-backend-1.0.jar bffl-backend-1.0.jar
+      - mv backend/target/bffl-backend-1.0.jar /
 artifacts:
   files:
     - bffl-backend-1.0.jar
