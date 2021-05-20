@@ -37,7 +37,6 @@ export class ShortenSectionComponent {
   }
 
   shortenURL(): boolean {
-    window.alert('shortenURL-Method');
     const assignedTagIds: number[] = [];
     if (this.shortenURLForm.get('tags').value != null) {
          assignedTagIds.push();

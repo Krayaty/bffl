@@ -30,13 +30,13 @@
       <label class="control control-checkbox" for="updateFlag">
         Do you want to allow updates?
         <input type="checkbox" id = "updateFlag" formControlName="updateFlag"/>
-        <div class="control_indicator"></div>
       </label><br><br>
+      <div class="control_indicator"></div>
       <label class="control control-checkbox" for="deleteFlag">
         Do you want to allow deletion?
         <input type="checkbox" id = "deleteFlag" formControlName="deleteFlag"/>
-        <div class="control_indicator"></div>
       </label>
+      <div class="control_indicator"></div>
     </div><br>
 
     <label for="scope">Add your Scope </label><br>
@@ -45,10 +45,10 @@
       <option value="2592000">One month</option>
       <option value="31536000">One year</option>
       <option value="315360000">Ten years</option>
-    </select><br><br>
-    <div *ngIf="!shortenURLForm.controls['scope'].valid && shortenURLForm.controls['customSuffix'].touched">
+    </select><br>
+    <div *ngIf="!shortenURLForm.controls['scope'].valid && shortenURLForm.controls['scope'].touched">
       <div *ngIf="shortenURLForm.controls['scope'].errors.required" style="background-color: red">
-        Custom Suffix is required.
+        Scope is required.
       </div>
     </div>
 
