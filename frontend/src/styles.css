@@ -13,6 +13,11 @@ body{
   color: black;
 }
 
+html {
+  width: 100%;
+  height: 100%;
+}
+
 input[type=text] {
   font-family: "Lucida Console", serif;
   border-radius: 25px;
@@ -47,7 +52,6 @@ input[type=text]:focus {
 }
 
 .bar{
-  width: 100%;
   padding: 2em;
   background: lightgray;
   border: none;
@@ -57,7 +61,8 @@ input[type=text]:focus {
 .bar-button{
   height: 1em;
   width: 10em;
-  padding-right: 2em;
+  padding-left: 1em;
+  padding-right: 1em;
   text-align: center;
 
 }
