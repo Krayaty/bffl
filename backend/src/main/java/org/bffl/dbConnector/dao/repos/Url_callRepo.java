@@ -2,7 +2,6 @@ package org.bffl.dbConnector.dao.repos;
 
 import org.bffl.dbConnector.dao.idClasses.Composite_url_call_id;
 import org.bffl.dbConnector.dao.model.Url_call;
-import org.bffl.dbConnector.dao.types.IP_adress;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -30,23 +29,12 @@ public interface Url_callRepo extends JpaRepository<Url_call, Composite_url_call
     @Modifying
     @Transactional
     @Query(nativeQuery = true, value =
-            "INSERT INTO url_call (client_ip, short_url_id, call_timestamp, region)" +
-            "VALUES (:new_client_ip, (" +
-                    "SELECT id " +
-                    "FROM short_url " +
-                    "WHERE group_name = :searched_group_name AND custom_suffix = :searched_custom_suffix" +
-            "), CURRENT_TIMESTAMP, :new_region);")
-    Boolean saveUrlCall(String searched_group_name, String searched_custom_suffix, IP_adress new_client_ip, String new_region);
-
-    @Modifying
-    @Transactional
-    @Query(nativeQuery = true, value =
             "INSERT INTO url_call (client_ip, short_url_id, call_timestamp)" +
             "VALUES (:new_client_ip, (" +
                     "SELECT id " +
                     "FROM short_url " +
                     "WHERE group_name = :searched_group_name AND custom_suffix = :searched_custom_suffix" +
             "), CURRENT_TIMESTAMP);")
-    Boolean saveUrlCall(String searched_group_name, String searched_custom_suffix, IP_adress new_client_ip);
+    int saveUrlCall(String searched_group_name, String searched_custom_suffix, String new_client_ip);
 
 }

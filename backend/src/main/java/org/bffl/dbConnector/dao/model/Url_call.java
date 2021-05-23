@@ -24,8 +24,5 @@ public class Url_call {
     @JoinColumn(name="short_url_id", nullable=false)
     private Short_url url_call_short_url;
 
-    @Column
-    private String region;
-
 }
 

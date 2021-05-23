@@ -2,8 +2,6 @@ package org.bffl.controller;
 
 import org.bffl.dbConnector.dao.repos.Assigned_targetRepo;
 import org.bffl.dbConnector.dao.repos.Url_callRepo;
-import org.bffl.dbConnector.dao.types.IP_adress;
-import org.keycloak.authorization.client.util.Http;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.security.InvalidParameterException;
+import java.util.Arrays;
 
 @CrossOrigin(origins = "https://api.bfflshort.de")
 @RestController
@@ -25,6 +25,30 @@ public class ApiController {
     @Autowired
     private Url_callRepo url_callRepo;
 
+    @GetMapping("/{group_name}/{custom_suffix}")
+    public ResponseEntity redirectToAssignedTargetOfShortURL(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            @PathVariable("group_name") String group_name,
+            @PathVariable("custom_suffix") String custom_suffix) throws IOException {
+
+        String target = this.assigned_targetRepo.findAssignedTargetOfShortUrl(group_name, custom_suffix);
+        if(target != null && target.length() > 0)
+            response.sendRedirect(target);
+
+        String clientIp = getClientIp(request);
+        if(!isValidIp(clientIp))
+            throw new InvalidParameterException("The clients ip-adress seems to be invalid. \n Found: " + clientIp +
+                    "\n But needs [0-255]\\.[0-255]\\.[0-255]\\.[0-255]\\.");
+
+        int modifiedRows = this.url_callRepo.saveUrlCall(group_name, custom_suffix, clientIp);
+        if(modifiedRows != 1)
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+
+        return new ResponseEntity(HttpStatus.OK);
+
+    }
+
     private static String getClientIp(HttpServletRequest request) {
         String remoteAddr = "";
 
@@ -34,26 +58,31 @@ public class ApiController {
                 remoteAddr = request.getRemoteAddr();
             }
         }
+        if (remoteAddr.equals("0:0:0:0:0:0:0:1"))
+            return "127.0.0.1";
 
         return remoteAddr;
     }
 
-    @GetMapping("/{group_name}/{custom_suffix}")
-    public ResponseEntity redirectToAssignedTargetOfShortURL(
-            HttpServletRequest request,
-            HttpServletResponse response,
-            @PathVariable("group_name") String group_name,
-            @PathVariable("custom_suffix") String custom_suffix) throws IOException {
+    private static boolean isValidIp(String ip){
+        int[] ipArr = Arrays.stream(ip.split("\\.")).mapToInt(Integer::parseInt).toArray();
+        if(!(ipArr[0] >= 0 && ipArr[0] <= 255)){
+            return false;
+        }
 
-            String target = this.assigned_targetRepo.findAssignedTargetOfShortUrl(group_name, custom_suffix);
-            if(target != null && target.length() > 0) response.sendRedirect(target);
+        if(!(ipArr[1] >= 0 && ipArr[1] <= 255)){
+            return false;
+        }
 
-            IP_adress clientIp = new IP_adress(this.getClientIp(request));
-            boolean isSuccessfull = this.url_callRepo.saveUrlCall(group_name, custom_suffix, clientIp);
-            if(!isSuccessfull) return new ResponseEntity(HttpStatus.NOT_FOUND);
+        if(!(ipArr[2] >= 0 && ipArr[2] <= 255)){
+            return false;
+        }
 
-            return new ResponseEntity(HttpStatus.OK);
+        if(!(ipArr[3] >= 0 && ipArr[3] <= 255)){
+            return false;
+        }
 
+        return true;
     }
 
 }
