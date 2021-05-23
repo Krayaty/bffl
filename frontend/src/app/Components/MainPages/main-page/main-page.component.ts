@@ -86,6 +86,7 @@ export class MainPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.retrieveAllShortURLsByGroupName();
   }
 
   retrieveAllShortURLsByGroupName(): void {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {DbConnectorService} from '../../../Services/DB-Connect-Services/db-connector.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-user-selection',
@@ -10,7 +11,7 @@ export class GroupSelectionComponent implements OnInit {
 
   groups: string[] = [];
 
-  constructor(private dbconnector: DbConnectorService) { }
+  constructor(private dbconnector: DbConnectorService, protected router: Router) { }
 
   ngOnInit(): void {
     this.retrieveAllGroupsOfUser();
@@ -25,4 +26,11 @@ export class GroupSelectionComponent implements OnInit {
   public getDBConnector(): DbConnectorService {
     return this.dbconnector;
   }
+
+  public reloadMainPage(): void {
+    this.router. navigateByUrl('/main', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['main']);
+    });
+  }
+
 }
