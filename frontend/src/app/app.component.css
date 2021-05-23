@@ -1,0 +1,7 @@
+app-root {
+  display: block;
+}
+
+div {
+  height: calc(100% - 4em);
+}
