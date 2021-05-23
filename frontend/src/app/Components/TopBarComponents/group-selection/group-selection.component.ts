@@ -27,7 +27,7 @@ export class GroupSelectionComponent implements OnInit {
     return this.dbconnector;
   }
 
-  public refreshWebApp(): void {
+  public reloadMainPage(): void {
     this.router. navigateByUrl('/main', { skipLocationChange: true }).then(() => {
       this.router.navigate(['main']);
     });
