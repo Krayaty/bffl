@@ -63,6 +63,11 @@ input[type="checkbox"] {
   width: 50%;
 }
 
+#tagAdd:disabled {
+  background: #c8d1e6;
+  cursor: default;
+}
+
 .tagShell {
   font-family: "Lucida Console", serif;
   border-top-left-radius: 25px;

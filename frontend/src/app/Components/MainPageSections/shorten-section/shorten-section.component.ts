@@ -78,4 +78,10 @@ export class ShortenSectionComponent {
   deleteTag(tag): void {
     this.currentTags = this.currentTags.filter(t => t != tag);
   }
+
+  public getTagAddDisabled(): boolean {
+    return ( (this.shortenURLForm.get('tagInput').value == "") ||
+            (this.shortenURLForm.get('tagInput').value == null) ||
+            (this.currentTags.includes(this.shortenURLForm.get('tagInput').value) ) );
+  }
 }
