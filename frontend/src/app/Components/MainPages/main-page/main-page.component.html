@@ -7,6 +7,7 @@
       colResizeDefault='shift'
       [rowData]="rowData"
       [columnDefs]="columnDefs"
+      (rowDataChanged)="retrieveAllShortURLsByGroupName()"
       rowSelection="single">
     </ag-grid-angular>
   </div>
