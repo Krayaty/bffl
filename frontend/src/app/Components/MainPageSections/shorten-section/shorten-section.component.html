@@ -53,14 +53,14 @@
     </div>
 
     <div>
-      <label for="tagInput">Add tags to your entry</label>
+      <label for="tagInput">Add tags to your entry </label>
       <input type="text" id = "tagInput" placeholder="tag" formControlName="tagInput" required/>
       <button type="button" id = "tagAdd" (click)="addTag()">Add tag</button>
       <div *ngFor="let tag of currentTags">
-        <div class="tagShell">
+        <span class="tagShell">
           {{tag}}
-          <button type="button" class="tagDelete" (click)="deleteTag(tag)">X</button>
-        </div>
+        </span>
+        <button type="button" class="tagDelete" (click)="deleteTag(tag)"><b>X</b></button>
       </div>
     </div>
 
