@@ -18,6 +18,7 @@ export class ShortenSectionComponent {
   customSuffixRegEx = '[a-zA-Z0-9]+[\.a-zA-Z0-9]*';
 
   items = this.shortenService.getItems();
+  currentTags = [];
 
   constructor(private dbconnector: DbConnectorService,
               private authService: AuthService,
@@ -32,11 +33,12 @@ export class ShortenSectionComponent {
       deleteFlag: new FormControl('', {}),
       scope: new FormControl('', {
         validators: [Validators.required]}),
-      tags: new FormControl('', {}),
+      tagInput: new FormControl('', {}),
     });
   }
 
   shortenURL(): boolean {
+    console.log("shorten url wird aufgerufen");
     const assignedTagIds: number[] = [];
     if (this.shortenURLForm.get('tags').value != null) {
          assignedTagIds.push();
@@ -65,5 +67,15 @@ export class ShortenSectionComponent {
     );
     this.shortenURLForm.reset();
     return true;
+  }
+
+  addTag(): void {
+    this.currentTags.push(this.shortenURLForm.get('tagInput').value);
+    this.shortenURLForm.get('tagInput').reset();
+    console.log(this.currentTags);
+  }
+
+  deleteTag(tag): void {
+    this.currentTags = this.currentTags.filter(t => t != tag);
   }
 }

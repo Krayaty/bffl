@@ -52,13 +52,17 @@
       </div>
     </div>
 
-    <label for="tags">Selected Tags</label><br>
-    <select name="tags" id="tags" required="required" formControlName="tags">
-      <option value="default"></option>
-      <option value="1">Tag 1</option>
-      <option value="2">Tag 2</option>
-      <option value="3">Tag 3</option>
-    </select><br>
+    <div>
+      <label for="tagInput">Add tags to your entry</label>
+      <input type="text" id = "tagInput" placeholder="tag" formControlName="tagInput" required/>
+      <button type="button" id = "tagAdd" (click)="addTag()">Add tag</button>
+      <div *ngFor="let tag of currentTags">
+        <div class="tagShell">
+          {{tag}}
+          <button type="button" class="tagDelete" (click)="deleteTag(tag)">X</button>
+        </div>
+      </div>
+    </div>
 
     <input id="submitbutton" type="submit" class="button" value="Shorten URL" /><br><br><br><br>
   </form>
