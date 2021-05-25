@@ -1,4 +1,7 @@
-app-botbar{
-  bottom: 0;
-  width: 100%;
+app-root {
+  display: block;
+}
+
+div {
+  height: calc(100% - 4em);
 }

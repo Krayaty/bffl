@@ -3,3 +3,9 @@ i{
   margin-right: 4em;
   color: black;
 }
+
+div {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+}

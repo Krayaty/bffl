@@ -5,19 +5,18 @@ div{
 
 h1{
   font-size: 40pt;
-  margin: 0em 0em 1em 0em !important;
+  margin: 0 0 1em 0 !important;
 }
 
 a {
   font-size: 20pt;
   color: aliceblue;
   position: absolute;
+  margin-right: 2%;
   top: 50px;
   right: 0;
-  padding-right: 0 !important;
   width: 10em;
   text-decoration: none;
-  padding-right: 3em;
 }
 
 a:hover{
@@ -49,6 +48,6 @@ ag-grid-angular{
   margin-bottom: 1em;
 }
 
-.bottomSpace{
-  margin-bottom: 18em;
+.shorten-section-container {
+  height: 100%;
 }
