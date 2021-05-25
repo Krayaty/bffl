@@ -58,6 +58,11 @@ public class ApiController {
                 remoteAddr = request.getRemoteAddr();
             }
         }
+
+        if(remoteAddr.contains(",")){
+            return remoteAddr.split(",")[0];
+        }
+
         if (remoteAddr.equals("0:0:0:0:0:0:0:1"))
             return "127.0.0.1";
 
