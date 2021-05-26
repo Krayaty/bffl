@@ -42,7 +42,7 @@ export class DbConnectorService {
                           deleteFlag: boolean,
                           updateFlag: boolean,
                           targetURL: string,
-                          assignedTagIds: number[]): void {
+                          assignedTags: string[]): void {
 
     const body = {
       group_name: this.activeGroup,
@@ -51,7 +51,7 @@ export class DbConnectorService {
         delete_flag: deleteFlag,
         update_flag: updateFlag,
         target_url: targetURL,
-        assigned_tag_ids: assignedTagIds
+        assigned_tags: assignedTags
     };
 
     window.alert(JSON.stringify(body));

@@ -38,12 +38,6 @@ export class ShortenSectionComponent {
   }
 
   shortenURL(): boolean {
-    console.log("shorten url wird aufgerufen");
-    const assignedTagIds: number[] = [];
-    if (this.shortenURLForm.get('tags').value != null) {
-         assignedTagIds.push();
-    }
-
     if ( this.shortenURLForm.get('originalURL').value == null || this.shortenURLForm.get('originalURL').value === '' ) {
          window.alert('Missing or wrong argument in original URL');
          return false;
@@ -63,7 +57,7 @@ export class ShortenSectionComponent {
       this.shortenURLForm.get('deleteFlag').value,
       this.shortenURLForm.get('updateFlag').value,
       this.shortenURLForm.get('originalURL').value,
-      assignedTagIds,
+      this.currentTags,
     );
     this.shortenURLForm.reset();
     return true;

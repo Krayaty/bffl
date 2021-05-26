@@ -53,7 +53,7 @@
     </div>
 
     <div>
-      <label for="tagInput">Add tags to your entry </label>
+      <label for="tagInput">Add tags </label>
       <input type="text" id = "tagInput" placeholder="tag" formControlName="tagInput" required/>
       <button type="button" id = "tagAdd" (click)="addTag()" [disabled]="getTagAddDisabled()">Add tag</button>
       <div *ngFor="let tag of currentTags">
@@ -63,7 +63,7 @@
         <button type="button" class="tagDelete" (click)="deleteTag(tag)"><b>X</b></button>
       </div>
     </div>
-
+    <br>
     <input id="submitbutton" type="submit" class="button" value="Shorten URL" /><br><br><br><br>
   </form>
 </div>
