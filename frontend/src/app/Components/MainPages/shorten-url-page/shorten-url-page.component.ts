@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { DbConnectorService } from '../../../Services/DB-Connect-Services/db-connector.service';
 import { AuthService } from '../../../Services/Iam-Services/auth.service';
-import { FormBuilder } from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {Validators} from '@angular/forms';
 import { ShortenService } from '../../../Services/Shorten-Services/shorten.service';
 
@@ -16,7 +16,7 @@ export class ShortenUrlPageComponent {
 
   shortenURLForm: FormGroup;
 
-  originalUrlRegEx = '[-a-zA-Z0-9@:%._\\+~#=\/\/]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&\\/\\/=]*)';
+  targetURLRegEx = '[-a-zA-Z0-9@:%._\\+~#=\/\/]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&\\/\\/=]*)';
   customSuffixRegEx = '[a-zA-Z0-9]+[\.a-zA-Z0-9]*';
 
   items = this.shortenService.getItems();
@@ -25,15 +25,19 @@ export class ShortenUrlPageComponent {
               private authService: AuthService,
               private formBuilder: FormBuilder,
               private shortenService: ShortenService) {
+
     this.shortenURLForm = new FormGroup({
-      originalURL: new FormControl('', {
-        validators: [Validators.required, Validators.pattern(this.originalUrlRegEx)]}),
+      targetURL: new FormControl('', {
+        validators: [Validators.required, Validators.pattern(this.targetURLRegEx)]
+      }),
       customSuffix: new FormControl('', {
-        validators: [Validators.required, Validators.pattern(this.customSuffixRegEx)]}),
+        validators: [Validators.required, Validators.pattern(this.customSuffixRegEx)]
+      }),
       updateFlag: new FormControl('', {}),
       deleteFlag: new FormControl('', {}),
       scope: new FormControl('', {
-        validators: [Validators.required]}),
+        validators: [Validators.required]
+      }),
       tags: new FormControl('', {}),
     });
   }
@@ -44,16 +48,16 @@ export class ShortenUrlPageComponent {
          assignedTagIds.push();
     }
 
-    if ( this.shortenURLForm.get('originalURL').value == null || this.shortenURLForm.get('originalURL').value === '' ) {
-         window.alert('Missing or wrong argument in original URL');
+    if ( this.shortenURLForm.get('targetURL').value == null || this.shortenURLForm.get('targetURL').value === '' ) {
+         window.alert('Missing or wrong argument for TargetURL');
          return false;
     }
     if ( this.shortenURLForm.get('customSuffix').value == null || this.shortenURLForm.get('customSuffix').value === '') {
-        window.alert('Missing or wrong argument in short URL');
+        window.alert('Missing or wrong argument for suffix of ShortURL');
         return false;
     }
     if ( this.shortenURLForm.get('scope').value == null || this.shortenURLForm.get('scope').value === '' ) {
-        window.alert('Missing or wrong argument in scope');
+        window.alert('Missing or wrong argument for scope');
         return false;
     }
 

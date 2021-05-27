@@ -9,7 +9,7 @@ body{
   min-width: 100%;
   width: 100%;
   background-color: white;
-  font-family: "Lucida Console", serif;
+  font-family: "Arial";
   color: black;
 }
 
@@ -19,7 +19,6 @@ html {
 }
 
 input[type=text] {
-  font-family: "Lucida Console", serif;
   border-radius: 25px;
   background: #394B73;
   color: #FFFFFF;
@@ -94,7 +93,6 @@ button:hover{
 }
 
 button{
-  font-family: "Lucida Console", serif;
   border-radius: 25px;
   background: #394B73;
   color: #FFFFFF;
