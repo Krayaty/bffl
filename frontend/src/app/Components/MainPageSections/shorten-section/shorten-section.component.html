@@ -1,0 +1,65 @@
+<div class="section-container">
+
+  <h1>BFFL</h1>
+  <p>Welcome to BFFL - the famous URL-Shortener </p>
+
+  <form [formGroup]="shortenURLForm" (ngSubmit)="this.shortenURL()">
+    <label for="originalURL">Original URL</label>
+    <input type="text" id="originalURL" placeholder="e.g. 'https://mywebsite/impressum.com'" formControlName="originalURL" required/>
+    <div *ngIf="!shortenURLForm.controls['originalURL'].valid && shortenURLForm.controls['originalURL'].touched">
+      <div *ngIf="shortenURLForm.controls['originalURL'].errors.required" style="background-color: red">
+        URL is required.
+      </div>
+      <div *ngIf="shortenURLForm.controls['originalURL'].errors.pattern" style="background-color: red">
+        URL format is wrong. We need a regular url-format. You can copy it from your browser.
+      </div>
+    </div>
+
+    <label for="customSuffix">What do you want as your short URL?</label>
+    <input type="text" id = "customSuffix" placeholder="e.g. 'impressum'" formControlName="customSuffix" required/>
+    <div *ngIf="!shortenURLForm.controls['customSuffix'].valid && shortenURLForm.controls['customSuffix'].touched">
+      <div *ngIf="shortenURLForm.controls['customSuffix'].errors.required" style="background-color: red">
+        Custom Suffix is required.
+      </div>
+      <div *ngIf="shortenURLForm.controls['customSuffix'].errors.pattern" style="background-color: red">
+        Custom Suffix format is wrong. We need words, that can be separated by points.
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control control-checkbox" for="updateFlag">
+        Do you want to allow updates?
+        <input type="checkbox" id = "updateFlag" formControlName="updateFlag"/>
+      </label><br><br>
+      <div class="control_indicator"></div>
+      <label class="control control-checkbox" for="deleteFlag">
+        Do you want to allow deletion?
+        <input type="checkbox" id = "deleteFlag" formControlName="deleteFlag"/>
+      </label>
+      <div class="control_indicator"></div>
+    </div><br>
+
+    <label for="scope">Add your Scope </label><br>
+    <select id="scope" formControlName="scope" required>
+      <option value="-1">Forever</option>
+      <option value="2592000">One month</option>
+      <option value="31536000">One year</option>
+      <option value="315360000">Ten years</option>
+    </select><br>
+    <div *ngIf="!shortenURLForm.controls['scope'].valid && shortenURLForm.controls['scope'].touched">
+      <div *ngIf="shortenURLForm.controls['scope'].errors.required" style="background-color: red">
+        Scope is required.
+      </div>
+    </div>
+
+    <label for="tags">Selected Tags</label><br>
+    <select name="tags" id="tags" required="required" formControlName="tags">
+      <option value="default"></option>
+      <option value="1">Tag 1</option>
+      <option value="2">Tag 2</option>
+      <option value="3">Tag 3</option>
+    </select><br>
+
+    <input id="submitbutton" type="submit" class="button" value="Shorten URL" /><br><br><br><br>
+  </form>
+</div>
