@@ -11,7 +11,7 @@ import { ImpressumComponent } from './Components/BottomBarComponents/impressum/i
 import { KontaktComponent } from './Components/BottomBarComponents/kontakt/kontakt.component';
 import { DatenschutzComponent } from './Components/BottomBarComponents/datenschutz/datenschutz.component';
 import { AgGridModule } from 'ag-grid-angular';
-import { MainPageComponent} from './Components/MainPages/main-page/main-page.component';
+import { MainPageComponent } from './Components/MainPages/main-page/main-page.component';
 import { TopbarComponent } from './Components/TopBarComponents/topbar/topbar.component';
 import { GroupSelectionComponent } from './Components/TopBarComponents/group-selection/group-selection.component';
 import { AuthService} from './Services/Iam-Services/auth.service';
@@ -20,8 +20,7 @@ import { KeycloakService} from 'keycloak-angular';
 import { AuthGuardService} from './Services/Iam-Services/auth-guard.service';
 import { DbConnectorService} from './Services/DB-Connect-Services/db-connector.service';
 import { AuthInterceptor} from './Services/Iam-Services/auth-interceptor.service';
-import { ChooseGroupPageComponent} from './Components/MainPages/choose-group-page/choose-group-page.component';
-import { ButtonRendererComponent } from './Components/MainPages/button-renderer.component';
+import { ChooseGroupPageComponent } from './Components/MainPages/choose-group-page/choose-group-page.component';
 
 @NgModule({
   declarations: [
@@ -34,15 +33,14 @@ import { ButtonRendererComponent } from './Components/MainPages/button-renderer.
     MainPageComponent,
     TopbarComponent,
     GroupSelectionComponent,
-    ChooseGroupPageComponent,
-    ButtonRendererComponent
+    ChooseGroupPageComponent
   ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         FormsModule,
         HttpClientModule,
-        AgGridModule.withComponents([ButtonRendererComponent]),
+        AgGridModule.withComponents([]),
         ReactiveFormsModule
     ],
   providers: [

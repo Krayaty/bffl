@@ -46,12 +46,12 @@ export class DbConnectorService {
 
     const body = {
       group_name: this.activeGroup,
-      custom_suffix: customSuffix,
-      scope: newScope,
-      delete_flag: deleteFlag,
-      update_flag: updateFlag,
-      target_url: targetURL,
-      assigned_tag_ids: assignedTagIds
+        custom_suffix: customSuffix,
+        scope: newScope,
+        delete_flag: deleteFlag,
+        update_flag: updateFlag,
+        target_url: targetURL,
+        assigned_tag_ids: assignedTagIds
     };
 
     window.alert(JSON.stringify(body));
@@ -62,25 +62,4 @@ export class DbConnectorService {
       {headers: new HttpHeaders({ 'Content-Type': 'application/json' })}
     ).subscribe(res => res.json());
   }
-
-  removeEntryById(shortUrlId): void {
-    this.http.post<any>(`${endpoints.post.delete_short_url}`, {shortUrlId});
-  }
-
-  updateShortURL(customSuffix: string, newScope: number, updateFlag: boolean, deleteFlag: boolean, targetURL: string): void {
-    const body = {
-      group_name: this.activeGroup,
-      custom_suffix: customSuffix,
-      scope: newScope,
-      delete_flag: deleteFlag,
-      update_flag: updateFlag,
-      target_url: targetURL
-    };
-    this.http.post<any>(
-      `${endpoints.post.update_short_url}`,
-      JSON.stringify(body),
-      {headers: new HttpHeaders({ 'Content-Type': 'application/json' })}
-    ).subscribe(res => res.json());
-  }
 }
-

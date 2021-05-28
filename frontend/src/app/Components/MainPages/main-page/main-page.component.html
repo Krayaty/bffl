@@ -1,6 +1,5 @@
 <div class="section-container">
   <div class="ag-grid-container">
-    <p>Double click in one field, that is allowed to change, and update the value.</p>
     <ag-grid-angular
       (gridReady)="onGridReady($event)"
       (gridSizeChanged)="onGridSizeChange($event)"
@@ -8,13 +7,13 @@
       colResizeDefault='shift'
       [rowData]="rowData"
       [columnDefs]="columnDefs"
-      [frameworkComponents]="frameworkComponents"
+      (rowDataChanged)="retrieveAllShortURLsByGroupName()"
       rowSelection="single">
     </ag-grid-angular>
   </div>
   <div class="horizCenter">
     <button class="button" (click)="getSelectedRows()">Zeige ausgewählte Reihen</button>
-    <button class="button" (click)="this.retrieveAllShortURLsByGroupName()">Reload</button>
+    <button class="button" (click)="this.retrieveAllShortURLsByGroupName()">reload</button>
   </div>
 </div>
 
