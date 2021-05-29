@@ -87,24 +87,14 @@ export class MainPageComponent implements OnInit {
     editable: true,
     filter: true,
     resizable: true
-  },
-    /*{
-      field: 'Edit',
-      cellRenderer: 'buttonRenderer',
-      cellRendererParams: {
-        onClick: this.onEditButtonClick.bind(this),
-        label: 'Edit'
-      },
-    },*/
-    {
+  }, {
       field: 'Save',
       cellRenderer: 'buttonRenderer',
       cellRendererParams: {
         onClick: this.onSaveButtonClick.bind(this),
         label: 'Save'
       },
-    },
-    {
+    }, {
       field: 'Delete',
       cellRenderer: 'buttonRenderer',
       cellRendererParams: {
@@ -137,9 +127,6 @@ export class MainPageComponent implements OnInit {
   getSelectedRows(): any {
     const selectedNodes = this.api.getSelectedNodes();
     let selectedData = selectedNodes.map(node => node.data );
-    // const selectedDataStringPresentation = selectedData.map(node => node.make + ' ' + node.model).join(', ');
-    // alert(`Selected nodes: ${selectedDataStringPresentation}`);
-    // return selectedDataStringPresentation;
     selectedData = JSON.stringify(selectedData);
     return selectedData;
 
@@ -158,22 +145,20 @@ export class MainPageComponent implements OnInit {
   onSaveButtonClick(params): void
   {
     const selectedRow = this.getSelectedRows();
-    let customSuffix = selectedRow.split('"customSuffix":"', 2).pop();
-    customSuffix = customSuffix.split('",', 1);
-    const newCustomSuffix: string = customSuffix;
-    let scope = selectedRow.split('"scope":', 2).pop();
-    scope = scope.split(',', 1);
-    const newScope: number = JSON.parse(scope);
-    let updateFlag = selectedRow.split('"updateFlag":', 2).pop();
-    updateFlag = updateFlag.split('}]', 1);
-    const newUpdateFlag: boolean = JSON.parse(updateFlag);
-    let deleteFlag = selectedRow.split('"deleteFlag":', 2).pop();
-    deleteFlag = deleteFlag.split(',', 1);
-    const newDeleteFlag = JSON.parse(deleteFlag);
-    let targetUrl = selectedRow.split('"targetURL":"', 2).pop();
-    targetUrl = targetUrl.split('",', 1);
-    const newTargetUrl: string = targetUrl;
-    this.dbconnector.updateShortURL(newCustomSuffix, newScope, newUpdateFlag, newDeleteFlag, newTargetUrl);
+    const customSuffix: string = this.getRelevantPartOfRow(selectedRow, '"customSuffix":"', 2, '",', 1);
+    window.alert(customSuffix);
+    const scopeString = this.getRelevantPartOfRow(selectedRow, '"scope":', 2, ',', 1);
+    const scope: number = JSON.parse(scopeString);
+    window.alert(scope);
+    const updateFlagString = this.getRelevantPartOfRow(selectedRow, '"updateFlag":', 2, '}]', 1);
+    const updateFlag: boolean = JSON.parse(updateFlagString);
+    window.alert(updateFlag);
+    const deleteFlagString = this.getRelevantPartOfRow(selectedRow, '"deleteFlag":', 2, ',', 1);
+    const deleteFlag: boolean = JSON.parse(deleteFlagString);
+    window.alert(deleteFlag);
+    const targetUrl: string = this.getRelevantPartOfRow(selectedRow, '"targetURL":"', 2, '",', 1);
+    window.alert(targetUrl);
+    this.dbconnector.updateShortURL(customSuffix, scope, updateFlag, deleteFlag, targetUrl);
   }
 
   onDeleteButtonClick(params): boolean
@@ -185,21 +170,24 @@ export class MainPageComponent implements OnInit {
       return false;
     }
     // get deleteFlag out of String of selected Row
-    let deleteFlag = selectedRow.split('"deleteFlag":', 2).pop();
-    deleteFlag = deleteFlag.split(',', 1);
-    if ( String(deleteFlag) === String(false) ){
+    const deleteFlag: string = this.getRelevantPartOfRow(selectedRow, '"deleteFlag":', 2, ',', 1);
+    if ( deleteFlag === String(false) ){
       window.alert('You can not delete an entry with the deleteFlag \'false\'');
       return false;
     }
-    let shortUrlId = selectedRow.split('"shortURLId":', 2).pop();
-    shortUrlId = shortUrlId.split(',', 1);
-    let infoAboutRow = selectedRow.split(shortUrlId + ',', 2).pop();
-    infoAboutRow = infoAboutRow.split(',', 2);
+    const shortUrlId = this.getRelevantPartOfRow(selectedRow, '"shortURLId":', 2, ',', 1);
+    const infoAboutRow: string = this.getRelevantPartOfRow(selectedRow, shortUrlId, 2, ',', 2);
     if ( confirm('Are you sure to delete the entry of ' + infoAboutRow) ) {
       this.api.updateRowData({remove: [params.data]});
       this.dbconnector.removeEntryById(shortUrlId);
       return true;
     }
+  }
+
+  getRelevantPartOfRow(selectedRow, start, times1, end, times2): string {
+    let relevantPart = selectedRow.split(start, times1).pop();
+    relevantPart = relevantPart.split(end, times2);
+    return relevantPart;
   }
 
 }
