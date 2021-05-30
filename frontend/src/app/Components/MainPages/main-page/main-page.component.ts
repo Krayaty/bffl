@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {AgGridAngular} from 'ag-grid-angular';
 import {DbConnectorService} from '../../../Services/DB-Connect-Services/db-connector.service';
 import {ShortURLWithTarget} from '../../../DBReturnTypes/DBReturnTypes';
-import { ButtonRendererComponent } from '../button-renderer.component';
+import {ButtonRendererComponent} from '../../UtilComponents/button-renderer/button-renderer.component';
 
 @Component({
   selector: 'app-main-page',
@@ -129,7 +129,6 @@ export class MainPageComponent implements OnInit {
     let selectedData = selectedNodes.map(node => node.data );
     selectedData = JSON.stringify(selectedData);
     return selectedData;
-
   }
 
   onGridReady(params): void {
@@ -171,15 +170,15 @@ export class MainPageComponent implements OnInit {
     }
     // get deleteFlag out of String of selected Row
     const deleteFlag: string = this.getRelevantPartOfRow(selectedRow, '"deleteFlag":', 2, ',', 1);
-    if ( deleteFlag === String(false) ){
+    if ( String(deleteFlag) === String(false) ){
       window.alert('You can not delete an entry with the deleteFlag \'false\'');
       return false;
     }
     const shortUrlId = this.getRelevantPartOfRow(selectedRow, '"shortURLId":', 2, ',', 1);
-    const infoAboutRow: string = this.getRelevantPartOfRow(selectedRow, shortUrlId, 2, ',', 2);
+    const infoAboutRow: string = this.getRelevantPartOfRow(selectedRow, shortUrlId + ',', 2, ',', 2);
     if ( confirm('Are you sure to delete the entry of ' + infoAboutRow) ) {
-      this.api.updateRowData({remove: [params.data]});
       this.dbconnector.removeEntryById(shortUrlId);
+      this.retrieveAllShortURLsByGroupName();
       return true;
     }
   }

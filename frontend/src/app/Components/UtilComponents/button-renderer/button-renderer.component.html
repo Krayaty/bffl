@@ -1,0 +1,6 @@
+<div *ngIf='this.dbconnector.getDeleteFlag();'>
+  <button type="button" (click)="onClick($event)">{{label}}</button>
+</div>
+<div *ngIf='this.dbconnector.getUpdateFlag();'>
+  <button type="button" (click)="onClick($event)">{{label}}</button>
+</div>

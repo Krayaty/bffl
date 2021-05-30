@@ -37,6 +37,13 @@ export class DbConnectorService {
     });
   }
 
+  getDeleteFlag(): boolean {
+    return true;
+  }
+  getUpdateFlag(): boolean {
+    return true;
+  }
+
   saveNewShortURLWithTags(customSuffix: string,
                           newScope: number,
                           deleteFlag: boolean,
@@ -57,14 +64,16 @@ export class DbConnectorService {
     window.alert(JSON.stringify(body));
 
     this.http.post<any>(
-      `${endpoints.post.create_short_url_for_group_with_tags}`,
+      endpoints.post.create_short_url_for_group_with_tags,
       JSON.stringify(body),
       {headers: new HttpHeaders({ 'Content-Type': 'application/json' })}
     ).subscribe(res => res.json());
   }
 
   removeEntryById(shortUrlId): void {
-    this.http.post<any>(`${endpoints.post.delete_short_url}`, {shortUrlId});
+    const body = {short_url_id: shortUrlId};
+    this.http.post<any>(endpoints.post.delete_short_url, JSON.stringify(body),
+      {headers: new HttpHeaders({ 'Content-Type': 'application/json' })});
   }
 
   updateShortURL(customSuffix: string, newScope: number, updateFlag: boolean, deleteFlag: boolean, targetURL: string): void {
@@ -77,7 +86,7 @@ export class DbConnectorService {
       target_url: targetURL
     };
     this.http.post<any>(
-      `${endpoints.post.update_short_url}`,
+      endpoints.post.update_short_url,
       JSON.stringify(body),
       {headers: new HttpHeaders({ 'Content-Type': 'application/json' })}
     ).subscribe(res => res.json());

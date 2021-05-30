@@ -17,7 +17,6 @@ export class ChooseGroupPageComponent implements OnInit {
 
   api;
   columnApi;
-  selectedData;
   rowData: GroupName[];
 
   columnDefs = [{
@@ -49,11 +48,12 @@ export class ChooseGroupPageComponent implements OnInit {
 
   getSelectedRows(): void {
     const selectedNodes = this.api.getSelectedNodes();
-    this.selectedData = selectedNodes.map(node => node.data);
-    this.selectedData = JSON.stringify(this.selectedData);
-    this.selectedData = this.selectedData.split('"groupName":"', 2).pop();
-    this.selectedData = this.selectedData.split('"}]', 1);
-    this.dbconnector.activeGroup = this.selectedData;
+    let selectedData = selectedNodes.map(node => node.data);
+    selectedData = JSON.stringify(selectedData);
+    selectedData = selectedData.split('"groupName":"', 2).pop();
+    selectedData = selectedData.split('"}]', 1);
+    selectedData = String(selectedData);
+    this.dbconnector.activeGroup = selectedData;
   }
 
   onGridReady(params): void {

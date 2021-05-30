@@ -21,7 +21,7 @@ import { AuthGuardService} from './Services/Iam-Services/auth-guard.service';
 import { DbConnectorService} from './Services/DB-Connect-Services/db-connector.service';
 import { AuthInterceptor} from './Services/Iam-Services/auth-interceptor.service';
 import { ChooseGroupPageComponent} from './Components/MainPages/choose-group-page/choose-group-page.component';
-import { ButtonRendererComponent } from './Components/MainPages/button-renderer.component';
+import { ButtonRendererComponent} from './Components/UtilComponents/button-renderer/button-renderer.component';
 
 @NgModule({
   declarations: [
