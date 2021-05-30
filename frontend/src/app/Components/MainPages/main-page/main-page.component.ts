@@ -77,6 +77,9 @@ export class MainPageComponent implements OnInit {
       sortable: true,
       filter: true,
       resizable: true,
+      headerComponentParams: {
+        template: '<p>&#x270E</p>'
+      },
       cellRenderer: params => checkBoxRenderer(params)
     }, {
       field: 'updateFlag',
@@ -85,6 +88,9 @@ export class MainPageComponent implements OnInit {
       sortable: true,
       filter: true,
       resizable: true,
+      headerComponentParams: {
+        template: '<p>&#x1F5D1</p>'
+      },
       cellRenderer: params => checkBoxRenderer(params)
     }];
 
@@ -134,6 +140,7 @@ function secondFormatter(params: any): string {
   const toHours = 3600;
   const toDays = 24;
   const threeDays = 72;
+  if (params.value === -1) { return 'unlimited'; }
   if (params.value < toHours * threeDays) {
     return Math.round(params.value / toHours * 10) / 10 + 'h';
   }
