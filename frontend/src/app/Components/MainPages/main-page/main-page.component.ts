@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {AgGridAngular} from 'ag-grid-angular';
 import {DbConnectorService} from '../../../Services/DB-Connect-Services/db-connector.service';
@@ -12,7 +14,6 @@ export class MainPageComponent implements OnInit {
 
   @ViewChild('agGrid') agGrid: AgGridAngular;
 
-
   api;
   columnApi;
 
@@ -20,66 +21,71 @@ export class MainPageComponent implements OnInit {
 
   columnDefs = [{
       field: 'shortURLId',
-      headerName: 'Id',
+      headerName: 'ID',
       hide: true,
       sortable: true,
       filter: true,
       resizable: true
     }, {
       field: 'groupName',
-      headerName: 'Gruppe',
-      hide: false,
+      headerName: 'Group',
+      hide: true,
       sortable: true,
       filter: true,
       resizable: true
     }, {
       field: 'customSuffix',
-      headerName: 'Suffix',
+      headerName: 'Base Ressource',
       hide: false,
       sortable: true,
       filter: true,
       resizable: true
     }, {
       field: 'createTimestamp',
-      headerName: 'erstellt am',
+      headerName: 'Created On',
       hide: false,
       sortable: true,
       filter: true,
-      resizable: true
+      resizable: true,
+      valueFormatter: params => dateFormatter(params)
     }, {
       field: 'scope',
-      headerName: 'Gültigkeit (in s)',
+      headerName: 'Validity',
       hide: false,
       sortable: true,
       filter: true,
-      resizable: true
+      resizable: true,
+      valueFormatter: params => secondFormatter(params)
     }, {
       field: 'targetURL',
-      headerName: 'Ziel-URL',
+      headerName: 'Leads To',
       hide: false,
       sortable: true,
       filter: true,
       resizable: true
     }, {
       field: 'assignTimestamp',
-      headerName: 'zugewiesen am',
+      headerName: 'Assigned On',
       hide: false,
       sortable: true,
       filter: true,
-      resizable: true
+      resizable: true,
+      valueFormatter: params => dateFormatter(params)
     }, {
-      field: 'deleteFlag',  headerName: 'löschbar?',
+      field: 'deleteFlag',  headerName: 'Deletable',
       hide: false,
       sortable: true,
       filter: true,
-      resizable: true
+      resizable: true,
+      cellRenderer: params => checkBoxRenderer(params)
     }, {
       field: 'updateFlag',
-      headerName: 'änderbar?',
+      headerName: 'Editable',
       hide: false,
       sortable: true,
       filter: true,
-      resizable: true
+      resizable: true,
+      cellRenderer: params => checkBoxRenderer(params)
     }];
 
   constructor(private dbconnector: DbConnectorService) {
@@ -117,4 +123,25 @@ export class MainPageComponent implements OnInit {
   onGridSizeChange(params): void {
     this.api.sizeColumnsToFit();
   }
+}
+
+function dateFormatter(params: any): string {
+  const date = params.value.toString().split(' ');
+  return date[1] + '-' + date[2] + '-' + date[3];
+}
+
+function secondFormatter(params: any): string {
+  const toHours = 3600;
+  const toDays = 24;
+  const threeDays = 72;
+  if (params.value < toHours * threeDays) {
+    return Math.round(params.value / toHours * 10) / 10 + 'h';
+  }
+  return Math.round(params.value / toHours / toDays) + 'd';
+}
+
+function checkBoxRenderer(params: any): string {
+  let isChecked = '';
+  if (params.value) { isChecked = 'checked'; }
+  return '<input type="checkbox" contenteditable="false" ' + isChecked + '>';
 }
