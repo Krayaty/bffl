@@ -21,6 +21,9 @@ import { AuthGuardService} from './Services/Iam-Services/auth-guard.service';
 import { DbConnectorService} from './Services/DB-Connect-Services/db-connector.service';
 import { AuthInterceptor} from './Services/Iam-Services/auth-interceptor.service';
 import { ChooseGroupPageComponent } from './Components/MainPages/choose-group-page/choose-group-page.component';
+import {ShortUrlDetailViewComponent} from './Components/SubViewComponents/short-url-detail-view/short-url-detail-view.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -33,7 +36,8 @@ import { ChooseGroupPageComponent } from './Components/MainPages/choose-group-pa
     MainPageComponent,
     TopbarComponent,
     GroupSelectionComponent,
-    ChooseGroupPageComponent
+    ChooseGroupPageComponent,
+    ShortUrlDetailViewComponent
   ],
     imports: [
         BrowserModule,
@@ -41,7 +45,9 @@ import { ChooseGroupPageComponent } from './Components/MainPages/choose-group-pa
         FormsModule,
         HttpClientModule,
         AgGridModule.withComponents([]),
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MatDialogModule,
+        BrowserAnimationsModule
     ],
   providers: [
     AuthService,

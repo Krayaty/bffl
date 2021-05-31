@@ -14,7 +14,7 @@ import java.util.List;
 public interface Assigned_targetRepo extends JpaRepository<Assigned_target, Composite_assigned_target_id> {
 
     @Query(nativeQuery = true, value =
-            "SELECT * " +
+            "SELECT url, assign_timestamp " +
                     "FROM assigned_target " +
                     "WHERE short_url_id = :searched_short_url_id " +
                     "ORDER BY assign_timestamp DESC;")

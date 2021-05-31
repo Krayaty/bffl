@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {endpoints} from '../../../assets/endpoints/endpoints';
 import {DbIterator} from './DbIterator';
-import {convertToShortURLWithTarget, ShortURLWithTarget} from '../../DBReturnTypes/DBReturnTypes';
+import {convertToShortURLWithTarget, ShortURLWithTarget} from '../../DBReturnTypes/ShortUrlWithTarget';
 
 
 @Injectable({ providedIn: 'root' })
@@ -19,6 +19,22 @@ export class DbConnectorService {
 
   getAllShortURLsByGroupName(): Observable<any> {
     return this.http.get(`${endpoints.get.short_urls_by_group}`, {params: {group_name: this.activeGroup}});
+  }
+
+  getShortURLById(shortUrlId: number): Observable<any> {
+    return this.http.get(`${endpoints.get.short_url_by_id}`, {params: {short_url_id: shortUrlId}});
+  }
+
+  getAllTargetsOfShortURL(shortUrlId: number): Observable<any> {
+    return this.http.get(`${endpoints.get.target_assignment_history_for_short_url}`, {params: {short_url_id: shortUrlId}});
+  }
+
+  getAllCallsOfShortURL(shortUrlId: number): Observable<any> {
+    return this.http.get(`${endpoints.get.calls_of_short_url}`, {params: {short_url_id: shortUrlId}});
+  }
+
+  getNumberOfUrlCalls(shortUrlId: number): Observable<any> {
+    return this.http.get(`${endpoints.get.number_of_url_calls}`, {params: {short_url_id: shortUrlId}});
   }
 
   getIterator(): Promise<DbIterator> {
@@ -45,13 +61,13 @@ export class DbConnectorService {
                           assignedTagIds: number[]): void {
 
     const body = {
-      group_name: this.activeGroup,
-        custom_suffix: customSuffix,
-        scope: newScope,
-        delete_flag: deleteFlag,
-        update_flag: updateFlag,
-        target_url: targetURL,
-        assigned_tag_ids: assignedTagIds
+      group_name: String(this.activeGroup),
+      custom_suffix: customSuffix,
+      scope: newScope,
+      delete_flag: deleteFlag,
+      update_flag: updateFlag,
+      target_url: targetURL,
+      assigned_tag_ids: assignedTagIds
     };
 
     window.alert(JSON.stringify(body));

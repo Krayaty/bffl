@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {AgGridAngular} from 'ag-grid-angular';
 import {DbConnectorService} from '../../../Services/DB-Connect-Services/db-connector.service';
 import {AuthService} from '../../../Services/Iam-Services/auth.service';
-import {GroupName} from '../../../DBReturnTypes/DBReturnTypes';
+import {GroupName} from '../../../DBReturnTypes/GroupName';
 
 @Component({
   selector: 'app-choose-group-page',

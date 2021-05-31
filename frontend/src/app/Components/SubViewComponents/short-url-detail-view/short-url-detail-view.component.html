@@ -1,0 +1,84 @@
+<div>
+  <div>
+    <h2>ShortURL Attributes:</h2>
+    <table>
+      <tr>
+        <th>Group:</th>
+        <td>{{this.originalData.groupName}}</td>
+      </tr>
+      <tr>
+        <th>Suffix:</th>
+        <td>{{this.originalData.customSuffix}}</td>
+      </tr>
+      <tr>
+        <th>Full-fledged ShortURL:</th>
+        <td>https://api.bfflshort.de/s/{{this.originalData.groupName}}/{{this.originalData.customSuffix}}</td>
+      </tr>
+      <tr>
+        <th>Date of creation:</th>
+        <td>{{this.originalData.createTimestamp}}</td>
+      </tr>
+      <tr>
+        <th>Scope:</th>
+        <td>{{this.originalData.scope}}</td>
+      </tr>
+    </table>
+  </div>
+  <div>
+    <h2>Modification-Falgs:</h2>
+    <table>
+      <tr>
+        <th>Updatable:</th>
+        <td>{{this.originalData.updateFlag}}</td>
+      </tr>
+      <tr>
+        <th>Deletable:</th>
+        <td>{{this.originalData.deleteFlag}}</td>
+      </tr>
+    </table>
+  </div>
+  <div>
+    <h2>TargetURLs:</h2>
+    <div>
+      <table>
+        <tr>
+          <th>Current TargetURL:</th>
+          <td>{{this.originalData.targetURL}}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="ag-grid-container targetUrlGrid">
+      <ag-grid-angular
+        (gridReady)="onTargetUrlGridReady($event)"
+        (gridSizeChanged)="onTargetUrlGridSizeChange($event)"
+        class="ag-theme-alpine"
+        colResizeDefault='shift'
+        [rowData]="rowDataTargetUrl"
+        [columnDefs]="columnDefsTargetUrl">
+      </ag-grid-angular>
+    </div>
+  </div>
+  <div>
+    <h2>Calls of ShortURL:</h2>
+    <table>
+      <tr>
+        <th>Number of URL Calls:</th>
+        <td>{{this.retrieveNumberOfUrlCalls()}}</td>
+      </tr>
+    </table>
+    <div *ngIf="this.retrieveNumberOfUrlCalls() > 0" class="ag-grid-container">
+      <ag-grid-angular
+        (gridReady)="onUrlCallGridReady($event)"
+        (gridSizeChanged)="onUrlCallGridSizeChange($event)"
+        class="ag-theme-alpine"
+        colResizeDefault='shift'
+        [rowData]="rowDataUrlCall"
+        [columnDefs]="columnDefsUrlCall">
+      </ag-grid-angular>
+    </div>
+  </div>
+
+  <div class="horizCenter">
+    <button (click)="closeDialog()">Close</button>
+  </div>
+</div>

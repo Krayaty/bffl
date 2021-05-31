@@ -7,13 +7,12 @@
       colResizeDefault='shift'
       [rowData]="rowData"
       [columnDefs]="columnDefs"
-      (rowDataChanged)="retrieveAllShortURLsByGroupName()"
+      (rowDoubleClicked)="this.openDetailView()"
       rowSelection="single">
     </ag-grid-angular>
   </div>
   <div class="horizCenter">
-    <button class="button" (click)="getSelectedRows()">Zeige ausgewählte Reihen</button>
-    <button class="button" (click)="this.retrieveAllShortURLsByGroupName()">reload</button>
+    <button class="button" (click)="this.retrieveAllShortURLsByGroupName()">Reload</button>
   </div>
 </div>
 

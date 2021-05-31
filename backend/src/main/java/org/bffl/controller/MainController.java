@@ -130,6 +130,18 @@ public class MainController {
         return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
 
+    @GetMapping("/numberOfUrlCalls")
+    public ResponseEntity<Integer> getNumberOfURLCalls(@RequestParam("short_url_id") int short_url_id){
+
+        List<Object> list = this.url_callRepo.findAllCallsOfShortURL(short_url_id);
+        if(list != null && list.size() == 1) {
+            int numberOfURLCalls = Integer.parseInt(String.valueOf(list.get(0)));
+            return new ResponseEntity<>(numberOfURLCalls, HttpStatus.OK);
+        }
+
+        return new ResponseEntity(HttpStatus.NOT_FOUND);
+    }
+
     @PostMapping("/createShortURLForGroupWithTags")
     public int insertNewShortURLWithTarget(@RequestBody POST_ShortURLWithTargetAndTags body){
 

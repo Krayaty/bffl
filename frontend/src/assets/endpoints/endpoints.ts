@@ -4,12 +4,13 @@ export const endpoints = {
   get: {
     calls_of_short_url: `${apiUrl}/api/callsOfShortURL`,
     groups_of_user: `${apiUrl}/api/groupsOfUser`,
+    number_of_url_calls: `${apiUrl}/api/numberOfUrlCalls`,
     possible_tags_for_short_url: `${apiUrl}/api/possibleTagsForShortURL`,
     short_url_by_id: `${apiUrl}/api/shortURLByID`,
     short_urls_by_group: `${apiUrl}/api/shortURLsByGroup`,
     tags_assigned_to_short_url: `${apiUrl}/api/tagsAssignedToShortURL`,
     tags_by_group: `${apiUrl}/api/tagsByGroup`,
-    target_assignment_history_for_short_url: `${apiUrl}/targetAssignmentHistoryForShortURL`
+    target_assignment_history_for_short_url: `${apiUrl}/api/targetAssignmentHistoryForShortURL`
   },
   post: {
     add_user_as_admin_to_group: `${apiUrl}/api/addUserAsAdminToGroup`,
