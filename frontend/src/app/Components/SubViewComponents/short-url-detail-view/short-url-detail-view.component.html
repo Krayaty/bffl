@@ -1,49 +1,69 @@
-<div>
+<div class="toolSection close">
+  <img title="refresh" src="../../../../assets/pictures/Symbols/Black/Reload_black.png" (click)="refreshDetailView()">
+  <img title="update" src="../../../../assets/pictures/Symbols/Black/Update_black.png">
+  <img title="delete" src="../../../../assets/pictures/Symbols/Black/Delete_black.png" (click)="deleteShortUrl()">
+  <img title="exit" src="../../../../assets/pictures/Symbols/Black/Exit_black.png" (click)="closeDialog()">
+</div>
+<div class="container">
   <div>
     <h2>ShortURL Attributes:</h2>
     <table>
       <tr>
         <th>Group:</th>
-        <td>{{this.originalData.groupName}}</td>
+        <td>{{this.changedData.groupName}}</td>
       </tr>
       <tr>
         <th>Suffix:</th>
-        <td>{{this.originalData.customSuffix}}</td>
+        <td>{{this.changedData.customSuffix}}</td>
       </tr>
       <tr>
         <th>Full-fledged ShortURL:</th>
-        <td>https://api.bfflshort.de/s/{{this.originalData.groupName}}/{{this.originalData.customSuffix}}</td>
+        <td><u (click)="redirectToTarget()">https://api.bfflshort.de/s/{{this.changedData.groupName}}/{{this.changedData.customSuffix}}</u></td>
       </tr>
       <tr>
         <th>Date of creation:</th>
-        <td>{{this.originalData.createTimestamp}}</td>
+        <!--suppress TypeScriptUnresolvedFunction -->
+        <td>{{this.changedData.createTimestamp | date: 'dd. MMM yyyy hh:mm:ss a'}}</td>
       </tr>
       <tr>
         <th>Scope:</th>
-        <td>{{this.originalData.scope}}</td>
+        <td>{{this.getFormattedScope()}}</td>
       </tr>
     </table>
   </div>
-  <div>
-    <h2>Modification-Falgs:</h2>
+  <span class="multColumn">
+    <div class="modificationFlagsSection">
+    <h2>Modification-Flags:</h2>
     <table>
       <tr>
         <th>Updatable:</th>
-        <td>{{this.originalData.updateFlag}}</td>
+        <td>
+          <img *ngIf="this.changedData.updateFlag == true" src="assets/pictures/Symbols/Neutral/True.png">
+          <img *ngIf="this.changedData.updateFlag == false" src="assets/pictures/Symbols/Neutral/False.png">
+        </td>
       </tr>
       <tr>
         <th>Deletable:</th>
-        <td>{{this.originalData.deleteFlag}}</td>
+        <td>
+          <img *ngIf="this.changedData.deleteFlag == true" src="assets/pictures/Symbols/Neutral/True.png">
+          <img *ngIf="this.changedData.deleteFlag == false" src="assets/pictures/Symbols/Neutral/False.png">
+        </td>
       </tr>
     </table>
   </div>
+    <div class="tagSection">
+      <div>
+
+      </div>
+    </div>
+  </span>
   <div>
     <h2>TargetURLs:</h2>
     <div>
       <table>
         <tr>
           <th>Current TargetURL:</th>
-          <td>{{this.originalData.targetURL}}</td>
+          <td><a href="{{this.changedData.targetURL}}" target="_blank" rel="noreferrer noopener">{{this.changedData.targetURL}}</a></td>
         </tr>
       </table>
     </div>
@@ -63,10 +83,10 @@
     <table>
       <tr>
         <th>Number of URL Calls:</th>
-        <td>{{this.retrieveNumberOfUrlCalls()}}</td>
+        <td>{{this.rowDataUrlCall.length}}</td>
       </tr>
     </table>
-    <div *ngIf="this.retrieveNumberOfUrlCalls() > 0" class="ag-grid-container">
+    <div class="ag-grid-container">
       <ag-grid-angular
         (gridReady)="onUrlCallGridReady($event)"
         (gridSizeChanged)="onUrlCallGridSizeChange($event)"
@@ -76,9 +96,5 @@
         [columnDefs]="columnDefsUrlCall">
       </ag-grid-angular>
     </div>
-  </div>
-
-  <div class="horizCenter">
-    <button (click)="closeDialog()">Close</button>
   </div>
 </div>

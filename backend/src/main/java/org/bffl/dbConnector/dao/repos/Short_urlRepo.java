@@ -29,7 +29,7 @@ public interface Short_urlRepo extends JpaRepository<Short_url, Integer> {
 
 
     @Query(nativeQuery = true, value =
-            "SELECT S.*, T.url, T.assign_timestamp " +
+            "SELECT S.id, S.group_name, S.custom_suffix, S.create_timestamp, S.scope, S.delete_flag, S.update_flag, T.url, T.assign_timestamp " +
             "FROM (" +
                     "SELECT *" +
                     "FROM short_url " +

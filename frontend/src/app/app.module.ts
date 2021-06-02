@@ -23,7 +23,9 @@ import { AuthInterceptor} from './Services/Iam-Services/auth-interceptor.service
 import { ChooseGroupPageComponent } from './Components/MainPages/choose-group-page/choose-group-page.component';
 import {ShortUrlDetailViewComponent} from './Components/SubViewComponents/short-url-detail-view/short-url-detail-view.component';
 import {MatDialogModule} from '@angular/material/dialog';
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {DatePipe} from '@angular/common';
+import { YesNoDialogComponent } from './Components/SubViewComponents/yes-no-dialog/yes-no-dialog.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     TopbarComponent,
     GroupSelectionComponent,
     ChooseGroupPageComponent,
-    ShortUrlDetailViewComponent
+    ShortUrlDetailViewComponent,
+    YesNoDialogComponent
   ],
     imports: [
         BrowserModule,
@@ -50,6 +53,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
         BrowserAnimationsModule
     ],
   providers: [
+    DatePipe,
     AuthService,
     KeycloakService,
     {

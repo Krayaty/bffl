@@ -33,8 +33,14 @@ export class DbConnectorService {
     return this.http.get(`${endpoints.get.calls_of_short_url}`, {params: {short_url_id: shortUrlId}});
   }
 
-  getNumberOfUrlCalls(shortUrlId: number): Observable<any> {
-    return this.http.get(`${endpoints.get.number_of_url_calls}`, {params: {short_url_id: shortUrlId}});
+  deleteShortURL(shortURLId: number): Observable<any> {
+    const body = {
+      short_url_id: shortURLId,
+    };
+    return this.http.post(`${endpoints.post.delete_short_url}`,
+      JSON.stringify(body),
+      {headers: new HttpHeaders({ 'Content-Type': 'application/json' })}
+    );
   }
 
   getIterator(): Promise<DbIterator> {
