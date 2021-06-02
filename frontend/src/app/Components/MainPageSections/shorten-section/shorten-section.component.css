@@ -90,6 +90,7 @@ input[type="checkbox"] {
   width: 3%;
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px;
+  margin-right: 8px;
 }
 
 .ag-grid-container{
