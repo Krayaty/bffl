@@ -7,11 +7,8 @@ h2 {
   margin-top: 0;
 }
 
-img {
-  height: 2em !important;
-  padding: 2px !important;
-  margin-right: 0.25em !important;
-  margin-left: 0.25em !important;
+option {
+  text-overflow: ellipsis;
 }
 
 img:hover {
@@ -55,8 +52,43 @@ u:hover {
   width: 80%;
 }
 
+#tagAdder {
+  margin-bottom: 25px !important;
+}
+
+.tag {
+  border: 1px solid #222222;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px 1px rgba(0,0,0,.3);
+  padding: 10px;
+  margin: 10px;
+  display: inline-flex;
+  flex-flow: row nowrap;
+  align-content: flex-start;
+}
+
+.tag:first-of-type {
+  margin-left: 0 !important;
+}
+
+.tagDeleter {
+  font-size: 1em;
+  margin-left: 10px;
+}
+
+.tagDeleter {
+  height: 1em !important;
+}
+
 .modificationFlagsSection {
   width: 20%;
+}
+
+.modificationFlagsSection img {
+  height: 2em !important;
+  padding: 2px !important;
+  margin-right: 0.25em !important;
+  margin-left: 0.25em !important;
 }
 
 .container > div, .container > span > div {
@@ -80,4 +112,11 @@ u:hover {
   border: 1px solid #cccccc;
   border-radius: 15px;
   box-shadow: 2px 2px 5px 1px rgba(0,0,0,.3);
+}
+
+.toolSection img {
+  height: 2em !important;
+  padding: 2px !important;
+  margin-right: 0.25em !important;
+  margin-left: 0.25em !important;
 }

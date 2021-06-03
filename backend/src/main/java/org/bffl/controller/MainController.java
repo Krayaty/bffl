@@ -166,6 +166,14 @@ public class MainController {
         return HttpStatus.CREATED.value();
     }
 
+    @PostMapping("/assignTargetToShortURL")
+    public int assignTargetToShortUrl(@RequestBody POST_TargetUrl body){
+        int modifiedRows = this.assigned_targetRepo.saveNewTargetOfShortURL(body.getShort_url_id(), body.getTarget_url());
+        if(modifiedRows != 1) return HttpStatus.BAD_REQUEST.value();
+
+        return HttpStatus.CREATED.value();
+    }
+
     @PostMapping("/assignTagToShortURL")
     public int assignTagOfGroupToShortURLByID(@RequestBody POST_TagToShortURLAssignment body){
 
@@ -323,6 +331,15 @@ public class MainController {
     public int deleteGroupByID(@RequestBody POST_GroupName body){
 
         int modifiedRows = this.app_groupRepo.deleteGroupById(body.getGroup_name());
+        if(modifiedRows < 1) return HttpStatus.BAD_REQUEST.value();
+
+        return HttpStatus.OK.value();
+    }
+
+    @PostMapping("/deleteUrlHasTagAssignment")
+    public int deleteURLHasTagAssignment(@RequestBody POST_TagToShortURLAssignment body){
+
+        int modifiedRows = this.url_has_tagRepo.deleteUrlHasTagAssignment(body.getTag_id(), body.getShort_url_id());
         if(modifiedRows < 1) return HttpStatus.BAD_REQUEST.value();
 
         return HttpStatus.OK.value();

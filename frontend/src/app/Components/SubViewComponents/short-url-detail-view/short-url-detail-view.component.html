@@ -52,8 +52,19 @@
     </table>
   </div>
     <div class="tagSection">
+      <select id="tagAdder" #tagAdder [disabled]="this.possibleTags.length === 0" (change)="assignTagToShortURL(tagAdder.value)">
+        <option *ngIf="this.possibleTags.length !== 0" [defaultSelected]="true">Assign one of the currently not assigned Tags to your ShortURL</option>
+        <option *ngFor="let tag of possibleTags" value="{{tag.id}}">
+          {{tag.title}}    –    {{tag.description}}
+        </option>
+        <option *ngIf="this.possibleTags.length === 0">No more tags assignable</option>
+      </select>
       <div>
-
+        <div id="{{tag.description}}" *ngFor="let tag of assignedTags" [style]="{'background': tag.color}" class="tag">
+          <div class="tagTitle" [style]="{'color': isTagColorLight(tag.color)? 'black': 'white'}">{{tag.title}}</div>
+          <img *ngIf="isTagColorLight(tag.color)" title="exit" src="../../../../assets/pictures/Symbols/Black/Exit_black.png" class="tagDeleter" (click)="unassignTagFromShortURL(tag.id)">
+          <img *ngIf="!isTagColorLight(tag.color)" title="exit" src="../../../../assets/pictures/Symbols/White/Exit_white.png" class="tagDeleter" (click)="unassignTagFromShortURL(tag.id)">
+        </div>
       </div>
     </div>
   </span>
@@ -74,7 +85,9 @@
         class="ag-theme-alpine"
         colResizeDefault='shift'
         [rowData]="rowDataTargetUrl"
-        [columnDefs]="columnDefsTargetUrl">
+        [columnDefs]="columnDefsTargetUrl"
+        rowselection="single"
+        (rowDoubleClicked)="reassignOldTargetToShortUrl()">
       </ag-grid-angular>
     </div>
   </div>

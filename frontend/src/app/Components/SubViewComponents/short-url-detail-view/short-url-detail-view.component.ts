@@ -5,9 +5,11 @@ import {convertToUrlCall, UrlCall} from '../../../DBReturnTypes/UrlCall';
 import {convertToTargetUrl, TargetUrl} from '../../../DBReturnTypes/TargetUrl';
 import {convertToShortURLWithTarget, ShortURLWithTarget} from '../../../DBReturnTypes/ShortUrlWithTarget';
 import * as moment from 'moment';
-import {scopeToString} from '../../../Services/Formatter/ScopeFormatter';
-import {HttpStatusCode} from '@angular/common/http';
+import {scopeToString} from '../../../Services/Util/Formatter/ScopeFormatter';
+import {HttpErrorResponse, HttpStatusCode} from '@angular/common/http';
 import {YesNoDialogComponent} from '../yes-no-dialog/yes-no-dialog.component';
+import {convertToTag, Tag} from '../../../DBReturnTypes/Tag';
+import {Color} from 'ag-grid-community';
 
 @Component({
   selector: 'app-short-url-detail-view',
@@ -27,6 +29,9 @@ export class ShortUrlDetailViewComponent implements OnInit{
 
   rowDataTargetUrl: TargetUrl[] = [];
   rowDataUrlCall: UrlCall[] = [];
+
+  assignedTags: Tag[] = [];
+  possibleTags: Tag[] = [];
 
   columnDefsTargetUrl = [{
     field: 'url',
@@ -82,6 +87,7 @@ export class ShortUrlDetailViewComponent implements OnInit{
     this.changedData = this.originalData;
     this.retrieveAllTargetsOfShortURL();
     this.retrieveAllCallsOfShortURL();
+    this.retrieveAllTagsAssignedToShortURL();
   }
 
   retrieveAllTargetsOfShortURL(): void {
@@ -121,10 +127,40 @@ export class ShortUrlDetailViewComponent implements OnInit{
     });
   }
 
+  retrieveAllTagsAssignedToShortURL(): void {
+    this.dbconnector.getAllTagsAssignedToShortURL(this.originalData.shortURLId).subscribe(data => {
+      const taglist: Tag[] = [];
+      data.forEach(entry => {
+        taglist.push(convertToTag(entry));
+      });
+      this.assignedTags = taglist;
+    }, error => {
+      if ((error as HttpErrorResponse).status === HttpStatusCode.NotFound) {
+        this.assignedTags = [];
+      }
+      console.log(error);
+    });
+
+    this.retrieveAllPossibleTagsForShortURL();
+  }
+
+  retrieveAllPossibleTagsForShortURL(): void {
+    this.dbconnector.getAllPossibleTagsForShortURL(this.originalData.shortURLId).subscribe(data => {
+      const taglist: Tag[] = [];
+      data.forEach(entry => {
+        taglist.push(convertToTag(entry));
+      });
+      this.possibleTags = taglist;
+    }, error => {
+      console.log(error);
+    });
+  }
+
   refreshDetailView(): void {
     this.retrieveShortUrl();
     this.retrieveAllTargetsOfShortURL();
     this.retrieveAllCallsOfShortURL();
+    this.retrieveAllTagsAssignedToShortURL();
   }
 
   deleteShortUrl(): void {
@@ -150,6 +186,40 @@ export class ShortUrlDetailViewComponent implements OnInit{
         );
       }
     });
+  }
+
+  reassignOldTargetToShortUrl(): void {
+    const selectedTarget = this.apiTargetUrl.getSelectedNodes().map(node => node.data);
+    window.alert(JSON.stringify(selectedTarget));
+    /*this.dbconnector.saveTargetOfShortUrlAssignment(selectedTarget.url, this.originalData.shortURLId).subscribe(data => {
+      if (data as number === HttpStatusCode.Created) {
+        setTimeout(() => { this.retrieveAllTargetsOfShortURL(); }, 200);
+      }
+    }, error => {
+      console.log(error);
+    });*/
+  }
+
+  assignTagToShortURL(tagId: any): void {
+    this.dbconnector.saveUrlHasTagAssignment(tagId as number, this.originalData.shortURLId).subscribe(data => {
+      if (data as number === HttpStatusCode.Created) {
+        setTimeout(() => { this.retrieveAllTagsAssignedToShortURL(); }, 200);
+      }
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  unassignTagFromShortURL(tagId: number): void {
+    this.dbconnector.deleteTagToShortURLAssignment(tagId, this.originalData.shortURLId).subscribe(
+      data => {
+        if (data as number === HttpStatusCode.Ok) {
+          setTimeout(() => { this.retrieveAllTagsAssignedToShortURL(); }, 200);
+        }
+      }, error => {
+        console.log(error);
+      }
+    );
   }
 
   closeDialog(): void {
@@ -186,4 +256,19 @@ export class ShortUrlDetailViewComponent implements OnInit{
   getFormattedScope(): string {
     return scopeToString(this.changedData.scope);
   }
+
+  isTagColorLight(c: Color): boolean {
+    const hsb = c.toHSB();
+
+    if (hsb[0] > 30 && hsb[0] < 180 && hsb[2] > .6) {
+      return true;
+    }
+
+    if (hsb[2] > .6 && hsb[1] < .8) {
+      return true;
+    }
+
+    return false;
+  }
+
 }
