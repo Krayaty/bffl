@@ -71,22 +71,9 @@ public class ApiController {
 
     private static boolean isValidIp(String ip){
         int[] ipArr = Arrays.stream(ip.split("\\.")).mapToInt(Integer::parseInt).toArray();
-        if(!(ipArr[0] >= 0 && ipArr[0] <= 255)){
-            return false;
+        for(int ipPart : ipArr) {
+            if(ipPart < 0 || ipPart > 255) return false;
         }
-
-        if(!(ipArr[1] >= 0 && ipArr[1] <= 255)){
-            return false;
-        }
-
-        if(!(ipArr[2] >= 0 && ipArr[2] <= 255)){
-            return false;
-        }
-
-        if(!(ipArr[3] >= 0 && ipArr[3] <= 255)){
-            return false;
-        }
-
         return true;
     }
 
