@@ -291,7 +291,7 @@ public class MainController {
 
     @PostMapping("/deleteShortURL")
     public int deleteShortURLByID(@RequestBody POST_ShortURLId body){
-
+        System.out.println("hi");
         int modifiedRows = this.short_urlRepo.deleteShortURL(body.getShort_url_id());
         if(modifiedRows < 1) return HttpStatus.BAD_REQUEST.value();
 

@@ -174,9 +174,11 @@ export class MainPageComponent implements OnInit {
       window.alert('You can not delete an entry with the deleteFlag \'false\'');
       return false;
     }
-    const shortUrlId = this.getRelevantPartOfRow(selectedRow, '"shortURLId":', 2, ',', 1);
+    const shortUrlIdString = this.getRelevantPartOfRow(selectedRow, '"shortURLId":', 2, ',', 1);
+    const shortUrlId: number = JSON.parse(shortUrlIdString);
     const infoAboutRow: string = this.getRelevantPartOfRow(selectedRow, shortUrlId + ',', 2, ',', 2);
     if ( confirm('Are you sure to delete the entry of ' + infoAboutRow) ) {
+      window.alert(shortUrlId);
       this.dbconnector.removeEntryById(shortUrlId);
       this.retrieveAllShortURLsByGroupName();
       return true;

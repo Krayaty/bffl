@@ -13,7 +13,7 @@ export class ButtonRendererComponent implements ICellRendererAngularComp {
   params;
   label: string;
 
-  constructor(private dbconnector: DbConnectorService) {}
+  constructor(public dbconnector: DbConnectorService) {}
 
   agInit(params): void {
     this.params = params;

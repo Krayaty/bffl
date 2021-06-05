@@ -92,7 +92,7 @@ public interface Short_urlRepo extends JpaRepository<Short_url, Integer> {
     @Transactional
     @Query(nativeQuery = true, value =
             "DELETE FROM short_url " +
-            "WHERE id = :searched_short_url_id AND delete_tag = true;")
+            "WHERE id = :searched_short_url_id AND delete_flag = true;")
     Integer deleteShortURL(int searched_short_url_id);
 
 }
