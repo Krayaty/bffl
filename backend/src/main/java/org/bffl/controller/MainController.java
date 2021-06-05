@@ -195,34 +195,19 @@ public class MainController {
     @PostMapping("/updateShortURL")
     public int updateAttributesOfShortURL(@RequestBody POST_ShortURL body){
 
-        int modifiedRows = 0;
+        int id = body.getShort_url_id();
 
-        if(body.getCustom_suffix() != null && body.getCustom_suffix().length() > 0){
-            modifiedRows = this.short_urlRepo.updateSuffixOfShortURL(body.getShort_url_id(), body.getCustom_suffix());
+        try {
+            if(body.getCustom_suffix().length() > 0) this.short_urlRepo.updateSuffixOfShortURL(id, body.getCustom_suffix());
+            if(body.getDelete_flag() != null) this.short_urlRepo.updateDeleteFlagOfShortURL(id, body.getDelete_flag());
+            if(body.getUpdate_flag() != null) this.short_urlRepo.updateUpdateFlagOfShortURL(id, body.getUpdate_flag());
+            if(body.getTarget_url().length() > 0) this.assigned_targetRepo.saveNewTargetOfShortURL(id, body.getTarget_url());
+            if(body.getScope() >= (System.currentTimeMillis() / 1000) + 3600) this.short_urlRepo.updateScopeOfShortURL(id, body.getScope());
+        } catch (Exception exception) {
+            return HttpStatus.BAD_REQUEST.value();
+        } finally {
+            return HttpStatus.OK.value();
         }
-        if(modifiedRows < 1) return HttpStatus.BAD_REQUEST.value();
-
-        if(body.getScope() >= (System.currentTimeMillis() / 1000) + 3600){
-            modifiedRows = this.short_urlRepo.updateScopeOfShortURL(body.getShort_url_id(), body.getScope());
-        }
-        if(modifiedRows < 1) return HttpStatus.BAD_REQUEST.value();
-
-        if(body.getDelete_flag() != null){
-            modifiedRows = this.short_urlRepo.updateDeleteFlagOfShortURL(body.getShort_url_id(), body.getDelete_flag());
-        }
-        if(modifiedRows < 1) return HttpStatus.BAD_REQUEST.value();
-
-        if(body.getUpdate_flag() != null){
-            modifiedRows = this.short_urlRepo.updateUpdateFlagOfShortURL(body.getShort_url_id(), body.getUpdate_flag());
-        }
-        if(modifiedRows < 1) return HttpStatus.BAD_REQUEST.value();
-
-        if(body.getTarget_url() != null && body.getTarget_url().length() > 0){
-            modifiedRows = this.assigned_targetRepo.saveNewTargetOfShortURL(body.getShort_url_id(), body.getTarget_url());
-        }
-        if(modifiedRows < 1) return HttpStatus.BAD_REQUEST.value();
-
-        return HttpStatus.OK.value();
     }
 
     @PostMapping("/updateTag")
