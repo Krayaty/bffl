@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @CrossOrigin(origins = {"http://localhost:4200", "https://bfflshort.de"}, maxAge = 3600L)
@@ -133,22 +134,18 @@ public class MainController {
     @PostMapping("/createShortURLForGroupWithTags")
     public int insertNewShortURLWithTarget(@RequestBody POST_ShortURLWithTargetAndTags body){
 
-        int modifiedRows = this.short_urlRepo.saveShortURL(body.getGroup_name(), body.getCustom_suffix(), body.getScope(), body.isDelete_flag(), body.isUpdate_flag());
-        if(modifiedRows != 1) return HttpStatus.BAD_REQUEST.value();
+        if(this.short_urlRepo.saveShortURL(body.getGroup_name(), body.getCustom_suffix(), body.getScope(), body.isDelete_flag(), body.isUpdate_flag()) != 1 ||
+                this.assigned_targetRepo.saveTargetOfNewShortURL(body.getGroup_name(), body.getCustom_suffix(), body.getTarget_url()) != 1)
+            return HttpStatus.BAD_REQUEST.value();
 
-        modifiedRows = this.assigned_targetRepo.saveTargetOfNewShortURL(body.getGroup_name(), body.getCustom_suffix(), body.getTarget_url());
-        if(modifiedRows != 1) return HttpStatus.BAD_REQUEST.value();
-
-        List<Integer> assigned_tag_ids = new ArrayList<>();
-        for (int i = 0; i < body.getAssigned_tag_ids().length; i++) {
-            assigned_tag_ids.add(Integer.parseInt(String.valueOf(body.getAssigned_tag_ids()[i])));
+        List<Integer> assignedTagIds = new ArrayList<>();
+        for(int tagId: Arrays.asList(body.getAssigned_tag_ids())) {
+            assignedTagIds.add(tagId);
         }
 
-        if (assigned_tag_ids != null && assigned_tag_ids.size() > 0) {
-            for(int tag_id: assigned_tag_ids){
-                modifiedRows = this.url_has_tagRepo.saveTagOfGroupToShortURLBySuffix(tag_id, body.getGroup_name(), body.getCustom_suffix());
-                if(modifiedRows != 1) return HttpStatus.BAD_REQUEST.value();
-            }
+        for(int tagId: assignedTagIds){
+            if(this.url_has_tagRepo.saveTagOfGroupToShortURLBySuffix(tagId, body.getGroup_name(), body.getCustom_suffix()) != 1)
+                return HttpStatus.BAD_REQUEST.value();
         }
 
         return HttpStatus.CREATED.value();
