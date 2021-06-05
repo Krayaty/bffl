@@ -209,11 +209,13 @@ public class MainController {
             return HttpStatus.BAD_REQUEST.value();
         }
 
-        this.short_urlRepo.updateSuffixOfShortURL(id, body.getCustom_suffix());
-        this.short_urlRepo.updateDeleteFlagOfShortURL(id, body.getDelete_flag());
-        this.short_urlRepo.updateUpdateFlagOfShortURL(id, body.getUpdate_flag());
-        this.assigned_targetRepo.saveNewTargetOfShortURL(id, body.getTarget_url());
-        this.short_urlRepo.updateScopeOfShortURL(id, body.getScope());
+        if(this.short_urlRepo.updateSuffixOfShortURL(id, body.getCustom_suffix()) < 1 ||
+            this.short_urlRepo.updateDeleteFlagOfShortURL(id, body.getDelete_flag()) < 1 ||
+            this.short_urlRepo.updateUpdateFlagOfShortURL(id, body.getUpdate_flag()) < 1 ||
+            this.assigned_targetRepo.saveNewTargetOfShortURL(id, body.getTarget_url()) < 1 ||
+            this.short_urlRepo.updateScopeOfShortURL(id, body.getScope()) < 1) {
+            return HttpStatus.BAD_REQUEST.value();
+        }
 
         return HttpStatus.OK.value();
     }
@@ -221,23 +223,23 @@ public class MainController {
     @PostMapping("/updateTag")
     public int updateAttributesOfTag(@RequestBody POST_Tag body){
 
-        int modifiedRows = 0;
+        int id = body.getTag_id();
 
-        if(body.getTitle() != null && body.getTitle().length() > 0){
-            modifiedRows = this.tagRepo.updateTitleOfTag(body.getTag_id(), body.getTitle());
+        try {
+            if(body.getTitle().length() < 1 ||
+                    body.getDescription().length() < 1 ||
+                    body.getColor().length() != 6) {
+                return HttpStatus.BAD_REQUEST.value();
+            }
+        } catch (Exception exception) {
+            return  HttpStatus.BAD_REQUEST.value();
         }
-        if(modifiedRows < 1) return HttpStatus.BAD_REQUEST.value();
 
-        if(body.getDescription() != null && body.getDescription().length() > 0){
-            modifiedRows = this.tagRepo.updateDescriptionOfTag(body.getTag_id(), body.getDescription());
+        if(this.tagRepo.updateTitleOfTag(id, body.getTitle()) < 1 ||
+            this.tagRepo.updateDescriptionOfTag(id, body.getDescription()) < 1 ||
+            this.tagRepo.updateColorOfTag(id, body.getColor()) < 1) {
+            return HttpStatus.BAD_REQUEST.value();
         }
-        if(modifiedRows < 1) return HttpStatus.BAD_REQUEST.value();
-
-        if(body.getColor() != null && body.getColor().length() == 6){
-            modifiedRows = this.tagRepo.updateColorOfTag(body.getTag_id(), body.getColor());
-        }
-        if(modifiedRows < 1) return HttpStatus.BAD_REQUEST.value();
-
         return HttpStatus.OK.value();
     }
 
