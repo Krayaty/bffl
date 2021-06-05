@@ -198,16 +198,24 @@ public class MainController {
         int id = body.getShort_url_id();
 
         try {
-            if(body.getCustom_suffix().length() > 0) this.short_urlRepo.updateSuffixOfShortURL(id, body.getCustom_suffix());
-            if(body.getDelete_flag() != null) this.short_urlRepo.updateDeleteFlagOfShortURL(id, body.getDelete_flag());
-            if(body.getUpdate_flag() != null) this.short_urlRepo.updateUpdateFlagOfShortURL(id, body.getUpdate_flag());
-            if(body.getTarget_url().length() > 0) this.assigned_targetRepo.saveNewTargetOfShortURL(id, body.getTarget_url());
-            if(body.getScope() >= (System.currentTimeMillis() / 1000) + 3600) this.short_urlRepo.updateScopeOfShortURL(id, body.getScope());
+            if(body.getCustom_suffix().length() < 1 ||
+                    body.getTarget_url().length() < 1 ||
+                    body.getCustom_suffix() == null ||
+                    body.getUpdate_flag() == null ||
+                    body.getScope() >= (System.currentTimeMillis() / 1000) + 3600) {
+                return HttpStatus.BAD_REQUEST.value();
+            }
         } catch (Exception exception) {
             return HttpStatus.BAD_REQUEST.value();
-        } finally {
-            return HttpStatus.OK.value();
         }
+
+        this.short_urlRepo.updateSuffixOfShortURL(id, body.getCustom_suffix());
+        this.short_urlRepo.updateDeleteFlagOfShortURL(id, body.getDelete_flag());
+        this.short_urlRepo.updateUpdateFlagOfShortURL(id, body.getUpdate_flag());
+        this.assigned_targetRepo.saveNewTargetOfShortURL(id, body.getTarget_url());
+        this.short_urlRepo.updateScopeOfShortURL(id, body.getScope());
+
+        return HttpStatus.OK.value();
     }
 
     @PostMapping("/updateTag")
