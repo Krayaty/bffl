@@ -44,7 +44,7 @@ export class ShortUrlDetailViewComponent implements OnInit{
     field: 'assignTimestamp',
     headerName: 'Assignment Time',
     cellRenderer: (data) => {
-      return  moment(data.assignTimestamp). format('DD. MMM yyyy hh:ss:mm A');
+      return  moment(data.assignTimestamp).format('DD. MMM yyyy hh:mm:ss A');
     },
     hide: false,
     sortable: true,
@@ -55,7 +55,7 @@ export class ShortUrlDetailViewComponent implements OnInit{
     field: 'callTimestamp',
     headerName: 'Time of Call',
     cellRenderer: (data) => {
-      return  moment(data.callTimestamp). format('DD. MMM yyyy hh:ss:mm A');
+      return  moment(data.callTimestamp).format('DD. MMM yyyy hh:mm:ss A');
     },
     hide: false,
     sortable: true,
@@ -164,40 +164,66 @@ export class ShortUrlDetailViewComponent implements OnInit{
   }
 
   deleteShortUrl(): void {
-    const dialogMsg = 'Do you really want to delete the ShortURL with suffix' +
-      '\n "' + this.changedData.customSuffix + '"?';
-    this.acceptDialog.open(YesNoDialogComponent, {
-      data: dialogMsg,
-      height: '280px',
-      width: '600px',
-    }).afterClosed().subscribe(shouldDelete => {
-      if (shouldDelete) {
-        this.dbconnector.deleteShortURL(this.originalData.shortURLId).subscribe(
-          data => {
-            if (data as number === HttpStatusCode.Ok){
-              window.alert('Successfully deleted ShortURL: "https://api.bfflshort.de/s/' + this.changedData.groupName + '/'
-                + this.changedData.customSuffix + '"\n');
-              this.closeDialog();
-            } else {
-              window.alert('Couldn\'t delete ShortURL: "https://api.bfflshort.de/s/' + this.changedData.groupName + '/'
-                + this.changedData.customSuffix + '"\n');
+    // TODO proof if User is admin
+    if (this.changedData.deleteFlag === false) {
+      window.alert('The ShortURLs delete Flag is set. This means, that you can not delete the ShortURL as a normal User of the group');
+    } else {
+      const dialogMsg = 'Do you really want to delete the ShortURL with suffix' +
+        '\n "' + this.changedData.customSuffix + '"?';
+      this.acceptDialog.open(YesNoDialogComponent, {
+        data: dialogMsg,
+        height: '280px',
+        width: '600px',
+      }).afterClosed().subscribe(shouldDelete => {
+        if (shouldDelete) {
+          this.dbconnector.deleteShortURL(this.originalData.shortURLId).subscribe(
+            data => {
+              if (data as number === HttpStatusCode.Ok){
+                window.alert('Successfully deleted ShortURL: "https://api.bfflshort.de/s/' + this.changedData.groupName + '/'
+                  + this.changedData.customSuffix + '"\n');
+                this.closeDialog();
+              } else {
+                window.alert('Couldn\'t delete ShortURL: "https://api.bfflshort.de/s/' + this.changedData.groupName + '/'
+                  + this.changedData.customSuffix + '"\n');
+              }
             }
-          }
-        );
-      }
-    });
+          );
+        }
+      });
+    }
   }
 
-  reassignOldTargetToShortUrl(): void {
-    const selectedTarget = this.apiTargetUrl.getSelectedNodes().map(node => node.data);
-    window.alert(JSON.stringify(selectedTarget));
-    /*this.dbconnector.saveTargetOfShortUrlAssignment(selectedTarget.url, this.originalData.shortURLId).subscribe(data => {
-      if (data as number === HttpStatusCode.Created) {
-        setTimeout(() => { this.retrieveAllTargetsOfShortURL(); }, 200);
+  reassignOldTargetToShortUrl(row: any): void {
+    // TODO proof if User is admin
+    if (this.changedData.updateFlag === false) {
+      window.alert('The ShortURLs update Flag is set. This means, that you can not update the ShortURL as a normal User of the group');
+    } else {
+      const selectedTarget: TargetUrl = row.data as TargetUrl;
+
+      if (this.changedData.targetURL === selectedTarget.url) {
+        window.alert('The selected TargetURL is the current TargetURL.');
+      } else {
+        const dialogMsg = 'Do you really want to reassign the TargetURL' +
+          '\n"' + selectedTarget.url + '" to the ShortURL with Suffix' +
+          '\n"' + this.changedData.customSuffix + '"?';
+        this.acceptDialog.open(YesNoDialogComponent, {
+          data: dialogMsg,
+          height: '300px',
+          width: '600px',
+        }).afterClosed().subscribe(shouldUpdate => {
+          if (shouldUpdate) {
+            this.dbconnector.saveTargetOfShortUrlAssignment(selectedTarget.url, this.originalData.shortURLId).subscribe(data => {
+              if (data as number === HttpStatusCode.Created) {
+                this.changedData.targetURL = selectedTarget.url;
+                setTimeout(() => { this.retrieveAllTargetsOfShortURL(); }, 200);
+              }
+            }, error => {
+              console.log(error);
+            });
+          }
+        });
       }
-    }, error => {
-      console.log(error);
-    });*/
+    }
   }
 
   assignTagToShortURL(tagId: any): void {

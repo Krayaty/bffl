@@ -86,8 +86,8 @@
         colResizeDefault='shift'
         [rowData]="rowDataTargetUrl"
         [columnDefs]="columnDefsTargetUrl"
-        rowselection="single"
-        (rowDoubleClicked)="reassignOldTargetToShortUrl()">
+        (rowDoubleClicked)="reassignOldTargetToShortUrl($event)"
+        rowselection="single">
       </ag-grid-angular>
     </div>
   </div>
