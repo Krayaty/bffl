@@ -35,7 +35,7 @@ export class MainPageComponent implements OnInit {
       resizable: true
     }, {
       field: 'customSuffix',
-      headerName: 'Base Ressource',
+      headerName: 'Base Resource',
       hide: false,
       sortable: true,
       filter: true,
@@ -59,6 +59,7 @@ export class MainPageComponent implements OnInit {
     }, {
       field: 'targetURL',
       headerName: 'Leads To',
+      width: 500,
       hide: false,
       sortable: true,
       filter: true,
@@ -72,11 +73,13 @@ export class MainPageComponent implements OnInit {
       resizable: true,
       valueFormatter: params => dateFormatter(params)
     }, {
-      field: 'deleteFlag',  headerName: 'Deletable',
+      field: 'deleteFlag',
+      headerName: 'Deletable',
       hide: false,
       sortable: true,
       filter: true,
       resizable: true,
+      width: 100,
       headerComponentParams: {
         template: '<p>&#x270E</p>'
       },
@@ -88,6 +91,7 @@ export class MainPageComponent implements OnInit {
       sortable: true,
       filter: true,
       resizable: true,
+      width: 100,
       headerComponentParams: {
         template: '<p>&#x1F5D1</p>'
       },
@@ -117,7 +121,7 @@ export class MainPageComponent implements OnInit {
     const selectedData = selectedNodes.map(node => node.data );
     const selectedDataStringPresentation = selectedData.map(node => node.make + ' ' + node.model).join(', ');
 
-    alert(`Selected nodes: ${selectedDataStringPresentation}`);
+    // alert(`Selected nodes: ${selectedDataStringPresentation}`);
   }
 
   onGridReady(params): void {
