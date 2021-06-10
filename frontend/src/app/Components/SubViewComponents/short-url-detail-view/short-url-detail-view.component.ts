@@ -164,8 +164,7 @@ export class ShortUrlDetailViewComponent implements OnInit{
   }
 
   deleteShortUrl(): void {
-    // TODO proof if User is admin
-    if (this.changedData.deleteFlag === false) {
+    if (this.changedData.deleteFlag === false && this.dbconnector.isAdmin === false) {
       window.alert('The ShortURLs delete Flag is set. This means, that you can not delete the ShortURL as a normal User of the group');
     } else {
       const dialogMsg = 'Do you really want to delete the ShortURL with suffix' +
@@ -194,7 +193,6 @@ export class ShortUrlDetailViewComponent implements OnInit{
   }
 
   reassignOldTargetToShortUrl(row: any): void {
-    // TODO proof if User is admin
     if (this.changedData.updateFlag === false) {
       window.alert('The ShortURLs update Flag is set. This means, that you can not update the ShortURL as a normal User of the group');
     } else {

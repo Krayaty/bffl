@@ -10,6 +10,7 @@ import {convertToShortURLWithTarget, ShortURLWithTarget} from '../../DBReturnTyp
 export class DbConnectorService {
 
   public activeGroup: string;
+  public isAdmin: boolean;
 
   constructor(private http: HttpClient) {}
 
@@ -55,6 +56,10 @@ export class DbConnectorService {
 
   getAllPossibleTagsForShortURL(shortUrlId: number): Observable<any> {
     return this.http.get(`${endpoints.get.possible_tags_for_short_url}`, {params: {short_url_id: shortUrlId}});
+  }
+
+  getIsUserAdminOfGroup(groupName: string): Observable<any> {
+    return this.http.get(`${endpoints.get.is_user_admin_of_group}`, {params: {group_name: groupName}});
   }
 
   saveNewShortURLWithTags(customSuffix: string,

@@ -4,6 +4,7 @@ export const endpoints = {
   get: {
     calls_of_short_url: `${apiUrl}/api/callsOfShortURL`,
     groups_of_user: `${apiUrl}/api/groupsOfUser`,
+    is_user_admin_of_group: `${apiUrl}/api/isUserAdminOfGroup`,
     number_of_url_calls: `${apiUrl}/api/numberOfUrlCalls`,
     possible_tags_for_short_url: `${apiUrl}/api/possibleTagsForShortURL`,
     short_url_by_id: `${apiUrl}/api/shortURLByID`,

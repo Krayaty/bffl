@@ -47,6 +47,14 @@ export class ChooseGroupPageComponent implements OnInit {
         });
   }
 
+  retrieveIsUserAdminOfGroup(groupName: string): void {
+    this.dbconnector.getIsUserAdminOfGroup(groupName).subscribe(data => {
+      this.dbconnector.isAdmin = data;
+    }, error => {
+      console.log(error);
+    });
+  }
+
   getSelectedRows(): void {
     const selectedNodes = this.api.getSelectedNodes();
     this.selectedData = selectedNodes.map(node => node.data);
@@ -54,6 +62,7 @@ export class ChooseGroupPageComponent implements OnInit {
     this.selectedData = this.selectedData.split('"groupName":"', 2).pop();
     this.selectedData = this.selectedData.split('"}]', 1);
     this.dbconnector.activeGroup = this.selectedData;
+    this.retrieveIsUserAdminOfGroup(this.dbconnector.activeGroup);
   }
 
   onGridReady(params): void {

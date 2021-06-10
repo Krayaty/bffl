@@ -22,6 +22,17 @@ public interface User_has_groupRepo extends JpaRepository<User_has_group, Compos
                     "ORDER BY end_timestamp DESC;")
     List<Object> findAlLGroupsOfUser(String searched_user_id);
 
+    @Query(nativeQuery = true, value =
+            "SELECT admin_flag " +
+            "FROM user_has_group " +
+            "WHERE user_id = :searched_user_id " +
+            "AND group_name = :searched_group_name " +
+            "AND ( " +
+                "end_timestamp IS NULL " +
+                "OR end_timestamp > CURRENT_TIMESTAMP" +
+            ")")
+    List<Object> findIsUserAdminOfGroup(String searched_user_id, String searched_group_name);
+
     @Modifying
     @Transactional
     @Query(nativeQuery = true, value =

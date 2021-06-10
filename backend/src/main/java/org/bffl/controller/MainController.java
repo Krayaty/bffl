@@ -142,6 +142,19 @@ public class MainController {
         return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
 
+    @GetMapping("/isUserAdminOfGroup")
+    public ResponseEntity<Boolean> getIsUserAdminOfGroup(@RequestParam("group_name") String group_name, HttpServletRequest request){
+
+        String groupmember_user_id = KeycloakSecurityConfig.getAccessToken(request).getSubject();
+        List<Object> list = this.user_has_groupRepo.findIsUserAdminOfGroup(groupmember_user_id, group_name);
+        if(list != null && list.size() == 1) {
+            boolean isAdmin = Boolean.parseBoolean(String.valueOf(list.get(0)));
+            return new ResponseEntity<>(isAdmin, HttpStatus.OK);
+        }
+
+        return new ResponseEntity(HttpStatus.NOT_FOUND);
+    }
+
     @PostMapping("/createShortURLForGroupWithTags")
     public int insertNewShortURLWithTarget(@RequestBody POST_ShortURLWithTargetAndTags body){
 
