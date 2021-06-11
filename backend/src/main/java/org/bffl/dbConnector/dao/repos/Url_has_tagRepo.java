@@ -39,6 +39,13 @@ public interface Url_has_tagRepo extends JpaRepository<Url_has_tag, Composite_ur
                     "FROM tag " +
                     "WHERE group_name = :searched_group_name AND id = :chosen_tag_id" +
             "));")
-    int saveTagOfGroupToShortURLBySuffix(int chosen_tag_id, String searched_group_name, String searched_custom_suffix);
+    Integer saveTagOfGroupToShortURLBySuffix(int chosen_tag_id, String searched_group_name, String searched_custom_suffix);
+
+    @Modifying
+    @Transactional
+    @Query(nativeQuery = true, value =
+            "DELETE FROM url_has_tag " +
+            "WHERE tag_id = :searched_tag_id AND short_url_id = :searched_short_url_id")
+    Integer deleteUrlHasTagAssignment(int searched_tag_id, int searched_short_url_id);
 
 }

@@ -1,13 +1,13 @@
 export class ShortURLWithTarget {
-  private shortURLId: number;
-  private groupName: string;
-  private customSuffix: string;
-  private createTimestamp: Date;
-  private scope: number;
-  private targetURL: string;
-  private assignTimestamp: Date;
-  private deleteFlag: boolean;
-  private updateFlag: boolean;
+  public shortURLId: number;
+  public groupName: string;
+  public customSuffix: string;
+  public createTimestamp: Date;
+  public scope: number;
+  public targetURL: string;
+  public assignTimestamp: Date;
+  public deleteFlag: boolean;
+  public updateFlag: boolean;
 
   public constructor(shortURLId: number, groupName: string, customSuffix: string, createTimestamp: string, scope: number,
                      targetURL: string, assignTimestamp: string, deleteFlag: boolean, updateFlag: boolean) {
@@ -35,12 +35,4 @@ export function convertToShortURLWithTarget(object: any[]): ShortURLWithTarget {
     object[5],
     object[6],
   );
-}
-
-export class GroupName {
-  private groupName: string;
-
-  public constructor(groupName: string) {
-    this.groupName = groupName;
-  }
 }

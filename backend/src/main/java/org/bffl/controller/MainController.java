@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -131,6 +132,31 @@ public class MainController {
         return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
 
+    @GetMapping("/numberOfUrlCalls")
+    public ResponseEntity<Integer> getNumberOfURLCalls(@RequestParam("short_url_id") int short_url_id){
+
+        List<Object> list = this.url_callRepo.findAllCallsOfShortURL(short_url_id);
+        if(list != null && list.size() == 1) {
+            int numberOfURLCalls = Integer.parseInt(String.valueOf(list.get(0)));
+            return new ResponseEntity<>(numberOfURLCalls, HttpStatus.OK);
+        }
+
+        return new ResponseEntity(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/isUserAdminOfGroup")
+    public ResponseEntity<Boolean> getIsUserAdminOfGroup(@RequestParam("group_name") String group_name, HttpServletRequest request){
+
+        String groupmember_user_id = KeycloakSecurityConfig.getAccessToken(request).getSubject();
+        List<Object> list = this.user_has_groupRepo.findIsUserAdminOfGroup(groupmember_user_id, group_name);
+        if(list != null && list.size() == 1) {
+            boolean isAdmin = Boolean.parseBoolean(String.valueOf(list.get(0)));
+            return new ResponseEntity<>(isAdmin, HttpStatus.OK);
+        }
+
+        return new ResponseEntity(HttpStatus.NOT_FOUND);
+    }
+
     @PostMapping("/createShortURLForGroupWithTags")
     public int insertNewShortURLWithTarget(@RequestBody POST_ShortURLWithTargetAndTags body){
 
@@ -147,6 +173,14 @@ public class MainController {
             if(this.url_has_tagRepo.saveTagOfGroupToShortURLBySuffix(tagId, body.getGroup_name(), body.getCustom_suffix()) != 1)
                 return HttpStatus.BAD_REQUEST.value();
         }
+
+        return HttpStatus.CREATED.value();
+    }
+
+    @PostMapping("/assignTargetToShortURL")
+    public int assignTargetToShortUrl(@RequestBody POST_TargetUrl body){
+        int modifiedRows = this.assigned_targetRepo.saveNewTargetOfShortURL(body.getShort_url_id(), body.getTarget_url());
+        if(modifiedRows != 1) return HttpStatus.BAD_REQUEST.value();
 
         return HttpStatus.CREATED.value();
     }
@@ -187,6 +221,22 @@ public class MainController {
         if(modifiedRows != 1) return HttpStatus.BAD_REQUEST.value();
 
         return HttpStatus.CREATED.value();
+    }
+
+    @PostMapping("/updateDeleteFlag")
+    public int updateDeleteFlagOfShortURL(@RequestBody POST_ModificationFlag body) {
+        int modifiedRows = this.short_urlRepo.updateDeleteFlagOfShortURL(body.getShort_url_id(), body.isFlag());
+        if(modifiedRows < 1) return HttpStatus.BAD_REQUEST.value();
+
+        return HttpStatus.OK.value();
+    }
+
+    @PostMapping("/updateUpdateFlag")
+    public int updateUpdateFlagOfShortURL(@RequestBody POST_ModificationFlag body){
+        int modifiedRows = this.short_urlRepo.updateUpdateFlagOfShortURL(body.getShort_url_id(), body.isFlag());
+        if(modifiedRows < 1) return HttpStatus.BAD_REQUEST.value();
+
+        return HttpStatus.OK.value();
     }
 
     @PostMapping("/updateShortURL")
@@ -303,6 +353,24 @@ public class MainController {
     public int deleteGroupByID(@RequestBody POST_GroupName body){
 
         int modifiedRows = this.app_groupRepo.deleteGroupById(body.getGroup_name());
+        if(modifiedRows < 1) return HttpStatus.BAD_REQUEST.value();
+
+        return HttpStatus.OK.value();
+    }
+
+    @PostMapping("/deleteUrlHasTagAssignment")
+    public int deleteURLHasTagAssignment(@RequestBody POST_TagToShortURLAssignment body){
+
+        int modifiedRows = this.url_has_tagRepo.deleteUrlHasTagAssignment(body.getTag_id(), body.getShort_url_id());
+        if(modifiedRows < 1) return HttpStatus.BAD_REQUEST.value();
+
+        return HttpStatus.OK.value();
+    }
+
+    @PostMapping("/deleteTargetOfShortUrl")
+    public int deleteTargetOfShortUrl(@RequestBody POST_TargetAssignment body){
+
+        int modifiedRows = this.assigned_targetRepo.deleteTargetOfShortURL(body.getShort_url_id(), Timestamp.valueOf(body.getAssign_timestamp()));
         if(modifiedRows < 1) return HttpStatus.BAD_REQUEST.value();
 
         return HttpStatus.OK.value();

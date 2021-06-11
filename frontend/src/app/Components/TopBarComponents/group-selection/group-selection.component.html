@@ -1,3 +1,3 @@
-<select [(ngModel)]="this.getDBConnector().activeGroup">
+<select [(ngModel)]="this.getDBConnector().activeGroup" (change)="this.retrieveIsUserAdminOfGroup()">
   <option *ngFor="let group of this.groups;" [value]="group">{{group}}</option>
 </select>

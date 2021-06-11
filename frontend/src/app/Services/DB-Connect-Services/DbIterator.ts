@@ -1,4 +1,4 @@
-import {ShortURLWithTarget} from '../../DBReturnTypes/DBReturnTypes';
+import {ShortURLWithTarget} from '../../DBReturnTypes/ShortUrlWithTarget';
 
 export class DbIterator {
   counter: number;
