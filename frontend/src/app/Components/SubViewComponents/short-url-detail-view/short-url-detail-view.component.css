@@ -15,6 +15,10 @@ img:hover {
   cursor: pointer;
 }
 
+button {
+  width: 10em !important;
+}
+
 tr * {
   text-align: left;
 }
@@ -30,6 +34,10 @@ u {
 u:hover {
   cursor: pointer;
   color: #0676c6;
+}
+
+#tagAdder {
+  margin-bottom: 25px !important;
 }
 
 .ag-grid-container{
@@ -50,10 +58,6 @@ u:hover {
 
 .tagSection {
   width: 80%;
-}
-
-#tagAdder {
-  margin-bottom: 25px !important;
 }
 
 .tag {
@@ -84,11 +88,50 @@ u:hover {
   width: 20%;
 }
 
+.errorContainer{
+  margin-left: 20px;
+  margin-right: 200px;
+  background-color: #fab2b2;
+  font-weight: bold;
+  color: black;
+  border: 3px solid #c41d1d;
+  border-radius: 10px;
+  padding: 5px;
+  width: auto;
+  text-align: center;
+}
+
 .modificationFlagsSection img {
   height: 2em !important;
   padding: 2px !important;
   margin-right: 0.25em !important;
   margin-left: 0.25em !important;
+}
+
+.updateTargetContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.updateTargetContainer > input {
+  margin-left: 10px;
+  width: 80%;
+}
+
+.updateTargetContainer > button {
+  width: 20%;
+  margin-right: 20px;
+}
+
+.updateTargetContainer > button:disabled {
+  background: #dddddd;
+  color: #888888;
+  border-color: #888888 !important;
+}
+
+.updateTargetContainer > button:disabled:hover {
+  cursor: default;
 }
 
 .container > div, .container > span > div {

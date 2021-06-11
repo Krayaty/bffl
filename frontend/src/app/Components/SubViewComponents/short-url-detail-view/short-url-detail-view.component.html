@@ -1,7 +1,7 @@
 <div class="toolSection close">
   <img title="refresh" src="../../../../assets/pictures/Symbols/Black/Reload_black.png" (click)="refreshDetailView()">
-  <img title="update" src="../../../../assets/pictures/Symbols/Black/Update_black.png">
-  <img title="delete" src="../../../../assets/pictures/Symbols/Black/Delete_black.png" (click)="deleteShortUrl()">
+  <img *ngIf="this.changedData.updateFlag || this.dbconnector.isAdmin" title="update" src="../../../../assets/pictures/Symbols/Black/Update_black.png" (click)="changeMode()">
+  <img *ngIf="this.changedData.deleteFlag || this.dbconnector.isAdmin" title="delete" src="../../../../assets/pictures/Symbols/Black/Delete_black.png" (click)="deleteShortUrl()">
   <img title="exit" src="../../../../assets/pictures/Symbols/Black/Exit_black.png" (click)="closeDialog()">
 </div>
 <div class="container">
@@ -23,10 +23,14 @@
       <tr>
         <th>Date of creation:</th>
         <!--suppress TypeScriptUnresolvedFunction -->
-        <td>{{this.changedData.createTimestamp | date: 'dd. MMM yyyy hh:mm:ss a'}}</td>
+        <td>{{this.changedData.createTimestamp | date: 'MMM-dd-yyyy HH:mm:ss'}}</td>
       </tr>
       <tr>
-        <th>Scope:</th>
+        <th>Valid until:</th>
+        <td>{{this.getEndOfValidityTimestamp()}}</td>
+      </tr>
+      <tr>
+        <th>Validity period:</th>
         <td>{{this.getFormattedScope()}}</td>
       </tr>
     </table>
@@ -38,20 +42,25 @@
       <tr>
         <th>Updatable:</th>
         <td>
-          <img *ngIf="this.changedData.updateFlag == true" src="assets/pictures/Symbols/Neutral/True.png">
-          <img *ngIf="this.changedData.updateFlag == false" src="assets/pictures/Symbols/Neutral/False.png">
+          <div (click)="changeUpdateFlag()">
+            <img *ngIf="this.changedData.updateFlag == true" src="assets/pictures/Symbols/Neutral/True.png">
+            <img *ngIf="this.changedData.updateFlag == false" src="assets/pictures/Symbols/Neutral/False.png">
+          </div>
         </td>
       </tr>
       <tr>
         <th>Deletable:</th>
         <td>
-          <img *ngIf="this.changedData.deleteFlag == true" src="assets/pictures/Symbols/Neutral/True.png">
-          <img *ngIf="this.changedData.deleteFlag == false" src="assets/pictures/Symbols/Neutral/False.png">
+          <div (click)="changeDeleteFlag()">
+            <img *ngIf="this.changedData.deleteFlag == true" src="assets/pictures/Symbols/Neutral/True.png">
+            <img *ngIf="this.changedData.deleteFlag == false" src="assets/pictures/Symbols/Neutral/False.png">
+          </div>
         </td>
       </tr>
     </table>
   </div>
     <div class="tagSection">
+      <h2>Tags:</h2>
       <select id="tagAdder" #tagAdder [disabled]="this.possibleTags.length === 0" (change)="assignTagToShortURL(tagAdder.value)">
         <option *ngIf="this.possibleTags.length !== 0" [defaultSelected]="true">Assign one of the currently not assigned Tags to your ShortURL</option>
         <option *ngFor="let tag of possibleTags" value="{{tag.id}}">
@@ -77,6 +86,14 @@
           <td><a href="{{this.changedData.targetURL}}" target="_blank" rel="noreferrer noopener">{{this.changedData.targetURL}}</a></td>
         </tr>
       </table>
+      <div *ngIf="this.updateMode" class="updateTargetContainer">
+        <!--suppress AngularUndefinedBinding -->
+        <input type="text" [formControl]="newTarget" [pattern]="this.targetURLRegEx" placeholder="Enter a new target for your ShortURL.">
+        <button (click)="onUpdateSubmit()" [disabled]="(this.newTarget.valid && this.newTarget.value !== '')? false: true">Submit</button>
+      </div>
+      <div *ngIf="newTarget.errors?.pattern && this.newTarget.touched" class="errorContainer">
+        The URL format isn't valid. Please enter a typical url-format. You can copy it from your browser.
+      </div>
     </div>
     <div class="ag-grid-container targetUrlGrid">
       <ag-grid-angular
@@ -87,6 +104,7 @@
         [rowData]="rowDataTargetUrl"
         [columnDefs]="columnDefsTargetUrl"
         (rowDoubleClicked)="reassignOldTargetToShortUrl($event)"
+        (cellKeyPress)="unassignTargetFromShortURL($event)"
         rowselection="single">
       </ag-grid-angular>
     </div>

@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -225,6 +226,22 @@ public class MainController {
         return HttpStatus.CREATED.value();
     }
 
+    @PostMapping("/updateDeleteFlag")
+    public int updateDeleteFlagOfShortURL(@RequestBody POST_ModificationFlag body) {
+        int modifiedRows = this.short_urlRepo.updateDeleteFlagOfShortURL(body.getShort_url_id(), body.isFlag());
+        if(modifiedRows < 1) return HttpStatus.BAD_REQUEST.value();
+
+        return HttpStatus.OK.value();
+    }
+
+    @PostMapping("/updateUpdateFlag")
+    public int updateUpdateFlagOfShortURL(@RequestBody POST_ModificationFlag body){
+        int modifiedRows = this.short_urlRepo.updateUpdateFlagOfShortURL(body.getShort_url_id(), body.isFlag());
+        if(modifiedRows < 1) return HttpStatus.BAD_REQUEST.value();
+
+        return HttpStatus.OK.value();
+    }
+
     @PostMapping("/updateShortURL")
     public int updateAttributesOfShortURL(@RequestBody POST_ShortURL body){
 
@@ -353,6 +370,15 @@ public class MainController {
     public int deleteURLHasTagAssignment(@RequestBody POST_TagToShortURLAssignment body){
 
         int modifiedRows = this.url_has_tagRepo.deleteUrlHasTagAssignment(body.getTag_id(), body.getShort_url_id());
+        if(modifiedRows < 1) return HttpStatus.BAD_REQUEST.value();
+
+        return HttpStatus.OK.value();
+    }
+
+    @PostMapping("/deleteTargetOfShortUrl")
+    public int deleteTargetOfShortUrl(@RequestBody POST_TargetAssignment body){
+
+        int modifiedRows = this.assigned_targetRepo.deleteTargetOfShortURL(body.getShort_url_id(), Timestamp.valueOf(body.getAssign_timestamp()));
         if(modifiedRows < 1) return HttpStatus.BAD_REQUEST.value();
 
         return HttpStatus.OK.value();

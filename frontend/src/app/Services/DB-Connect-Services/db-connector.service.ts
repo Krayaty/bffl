@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {endpoints} from '../../../assets/endpoints/endpoints';
 import {DbIterator} from './DbIterator';
 import {convertToShortURLWithTarget, ShortURLWithTarget} from '../../DBReturnTypes/ShortUrlWithTarget';
+import {DatePipe} from '@angular/common';
 
 
 @Injectable({ providedIn: 'root' })
@@ -12,7 +13,7 @@ export class DbConnectorService {
   public activeGroup: string;
   public isAdmin: boolean;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private datePipe: DatePipe) {}
 
   getAllGroupsOfUser(): Observable<any> {
     return this.http.get(`${endpoints.get.groups_of_user}`);
@@ -115,12 +116,52 @@ export class DbConnectorService {
     );
   }
 
-  deleteTagToShortURLAssignment(tagId: number, shortURLId: number): Observable<any> {
+  updateDeleteFlag(shortUrlId: number, deleteFlag: boolean): Observable<any> {
+    const body = {
+      short_url_id: shortUrlId,
+      flag: deleteFlag
+    };
+
+    return this.http.post<any>(
+      `${endpoints.post.update_delete_flag}`,
+      JSON.stringify(body),
+      {headers: new HttpHeaders({ 'Content-Type': 'application/json' })}
+    );
+  }
+
+  updateUpdateFlag(shortUrlId: number, updateFlag: boolean): Observable<any> {
+    const body = {
+      short_url_id: shortUrlId,
+      flag: updateFlag
+    };
+
+    return this.http.post<any>(
+      `${endpoints.post.update_update_flag}`,
+      JSON.stringify(body),
+      {headers: new HttpHeaders({ 'Content-Type': 'application/json' })}
+    );
+  }
+
+  deleteTagToShortURLAssignment(tagId: number, shortUrlId: number): Observable<any> {
     const body = {
       tag_id: tagId,
-      short_url_id: shortURLId
+      short_url_id: shortUrlId
     };
+
     return this.http.post(`${endpoints.post.delete_url_has_tag_assignment}`,
+      JSON.stringify(body),
+      {headers: new HttpHeaders({ 'Content-Type': 'application/json' })}
+    );
+  }
+
+  deleteTargetToShortURLAssignment(shortUrlId: number, assignTimestamp: Date): Observable<any> {
+    const assignTsString: string = this.datePipe.transform(assignTimestamp, 'yyyy-MM-dd HH:mm:ss');
+    const body = {
+      short_url_id: shortUrlId,
+      assign_timestamp: assignTsString
+    };
+
+    return this.http.post(`${endpoints.post.delete_target_of_short_url}`,
       JSON.stringify(body),
       {headers: new HttpHeaders({ 'Content-Type': 'application/json' })}
     );
@@ -130,6 +171,7 @@ export class DbConnectorService {
     const body = {
       short_url_id: shortURLId
     };
+
     return this.http.post(`${endpoints.post.delete_short_url}`,
       JSON.stringify(body),
       {headers: new HttpHeaders({ 'Content-Type': 'application/json' })}

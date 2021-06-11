@@ -45,6 +45,13 @@ public interface Short_urlRepo extends JpaRepository<Short_url, Integer> {
             ") AS T ON S.id = T.short_url_id")
     List<Object> findShortURLWithCurrentTargetByID(int searched_short_url_id);
 
+    @Query(nativeQuery = true, value =
+            "SELECT * " +
+            "FROM short_url " +
+            "WHERE custom_suffix = :searched_custom_suffix " +
+            "AND group_name = :searched_group_name")
+    List<Short_url> findShortURLBySuffix(String searched_group_name, String searched_custom_suffix);
+
     @Modifying
     @Transactional
     @Query(nativeQuery = true, value =
@@ -57,7 +64,7 @@ public interface Short_urlRepo extends JpaRepository<Short_url, Integer> {
     @Query(nativeQuery = true, value =
             "UPDATE short_url " +
             "SET custom_suffix = :new_custom_suffix " +
-            "WHERE id = :searched_short_url_id AND custom_suffix != :new_custom_suffix AND update_flag = true;")
+            "WHERE id = :searched_short_url_id AND NOT custom_suffix = :new_custom_suffix AND update_flag = true;")
     Integer updateSuffixOfShortURL(int searched_short_url_id, String new_custom_suffix);
 
     @Modifying
@@ -69,7 +76,7 @@ public interface Short_urlRepo extends JpaRepository<Short_url, Integer> {
                     "(SELECT create_timestamp " +
                     "FROM short_url " +
                     "WHERE id = :searched_short_url_id) + :new_scope * interval '1 second'" +
-            ") AND scope != :new_scope AND id = :searched_short_url_id AND update_flag = true;")
+            ") AND NOT scope = :new_scope AND id = :searched_short_url_id AND update_flag = true;")
     Integer updateScopeOfShortURL(int searched_short_url_id, int new_scope);
 
     @Modifying
@@ -77,7 +84,7 @@ public interface Short_urlRepo extends JpaRepository<Short_url, Integer> {
     @Query(nativeQuery = true, value =
             "UPDATE short_url " +
             "SET delete_flag = :new_delete_flag " +
-            "WHERE delete_flag != :new_delete_flag AND id = :searched_short_url_id AND update_flag = true;")
+            "WHERE NOT delete_flag = :new_delete_flag AND id = :searched_short_url_id")
     Integer updateDeleteFlagOfShortURL(int searched_short_url_id, boolean new_delete_flag);
 
     @Modifying
@@ -85,7 +92,7 @@ public interface Short_urlRepo extends JpaRepository<Short_url, Integer> {
     @Query(nativeQuery = true, value =
             "UPDATE short_url " +
             "SET update_flag = :new_update_flag " +
-            "WHERE update_flag != :new_update_flag AND id = :searched_short_url_id AND update_flag = true;")
+            "WHERE NOT update_flag = :new_update_flag AND id = :searched_short_url_id")
     Integer updateUpdateFlagOfShortURL(int searched_short_url_id, boolean new_update_flag);
 
     @Modifying

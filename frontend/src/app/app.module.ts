@@ -40,7 +40,7 @@ import { YesNoDialogComponent } from './Components/SubViewComponents/yes-no-dial
     GroupSelectionComponent,
     ChooseGroupPageComponent,
     ShortUrlDetailViewComponent,
-    YesNoDialogComponent
+    YesNoDialogComponent,
   ],
     imports: [
         BrowserModule,

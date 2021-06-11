@@ -23,11 +23,14 @@ export const endpoints = {
     deleteGroup: `${apiUrl}/api/deleteGroup`,
     delete_short_url: `${apiUrl}/api/deleteShortURL`,
     delete_tag: `${apiUrl}/api/deleteTag`,
+    delete_target_of_short_url: `${apiUrl}/api/deleteTargetOfShortUrl`,
     delete_url_has_tag_assignment: `${apiUrl}/api/deleteUrlHasTagAssignment`,
     delete_user_from_group: `${apiUrl}/api/deleteUserFromGroup`,
+    update_delete_flag: `${apiUrl}/api/updateDeleteFlag`,
     update_group_size: `${apiUrl}/api/updateGroupSize`,
     update_short_url: `${apiUrl}/api/updateShortURL`,
     update_tag: `${apiUrl}/api/updateTag`,
+    update_update_flag: `${apiUrl}/api/updateUpdateFlag`,
     update_user_of_group_assignment: `${apiUrl}/api/updateUserOfGroupAssignment`,
   }
 

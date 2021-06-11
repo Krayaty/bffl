@@ -1,7 +1,7 @@
 <div>
-  <p id="msg">{{this.msg}}</p>
+  <p id="msg">{{this.data.msg}}</p>
 </div>
 <div>
-  <button id="no" (click)="close(false)" class="cancelBtn">Cancel</button>
-  <button id="yes" (click)="close(true)" class="acceptBtn">Accept</button>
+  <button id="no" (click)="close(false)" class="cancelBtn">{{this.data.no}}</button>
+  <button id="yes" (click)="close(true)" class="acceptBtn">{{this.data.yes}}</button>
 </div>

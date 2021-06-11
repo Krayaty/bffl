@@ -1,8 +1,12 @@
 button {
-  font-size: 25pt;
+  font-size: 18pt;
   font-weight: bold;
   width: 47.5% !important;
   height: 35% !important;
+}
+
+p {
+  margin: 0 !important;
 }
 
 div {

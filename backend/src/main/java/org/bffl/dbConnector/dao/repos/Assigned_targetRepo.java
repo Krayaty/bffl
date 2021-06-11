@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Repository
@@ -57,4 +58,11 @@ public interface Assigned_targetRepo extends JpaRepository<Assigned_target, Comp
             "));")
     int saveNewTargetOfShortURL(int searched_short_url_id, String new_target_url);
 
+    @Modifying
+    @Transactional
+    @Query(nativeQuery = true, value =
+            "DELETE FROM assigned_target " +
+            "WHERE short_url_id = :searched_short_url_id " +
+            "AND assign_timestamp = :searched_assign_timestamp")
+    int deleteTargetOfShortURL(int searched_short_url_id, Timestamp searched_assign_timestamp);
 }

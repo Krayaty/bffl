@@ -4,19 +4,26 @@ import {DbConnectorService} from '../../../Services/DB-Connect-Services/db-conne
 import {convertToUrlCall, UrlCall} from '../../../DBReturnTypes/UrlCall';
 import {convertToTargetUrl, TargetUrl} from '../../../DBReturnTypes/TargetUrl';
 import {convertToShortURLWithTarget, ShortURLWithTarget} from '../../../DBReturnTypes/ShortUrlWithTarget';
-import * as moment from 'moment';
 import {scopeToString} from '../../../Services/Util/Formatter/ScopeFormatter';
 import {HttpErrorResponse, HttpStatusCode} from '@angular/common/http';
 import {YesNoDialogComponent} from '../yes-no-dialog/yes-no-dialog.component';
 import {convertToTag, Tag} from '../../../DBReturnTypes/Tag';
 import {Color} from 'ag-grid-community';
+import {formatDateFromDate, formatDateFromGrid} from '../../../Services/Util/Formatter/DateFormatter';
+import {FormControl} from '@angular/forms';
+import {apiUrl} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-short-url-detail-view',
   templateUrl: './short-url-detail-view.component.html',
   styleUrls: ['./short-url-detail-view.component.css'],
 })
-export class ShortUrlDetailViewComponent implements OnInit{
+export class ShortUrlDetailViewComponent implements OnInit {
+
+  targetURLRegEx = '[-a-zA-Z0-9@:%._\\+~#=\/\/]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&\\/\\/=]*)';
+
+  updateMode: boolean;
+  newTarget = new FormControl();
 
   originalData: ShortURLWithTarget;
   changedData: ShortURLWithTarget;
@@ -43,24 +50,20 @@ export class ShortUrlDetailViewComponent implements OnInit{
   }, {
     field: 'assignTimestamp',
     headerName: 'Assignment Time',
-    cellRenderer: (data) => {
-      return  moment(data.assignTimestamp).format('DD. MMM yyyy hh:mm:ss A');
-    },
     hide: false,
     sortable: true,
     filter: true,
-    resizable: true
+    resizable: true,
+    valueFormatter: params => formatDateFromGrid(params)
   }];
   columnDefsUrlCall = [{
     field: 'callTimestamp',
     headerName: 'Time of Call',
-    cellRenderer: (data) => {
-      return  moment(data.callTimestamp).format('DD. MMM yyyy hh:mm:ss A');
-    },
     hide: false,
     sortable: true,
     filter: true,
-    resizable: true
+    resizable: true,
+    valueFormatter: params => formatDateFromGrid(params)
   }, {
     field: 'clientIp',
     headerName: 'Client IP',
@@ -77,12 +80,13 @@ export class ShortUrlDetailViewComponent implements OnInit{
     resizable: true
   }];
 
-  constructor(private dbconnector: DbConnectorService,
+  constructor(public dbconnector: DbConnectorService,
               public dialog: MatDialogRef<ShortUrlDetailViewComponent>,
-              public  acceptDialog: MatDialog,
+              public acceptDialog: MatDialog,
               @Inject(MAT_DIALOG_DATA) private shortUrl: ShortURLWithTarget) {}
 
   ngOnInit(): void {
+    this.updateMode = false;
     this.originalData = this.shortUrl[0];
     this.changedData = this.originalData;
     this.retrieveAllTargetsOfShortURL();
@@ -157,6 +161,7 @@ export class ShortUrlDetailViewComponent implements OnInit{
   }
 
   refreshDetailView(): void {
+    this.updateMode = false;
     this.retrieveShortUrl();
     this.retrieveAllTargetsOfShortURL();
     this.retrieveAllCallsOfShortURL();
@@ -170,8 +175,12 @@ export class ShortUrlDetailViewComponent implements OnInit{
       const dialogMsg = 'Do you really want to delete the ShortURL with suffix' +
         '\n "' + this.changedData.customSuffix + '"?';
       this.acceptDialog.open(YesNoDialogComponent, {
-        data: dialogMsg,
-        height: '280px',
+        data: {
+          msg: dialogMsg,
+          yes: 'Accept',
+          no: 'Cancel'
+        },
+        height: '210px',
         width: '600px',
       }).afterClosed().subscribe(shouldDelete => {
         if (shouldDelete) {
@@ -192,6 +201,54 @@ export class ShortUrlDetailViewComponent implements OnInit{
     }
   }
 
+  changeUpdateFlag(): void {
+    if (this.dbconnector.isAdmin) {
+      if (this.changedData.updateFlag) {
+        this.dbconnector.updateUpdateFlag(this.originalData.shortURLId, false).subscribe(data => {
+          if (data as number === HttpStatusCode.Ok){
+            this.retrieveShortUrl();
+          }
+        }, error => {
+          console.log(error);
+        });
+      } else {
+        this.dbconnector.updateUpdateFlag(this.originalData.shortURLId, true).subscribe(data => {
+          if (data as number === HttpStatusCode.Ok){
+            this.retrieveShortUrl();
+          }
+        }, error => {
+          console.log(error);
+        });
+      }
+    } else {
+      window.alert('You have no permission for this action. Only Admins can change modification-flags.');
+    }
+  }
+
+  changeDeleteFlag(): void {
+    if (this.dbconnector.isAdmin) {
+      if (this.changedData.deleteFlag) {
+        this.dbconnector.updateDeleteFlag(this.originalData.shortURLId, false).subscribe(data => {
+          if (data as number === HttpStatusCode.Ok){
+            this.retrieveShortUrl();
+          }
+        }, error => {
+          console.log(error);
+        });
+      } else {
+        this.dbconnector.updateDeleteFlag(this.originalData.shortURLId, true).subscribe(data => {
+          if (data as number === HttpStatusCode.Ok){
+            this.retrieveShortUrl();
+          }
+        }, error => {
+          console.log(error);
+        });
+      }
+    } else {
+      window.alert('You have no permission for this action. Only Admins can change modification-flags.');
+    }
+  }
+
   reassignOldTargetToShortUrl(row: any): void {
     if (this.changedData.updateFlag === false) {
       window.alert('The ShortURLs update Flag is set. This means, that you can not update the ShortURL as a normal User of the group');
@@ -205,8 +262,12 @@ export class ShortUrlDetailViewComponent implements OnInit{
           '\n"' + selectedTarget.url + '" to the ShortURL with Suffix' +
           '\n"' + this.changedData.customSuffix + '"?';
         this.acceptDialog.open(YesNoDialogComponent, {
-          data: dialogMsg,
-          height: '300px',
+          data: {
+            msg: dialogMsg,
+            yes: 'Accept',
+            no: 'Cancel'
+          },
+          height: '230px',
           width: '600px',
         }).afterClosed().subscribe(shouldUpdate => {
           if (shouldUpdate) {
@@ -246,6 +307,53 @@ export class ShortUrlDetailViewComponent implements OnInit{
     );
   }
 
+  unassignTargetFromShortURL(target: any): void {
+    if (this.changedData.updateFlag || this.dbconnector.isAdmin) {
+      const keyPressed = target.event.key;
+      if (keyPressed === 'Backspace') {
+        const rowData: TargetUrl = target.node.data;
+        const dialogMsg = 'Do you really want to delete Entry "' + rowData.url + '" from the ShortURL-TargetHistory?';
+        this.acceptDialog.open(YesNoDialogComponent, {
+          data: {
+            msg: dialogMsg,
+            yes: 'Accept',
+            no: 'Cancel'
+          },
+          height: '230px',
+          width: '600px',
+        }).afterClosed().subscribe(shouldDelete => {
+          if (shouldDelete) {
+            this.dbconnector.deleteTargetToShortURLAssignment(this.originalData.shortURLId, rowData.assignTimestamp).subscribe(data => {
+              if (data as number === HttpStatusCode.Ok) {
+                setTimeout(() => { this.retrieveAllTargetsOfShortURL(); }, 200);
+              }
+            }, error => {
+              console.log(error);
+            });
+          }
+        });
+      }
+    }
+  }
+
+  onUpdateSubmit(): void {
+    this.updateMode = false;
+    this.updateTargetOfShortUrl();
+  }
+
+  updateTargetOfShortUrl(): void {
+    if (this.newTarget.value !== this.changedData.targetURL) {
+      this.dbconnector.saveTargetOfShortUrlAssignment(this.newTarget.value, this.originalData.shortURLId).subscribe(data => {
+        if (data as number === HttpStatusCode.Created) {
+          this.changedData.targetURL = this.newTarget.value;
+          setTimeout(() => { this.retrieveAllTargetsOfShortURL(); }, 200);
+        }
+      }, error => {
+        console.log(error);
+      });
+    }
+  }
+
   closeDialog(): void {
     const isDataChanged = (this.originalData !== this.changedData);
     this.dialog.close(isDataChanged);
@@ -272,7 +380,7 @@ export class ShortUrlDetailViewComponent implements OnInit{
   }
 
   redirectToTarget(): void {
-    const target = 'https://api.bfflshort.de/s/' + this.changedData.groupName + '/' + this.changedData.customSuffix;
+    const target = apiUrl + '/s/' + this.changedData.groupName + '/' + this.changedData.customSuffix;
     window.open(target, '_blank');
     setTimeout(() => { this.retrieveAllCallsOfShortURL(); }, 300);
   }
@@ -293,6 +401,44 @@ export class ShortUrlDetailViewComponent implements OnInit{
     }
 
     return false;
+  }
+
+  changeMode(): void {
+    if (this.updateMode) {
+      if (this.newTarget.value === '') {
+        this.updateMode = false;
+      } else {
+        if (this.newTarget.value === this.changedData.targetURL) {
+          this.updateMode = false;
+        } else {
+          const dialogMsg = 'Do you really want to cancel the update-process?';
+          this.acceptDialog.open(YesNoDialogComponent, {
+            data: {
+              msg: dialogMsg,
+              yes: 'Yes',
+              no: 'No',
+            },
+            height: '200px',
+            width: '400px',
+          }).afterClosed().subscribe(shouldStopUpdate => {
+            if (shouldStopUpdate) {
+              this.updateMode = false;
+            }
+          });
+        }
+      }
+    } else {
+      this.newTarget.setValue('');
+      this.updateMode = true;
+    }
+  }
+
+  getEndOfValidityTimestamp(): string {
+    if (this.changedData.scope === -1) {
+      return 'infinity';
+    }
+    const endOfValidityTs: Date = new Date(this.changedData.createTimestamp.getTime() + (this.changedData.scope * 1000));
+    return formatDateFromDate(endOfValidityTs);
   }
 
 }
