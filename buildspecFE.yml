@@ -7,7 +7,7 @@ env:
     BUILD_FOLDER: "dist"
 phases:
   install:
-    runtime-versions:ˆ
+    runtime-versions:
       nodejs: 12
     commands:
       - cd frontend
