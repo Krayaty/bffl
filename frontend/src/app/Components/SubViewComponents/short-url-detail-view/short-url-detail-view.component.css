@@ -71,6 +71,10 @@ u:hover {
   align-content: flex-start;
 }
 
+.tag > img {
+  margin-top: 2.5px;
+}
+
 .tag:first-of-type {
   margin-left: 0 !important;
 }

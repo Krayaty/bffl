@@ -1,8 +1,8 @@
 <div class="toolSection close">
-  <img title="refresh" src="../../../../assets/pictures/Symbols/Black/Reload_black.png" (click)="refreshDetailView()">
-  <img *ngIf="this.changedData.updateFlag || this.dbconnector.isAdmin" title="update" src="../../../../assets/pictures/Symbols/Black/Update_black.png" (click)="changeMode()">
-  <img *ngIf="this.changedData.deleteFlag || this.dbconnector.isAdmin" title="delete" src="../../../../assets/pictures/Symbols/Black/Delete_black.png" (click)="deleteShortUrl()">
-  <img title="exit" src="../../../../assets/pictures/Symbols/Black/Exit_black.png" (click)="closeDialog()">
+  <img title="refresh" src="assets/pictures/Symbols/Black/Reload_black.png" (click)="refreshDetailView()">
+  <img *ngIf="this.changedData.updateFlag || this.dbconnector.isAdmin" title="update" src="assets/pictures/Symbols/Black/Update_black.png" (click)="changeMode()">
+  <img *ngIf="this.changedData.deleteFlag || this.dbconnector.isAdmin" title="delete" src="assets/pictures/Symbols/Black/Delete_black.png" (click)="deleteShortUrl()">
+  <img title="exit" src="assets/pictures/Symbols/Black/Exit_black.png" (click)="closeDialog()">
 </div>
 <div class="container">
   <div>
@@ -71,8 +71,8 @@
       <div>
         <div id="{{tag.description}}" *ngFor="let tag of assignedTags" [style]="{'background': tag.color}" class="tag">
           <div class="tagTitle" [style]="{'color': isTagColorLight(tag.color)? 'black': 'white'}">{{tag.title}}</div>
-          <img *ngIf="isTagColorLight(tag.color)" title="exit" src="../../../../assets/pictures/Symbols/Black/Exit_black.png" class="tagDeleter" (click)="unassignTagFromShortURL(tag.id)">
-          <img *ngIf="!isTagColorLight(tag.color)" title="exit" src="../../../../assets/pictures/Symbols/White/Exit_white.png" class="tagDeleter" (click)="unassignTagFromShortURL(tag.id)">
+          <img *ngIf="isTagColorLight(tag.color)" title="exit" src="assets/pictures/Symbols/Black/Exit_black.png" class="tagDeleter" (click)="unassignTagFromShortURL(tag.id)">
+          <img *ngIf="!isTagColorLight(tag.color)" title="exit" src="assets/pictures/Symbols/White/Exit_white.png" class="tagDeleter" (click)="unassignTagFromShortURL(tag.id)">
         </div>
       </div>
     </div>
