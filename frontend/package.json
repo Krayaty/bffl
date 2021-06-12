@@ -11,7 +11,7 @@
     "ci": "ng test --watch=false && ng build",
     "test:coverage": "ng test --no-watch --code-coverage",
     "pipelineWithoutTests": "ng build --prod",
-    "pipeline": "ng test --sourceMap=false --browsers=ChromeHeadless --watch=false && ng build --prod"
+    "pipeline": "ng test && ng build --prod"
   },
   "private": true,
   "dependencies": {
