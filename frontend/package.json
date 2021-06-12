@@ -10,7 +10,7 @@
     "e2e": "ng e2e",
     "ci": "ng test --watch=false && ng build",
     "test:coverage": "ng test --no-watch --code-coverage",
-    "pipelineWithoutTests": "ng build --sourceMap=false --watch=false --base-href ./ --configuration production",
+    "pipelineWithoutTests": "ng build --sourceMap=false --watch=false --configuration production",
     "pipeline": "ng test --sourceMap=false --browsers=ChromeHeadless --watch=false && ng build --sourceMap=false --watch=false --configuration production"
   },
   "private": true,
