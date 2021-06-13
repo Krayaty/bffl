@@ -1,8 +1,8 @@
 <div class="toolSection close">
-  <img title="refresh" src="/src/assets/images/Symbols/Black/Reload_black.png" (click)="refreshDetailView()">
-  <img *ngIf="this.changedData.updateFlag || this.dbconnector.isAdmin" title="update" src="/src/assets/images/Symbols/Black/Update_black.png" (click)="changeMode()">
-  <img *ngIf="this.changedData.deleteFlag || this.dbconnector.isAdmin" title="delete" src="/src/assets/images/Symbols/Black/Delete_black.png" (click)="deleteShortUrl()">
-  <img title="exit" src="/src/assets/images/Symbols/Black/Exit_black.png" (click)="closeDialog()">
+  <img title="refresh" src="assets/images/Symbols/Black/Reload_black.png" (click)="refreshDetailView()">
+  <img *ngIf="this.changedData.updateFlag || this.dbconnector.isAdmin" title="update" src="assets/images/Symbols/Black/Update_black.png" (click)="changeMode()">
+  <img *ngIf="this.changedData.deleteFlag || this.dbconnector.isAdmin" title="delete" src="assets/images/Symbols/Black/Delete_black.png" (click)="deleteShortUrl()">
+  <img title="exit" src="assets/images/Symbols/Black/Exit_black.png" (click)="closeDialog()">
 </div>
 <div class="container">
   <div>
@@ -43,8 +43,8 @@
         <th>Updatable:</th>
         <td>
           <div (click)="changeUpdateFlag()">
-            <img *ngIf="this.changedData.updateFlag == true" src="/src/assets/images/Symbols/Neutral/True.png">
-            <img *ngIf="this.changedData.updateFlag == false" src="/src/assets/images/Symbols/Neutral/False.png">
+            <img *ngIf="this.changedData.updateFlag == true" src="assets/images/Symbols/Neutral/True.png">
+            <img *ngIf="this.changedData.updateFlag == false" src="assets/images/Symbols/Neutral/False.png">
           </div>
         </td>
       </tr>
@@ -52,8 +52,8 @@
         <th>Deletable:</th>
         <td>
           <div (click)="changeDeleteFlag()">
-            <img *ngIf="this.changedData.deleteFlag == true" src="/src/assets/images/Symbols/Neutral/True.png">
-            <img *ngIf="this.changedData.deleteFlag == false" src="/src/assets/images/Symbols/Neutral/False.png">
+            <img *ngIf="this.changedData.deleteFlag == true" src="assets/images/Symbols/Neutral/True.png">
+            <img *ngIf="this.changedData.deleteFlag == false" src="assets/images/Symbols/Neutral/False.png">
           </div>
         </td>
       </tr>
@@ -71,8 +71,8 @@
       <div>
         <div id="{{tag.description}}" *ngFor="let tag of assignedTags" [style]="{'background': tag.color}" class="tag">
           <div class="tagTitle" [style]="{'color': isTagColorLight(tag.color)? 'black': 'white'}">{{tag.title}}</div>
-          <img *ngIf="isTagColorLight(tag.color)" title="exit" src="/src/assets/images/Symbols/Black/Exit_black.png" class="tagDeleter" (click)="unassignTagFromShortURL(tag.id)">
-          <img *ngIf="!isTagColorLight(tag.color)" title="exit" src="/src/assets/images/Symbols/White/Exit_white.png" class="tagDeleter" (click)="unassignTagFromShortURL(tag.id)">
+          <img *ngIf="isTagColorLight(tag.color)" title="exit" src="assets/images/Symbols/Black/Exit_black.png" class="tagDeleter" (click)="unassignTagFromShortURL(tag.id)">
+          <img *ngIf="!isTagColorLight(tag.color)" title="exit" src="assets/images/Symbols/White/Exit_white.png" class="tagDeleter" (click)="unassignTagFromShortURL(tag.id)">
         </div>
       </div>
     </div>
