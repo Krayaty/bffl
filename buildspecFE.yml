@@ -21,10 +21,13 @@ phases:
       - echo Finished build on `date`
   post_build:
     commands:
-      - cd dist/BFFL
+      - ls
+      - cd dist/
+      - ls
+      - mv BFFL/* /
       - ls
 artifacts:
   files:
     - '**/*'
-  base-directory: 'frontend/dist/*'
+  base-directory: 'frontend/dist/'
   discard-paths: yes
