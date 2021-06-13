@@ -21,7 +21,7 @@ phases:
       - echo Finished build on `date`
   post_build:
     commands:
-      - mv BFFL/assets ../
+      - mv dist/BFFL/assets dist/
 artifacts:
   files:
     - '**/*'
