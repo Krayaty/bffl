@@ -19,6 +19,9 @@ phases:
       - echo Started build on `date`
       - npm run pipelineWithoutTests
       - echo Finished build on `date`
+  post-build:
+    commands:
+      - mv BFFL/assets ../
 artifacts:
   files:
     - '**/*'
