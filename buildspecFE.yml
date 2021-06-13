@@ -19,11 +19,6 @@ phases:
       - echo Started build on `date`
       - npm run pipelineWithoutTests
       - echo Finished build on `date`
-  post_build:
-    commands:
-      - ls
-      - mv dist/BFFL/* dist/
-      - ls
 artifacts:
   files:
     - '**/*'
