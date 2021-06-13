@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/BFFL",
+            "outputPath": "dist/BFFL/",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -128,6 +128,7 @@
       }
     }
   },
+  "defaultProject": "BFFL",
   "cli": {
     "analytics": "fb48de35-709c-44f6-8f3c-093e131e7e70"
   }
