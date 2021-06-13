@@ -183,6 +183,26 @@ export class MainPageComponent implements OnInit {
       this.retrieveAllShortURLsByGroupName();
       return true;
     }
+    this.acceptDialog.open(YesNoDialogComponent, {
+      data: dialogMsg,
+      height: '280px',
+      width: '600px',
+    }).afterClosed().subscribe(shouldDelete => {
+      if (shouldDelete) {
+        this.dbconnector.deleteShortURL(this.originalData.shortURLId).subscribe(
+          data => {
+            if (data as number === HttpStatusCode.Ok){
+              window.alert('Successfully deleted ShortURL: "https://api.bfflshort.de/s/' + this.changedData.groupName + '/'
+                + this.changedData.customSuffix + '"\n');
+              this.closeDialog();
+            } else {
+              window.alert('Couldn\'t delete ShortURL: "https://api.bfflshort.de/s/' + this.changedData.groupName + '/'
+                + this.changedData.customSuffix + '"\n');
+            }
+          }
+        );
+      }
+    });
   }
 
   getRelevantPartOfRow(selectedRow, start, times1, end, times2): string {
