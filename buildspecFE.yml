@@ -22,9 +22,7 @@ phases:
   post_build:
     commands:
       - ls
-      - cd dist/
-      - ls
-      - mv BFFL/* frontend/dist/
+      - mv /dist/BFFL/* /dist/
       - ls
 artifacts:
   files:
