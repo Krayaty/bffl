@@ -22,7 +22,6 @@ phases:
   post_build:
     commands:
       - cd dist/BFFL
-      - mv /* ../
       - ls
 artifacts:
   files:
