@@ -24,7 +24,7 @@ phases:
       - ls
       - cd dist/
       - ls
-      - mv BFFL/* /
+      - mv BFFL/* frontend/dist/
       - ls
 artifacts:
   files:
