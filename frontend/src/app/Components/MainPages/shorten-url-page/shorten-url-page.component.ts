@@ -125,10 +125,11 @@ export class ShortenUrlPageComponent {
 
   public openCreateTagView(): void {
     this.dialog.open(CreateTagDialogComponent, {
-      height: '90%',
-      width: '90%',
+      height: '30%',
+      width: '50%',
     })
-      .afterClosed().subscribe(isDataChanged => {
+      .afterClosed().subscribe(() => {
+        this.getAvailableTags();
     });
   }
 }
