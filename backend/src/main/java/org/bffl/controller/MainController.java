@@ -170,8 +170,10 @@ public class MainController {
         }
 
         for(int tagId: assignedTagIds){
-            if(this.url_has_tagRepo.saveTagOfGroupToShortURLBySuffix(tagId, body.getGroup_name(), body.getCustom_suffix()) != 1)
+            String suffix = body.getCustom_suffix();
+            if(this.url_has_tagRepo.saveTagOfGroupToShortURLBySuffix(tagId, body.getGroup_name(), suffix) != 1) {
                 return HttpStatus.BAD_REQUEST.value();
+            }
         }
 
         return HttpStatus.CREATED.value();

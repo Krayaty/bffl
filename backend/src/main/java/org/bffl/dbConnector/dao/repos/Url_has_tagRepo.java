@@ -33,7 +33,7 @@ public interface Url_has_tagRepo extends JpaRepository<Url_has_tag, Composite_ur
             "VALUES ((" +
                     "SELECT id " +
                     "FROM short_url " +
-                    "WHERE group_name = :searched_group_name AND custom_suffix = :searched_custom_suffix;" +
+                    "WHERE group_name = :searched_group_name AND custom_suffix = :searched_custom_suffix" +
             "), (" +
                     "SELECT id " +
                     "FROM tag " +
