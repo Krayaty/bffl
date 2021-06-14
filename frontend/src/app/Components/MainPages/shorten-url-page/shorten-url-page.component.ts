@@ -49,9 +49,10 @@ export class ShortenUrlPageComponent {
 
   shortenURL(): boolean {
     const assignedTagIds: number[] = [];
-    if (this.shortenURLForm.get('tags').value != null) {
-         assignedTagIds.push();
-    }
+    this.currentTags.forEach(tag => {
+      assignedTagIds.push(tag.id);
+    });
+    console.log(assignedTagIds);
 
     if ( this.shortenURLForm.get('targetURL').value == null || this.shortenURLForm.get('targetURL').value === '' ) {
          window.alert('Missing or wrong argument for TargetURL');
@@ -79,12 +80,13 @@ export class ShortenUrlPageComponent {
   }
 
   addTag(): void {
-    this.currentTags.push(this.shortenURLForm.get('tagInput').value);
+    let newTag = this.availableTags.find(t => t.title == this.shortenURLForm.get('tagInput').value);
+    this.currentTags.push(newTag);
     this.shortenURLForm.get('tagInput').reset();
     console.log(this.currentTags);
   }
 
-  deleteTag(tag): void {
+  deleteTag(tag: Tag): void {
     this.currentTags = this.currentTags.filter(t => t != tag);
   }
 
