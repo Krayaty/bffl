@@ -21,7 +21,7 @@ export class MainPageComponent implements OnInit {
 
   columnDefs = [{
       field: 'shortURLId',
-      headerName: 'Id',
+      headerName: 'ID',
       hide: true,
       sortable: true,
       filter: true,
@@ -29,59 +29,73 @@ export class MainPageComponent implements OnInit {
     }, {
       field: 'groupName',
       headerName: 'Group',
-      hide: false,
+      hide: true,
       sortable: true,
       filter: true,
       resizable: true
     }, {
       field: 'customSuffix',
-      headerName: 'Suffix',
+      headerName: 'Base Resource',
       hide: false,
       sortable: true,
       filter: true,
       resizable: true
     }, {
       field: 'createTimestamp',
-      headerName: 'Created on',
+      headerName: 'Created On',
       hide: false,
       sortable: true,
       filter: true,
-      resizable: true
+      resizable: true,
+      valueFormatter: params => dateFormatter(params)
     }, {
       field: 'scope',
-      headerName: 'Scope (in s)',
+      headerName: 'Validity',
       hide: false,
       sortable: true,
       filter: true,
-      resizable: true
+      resizable: true,
+      valueFormatter: params => secondFormatter(params)
     }, {
       field: 'targetURL',
-      headerName: 'TargetURL',
+      headerName: 'Leads To',
+      width: 500,
       hide: false,
       sortable: true,
       filter: true,
       resizable: true
     }, {
       field: 'assignTimestamp',
-      headerName: 'Assigned on',
+      headerName: 'Assigned On',
       hide: false,
       sortable: true,
       filter: true,
-      resizable: true
+      resizable: true,
+      valueFormatter: params => dateFormatter(params)
     }, {
       field: 'deleteFlag',
-      headerName: 'deletable',
+      headerName: 'Deletable',
       hide: false,
       sortable: true,
       filter: true,
-      resizable: true
+      resizable: true,
+      width: 100,
+      headerComponentParams: {
+        template: '<p>&#x270E</p>'
+      },
+      cellRenderer: params => checkBoxRenderer(params)
     }, {
       field: 'updateFlag',
-      headerName: 'updatable',
+      headerName: 'Editable',
       hide: false,
       sortable: true,
       filter: true,
-      resizable: true
+      resizable: true,
+      width: 100,
+      headerComponentParams: {
+        template: '<p>&#x1F5D1</p>'
+      },
+      cellRenderer: params => checkBoxRenderer(params)
     }];
 
   constructor(private dbconnector: DbConnectorService, private dialog: MatDialog) {}
@@ -100,6 +114,14 @@ export class MainPageComponent implements OnInit {
     });
   }
 
+  getSelectedRows(): void {
+    const selectedNodes = this.api.getSelectedNodes();
+    const selectedData = selectedNodes.map(node => node.data );
+    const selectedDataStringPresentation = selectedData.map(node => node.make + ' ' + node.model).join(', ');
+
+    // alert(`Selected nodes: ${selectedDataStringPresentation}`);
+  }
+  
   openDetailView(): void {
     const selectedData = this.api.getSelectedNodes().map(node => node.data);
     this.dialog.open(ShortUrlDetailViewComponent, {
@@ -123,4 +145,26 @@ export class MainPageComponent implements OnInit {
   onGridSizeChange(params): void {
     this.api.sizeColumnsToFit();
   }
+}
+
+function dateFormatter(params: any): string {
+  const date = params.value.toString().split(' ');
+  return date[1] + '-' + date[2] + '-' + date[3];
+}
+
+function secondFormatter(params: any): string {
+  const toHours = 3600;
+  const toDays = 24;
+  const threeDays = 72;
+  if (params.value === -1) { return 'unlimited'; }
+  if (params.value < toHours * threeDays) {
+    return Math.round(params.value / toHours * 10) / 10 + 'h';
+  }
+  return Math.round(params.value / toHours / toDays) + 'd';
+}
+
+function checkBoxRenderer(params: any): string {
+  let isChecked = '';
+  if (params.value) { isChecked = 'checked'; }
+  return '<input type="checkbox" contenteditable="false" ' + isChecked + '>';
 }
