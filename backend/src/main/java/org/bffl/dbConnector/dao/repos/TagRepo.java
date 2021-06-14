@@ -68,4 +68,11 @@ public interface TagRepo extends JpaRepository<Tag, Integer> {
             "WHERE id = :searched_tag_id;")
     Integer deleteTagById(int searched_tag_id);
 
+    @Modifying
+    @Transactional
+    @Query(nativeQuery = true, value =
+            "INSERT INTO tag (group_name, title, description, color) " +
+                    "VALUES (:new_group_name, :new_title, :new_description, :new_color); ")
+    Integer saveTag(String new_group_name, String new_title, String new_description, String new_color);
+
 }

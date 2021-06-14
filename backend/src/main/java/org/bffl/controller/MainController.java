@@ -276,7 +276,8 @@ public class MainController {
         System.out.println(body.getDescription());
         System.out.println(body.getColor());
 
-
+        if(this.tagRepo.saveTag(body.getGroup_name(), body.getTitle(), body.getDescription(), body.getColor() ) != 1)
+            return HttpStatus.BAD_REQUEST.value();
 
         return HttpStatus.CREATED.value();
     }

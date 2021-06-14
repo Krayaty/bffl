@@ -191,7 +191,7 @@ export class DbConnectorService {
       group_name: String(this.activeGroup),
       title: tagTitle,
       description: tagDescription,
-      color: tagColor.toString()
+      color: tagColor.toString().substr(1, 7)
     };
 
     this.http.post<any>(
