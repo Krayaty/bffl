@@ -14,17 +14,24 @@ import java.util.List;
 public interface Url_callRepo extends JpaRepository<Url_call, Composite_url_call_id> {
 
     @Query(nativeQuery = true, value =
-            "SELECT C.client_ip, S.group_name, S.custom_suffix, T.url, C.call_timestamp " +
+            "SELECT C.client_ip, T.url, C.call_timestamp " +
             "FROM url_call C " +
             "INNER JOIN short_url S ON C.short_url_id = S.id " +
             "INNER JOIN assigned_target T ON S.id = T.short_url_id " +
-            "WHERE S.id = 1 AND T.assign_timestamp = (" +
+            "WHERE S.id = :searched_short_url_id " +
+            "AND T.assign_timestamp = (" +
                     "SELECT assign_timestamp " +
                     "FROM assigned_target " +
                     "WHERE short_url_id = S.id AND assign_timestamp <= C.call_timestamp " +
                     "ORDER BY assign_timestamp DESC LIMIT 1" +
             ");")
     List<Object> findAllCallsOfShortURL(int searched_short_url_id);
+
+    @Query(nativeQuery = true, value =
+            "SELECT COUNT(*) " +
+            "FROM url_call " +
+            "WHERE short_url_id = :searched_short_url_id")
+    List<Object> findNumberOfURLCalls(int searched_short_url_id);
 
     @Modifying
     @Transactional

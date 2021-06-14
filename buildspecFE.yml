@@ -8,7 +8,7 @@ env:
 phases:
   install:
     runtime-versions:
-      nodejs: 10
+      nodejs: 12
     commands:
       - cd frontend
       - echo Installing source NPM dependencies...
@@ -22,5 +22,5 @@ phases:
 artifacts:
   files:
     - '**/*'
-  base-directory: 'frontend/dist*'
+  base-directory: 'frontend/dist/*'
   discard-paths: yes

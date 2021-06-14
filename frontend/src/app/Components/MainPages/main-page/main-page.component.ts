@@ -1,9 +1,9 @@
-// noinspection JSUnusedGlobalSymbols
-
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {AgGridAngular} from 'ag-grid-angular';
 import {DbConnectorService} from '../../../Services/DB-Connect-Services/db-connector.service';
-import {ShortURLWithTarget} from '../../../DBReturnTypes/DBReturnTypes';
+import {ShortURLWithTarget} from '../../../DBReturnTypes/ShortUrlWithTarget';
+import {MatDialog} from '@angular/material/dialog';
+import {ShortUrlDetailViewComponent} from '../../SubViewComponents/short-url-detail-view/short-url-detail-view.component';
 
 @Component({
   selector: 'app-main-page',
@@ -17,7 +17,7 @@ export class MainPageComponent implements OnInit {
   api;
   columnApi;
 
-  rowData: ShortURLWithTarget[];
+  rowData: ShortURLWithTarget[] = [];
 
   columnDefs = [{
       field: 'shortURLId',
@@ -98,8 +98,7 @@ export class MainPageComponent implements OnInit {
       cellRenderer: params => checkBoxRenderer(params)
     }];
 
-  constructor(private dbconnector: DbConnectorService) {
-  }
+  constructor(private dbconnector: DbConnectorService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.retrieveAllShortURLsByGroupName();
@@ -113,7 +112,6 @@ export class MainPageComponent implements OnInit {
       }
       this.rowData = list;
     });
-
   }
 
   getSelectedRows(): void {
@@ -122,6 +120,20 @@ export class MainPageComponent implements OnInit {
     const selectedDataStringPresentation = selectedData.map(node => node.make + ' ' + node.model).join(', ');
 
     // alert(`Selected nodes: ${selectedDataStringPresentation}`);
+  }
+  
+  openDetailView(): void {
+    const selectedData = this.api.getSelectedNodes().map(node => node.data);
+    this.dialog.open(ShortUrlDetailViewComponent, {
+      data: selectedData,
+      height: '90%',
+      width: '90%',
+    })
+    .afterClosed().subscribe(isDataChanged => {
+      if (isDataChanged) {
+        this.api.refreshCells();
+      }
+    });
   }
 
   onGridReady(params): void {

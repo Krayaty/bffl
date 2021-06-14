@@ -22,6 +22,14 @@ export class GroupSelectionComponent implements OnInit {
     });
   }
 
+  retrieveIsUserAdminOfGroup(): void {
+    this.dbconnector.getIsUserAdminOfGroup(this.dbconnector.activeGroup).subscribe(data => {
+      this.dbconnector.isAdmin = data;
+    }, error => {
+      console.log(error);
+    });
+  }
+
   public getDBConnector(): DbConnectorService {
     return this.dbconnector;
   }

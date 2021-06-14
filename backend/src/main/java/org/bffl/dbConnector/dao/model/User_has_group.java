@@ -31,9 +31,6 @@ public class User_has_group {
     private App_group user_has_group_group;
 
     @Column
-    private Timestamp start_timestamp;
-
-    @Column
     private Timestamp end_timestamp;
 
     @Column

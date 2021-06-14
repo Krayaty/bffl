@@ -13,9 +13,9 @@ import java.util.List;
 public interface TagRepo extends JpaRepository<Tag, Integer> {
 
     @Query(nativeQuery = true, value =
-            "SELECT T.title,  T.description, T.color " +
+            "SELECT T.id, T.title, T.description, T.color " +
             "FROM url_has_tag UhT, Tag T " +
-            "WHERE UhT.tag_id = T.id AND UhT.short_url_id = :searched_short_url_id;")
+            "WHERE UhT.tag_id = T.id AND UhT.short_url_id = :searched_short_url_id")
     List<Object> findAllTagsAssignedToShortURL(int searched_short_url_id);
 
 
@@ -28,7 +28,13 @@ public interface TagRepo extends JpaRepository<Tag, Integer> {
     @Query(nativeQuery = true, value =
             "SELECT T.id, T.title, T.description, T.color " +
             "FROM Tag T, short_url S " +
-            "WHERE T.group_name = S.group_name AND S.id = :searched_short_url_id")
+            "WHERE T.group_name = S.group_name " +
+            "AND NOT EXISTS ( " +
+                    "SELECT * " +
+                    "FROM url_has_tag " +
+                    "WHERE tag_id = T.id " +
+                    "AND short_url_id = S.id) " +
+            "AND S.id = :searched_short_url_id")
     List<Object> findAllPossibleTagsForShortURL(int searched_short_url_id);
 
     @Modifying
@@ -36,7 +42,7 @@ public interface TagRepo extends JpaRepository<Tag, Integer> {
     @Query(nativeQuery = true, value =
             "UPDATE tag " +
             "SET title = :new_title " +
-            "WHERE title != :new_title AND id = :searched_tag_id;")
+            "WHERE title != :new_title AND id = :searched_tag_id")
     Integer updateTitleOfTag(int searched_tag_id, String new_title);
 
     @Modifying
@@ -44,7 +50,7 @@ public interface TagRepo extends JpaRepository<Tag, Integer> {
     @Query(nativeQuery = true, value =
             "UPDATE tag " +
             "SET description = :new_description " +
-            "WHERE description != :new_description AND id = :searched_tag_id;")
+            "WHERE description != :new_description AND id = :searched_tag_id")
     Integer updateDescriptionOfTag(int searched_tag_id, String new_description);
 
     @Modifying
@@ -52,7 +58,7 @@ public interface TagRepo extends JpaRepository<Tag, Integer> {
     @Query(nativeQuery = true, value =
             "UPDATE tag " +
             "SET color = :new_color " +
-            "WHERE color != :new_color AND id = :searched_tag_id;")
+            "WHERE color != :new_color AND id = :searched_tag_id")
     Integer updateColorOfTag(int searched_tag_id, String new_color);
 
     @Modifying

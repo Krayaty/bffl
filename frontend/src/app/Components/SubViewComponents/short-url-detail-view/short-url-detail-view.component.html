@@ -1,0 +1,131 @@
+<div class="toolSection close">
+  <img title="refresh" src="assets/images/Symbols/Black/Reload_black.png" (click)="refreshDetailView()">
+  <img *ngIf="this.changedData.updateFlag || this.dbconnector.isAdmin" title="update" src="assets/images/Symbols/Black/Update_black.png" (click)="changeMode()">
+  <img *ngIf="this.changedData.deleteFlag || this.dbconnector.isAdmin" title="delete" src="assets/images/Symbols/Black/Delete_black.png" (click)="deleteShortUrl()">
+  <img title="exit" src="assets/images/Symbols/Black/Exit_black.png" (click)="closeDialog()">
+</div>
+<div class="container">
+  <div>
+    <h2>ShortURL Attributes:</h2>
+    <table>
+      <tr>
+        <th>Group:</th>
+        <td>{{this.changedData.groupName}}</td>
+      </tr>
+      <tr>
+        <th>Suffix:</th>
+        <td>{{this.changedData.customSuffix}}</td>
+      </tr>
+      <tr>
+        <th>Full-fledged ShortURL:</th>
+        <td><u (click)="redirectToTarget()">https://api.bfflshort.de/s/{{this.changedData.groupName}}/{{this.changedData.customSuffix}}</u></td>
+      </tr>
+      <tr>
+        <th>Date of creation:</th>
+        <!--suppress TypeScriptUnresolvedFunction -->
+        <td>{{this.changedData.createTimestamp | date: 'MMM-dd-yyyy HH:mm:ss'}}</td>
+      </tr>
+      <tr>
+        <th>Valid until:</th>
+        <td>{{this.getEndOfValidityTimestamp()}}</td>
+      </tr>
+      <tr>
+        <th>Validity period:</th>
+        <td>{{this.getFormattedScope()}}</td>
+      </tr>
+    </table>
+  </div>
+  <span class="multColumn">
+    <div class="modificationFlagsSection">
+    <h2>Modification-Flags:</h2>
+    <table>
+      <tr>
+        <th>Updatable:</th>
+        <td>
+          <div (click)="changeUpdateFlag()">
+            <img *ngIf="this.changedData.updateFlag == true" src="assets/images/Symbols/Neutral/True.png">
+            <img *ngIf="this.changedData.updateFlag == false" src="assets/images/Symbols/Neutral/False.png">
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>Deletable:</th>
+        <td>
+          <div (click)="changeDeleteFlag()">
+            <img *ngIf="this.changedData.deleteFlag == true" src="assets/images/Symbols/Neutral/True.png">
+            <img *ngIf="this.changedData.deleteFlag == false" src="assets/images/Symbols/Neutral/False.png">
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+    <div class="tagSection">
+      <h2>Tags:</h2>
+      <select id="tagAdder" #tagAdder [disabled]="this.possibleTags.length === 0" (change)="assignTagToShortURL(tagAdder.value)">
+        <option *ngIf="this.possibleTags.length !== 0" [defaultSelected]="true">Assign one of the currently not assigned Tags to your ShortURL</option>
+        <option *ngFor="let tag of possibleTags" value="{{tag.id}}">
+          {{tag.title}}    –    {{tag.description}}
+        </option>
+        <option *ngIf="this.possibleTags.length === 0">No more tags assignable</option>
+      </select>
+      <div>
+        <div id="{{tag.description}}" *ngFor="let tag of assignedTags" [style]="{'background': tag.color}" class="tag">
+          <div class="tagTitle" [style]="{'color': isTagColorLight(tag.color)? 'black': 'white'}">{{tag.title}}</div>
+          <img *ngIf="isTagColorLight(tag.color)" title="exit" src="assets/images/Symbols/Black/Exit_black.png" class="tagDeleter" (click)="unassignTagFromShortURL(tag.id)">
+          <img *ngIf="!isTagColorLight(tag.color)" title="exit" src="assets/images/Symbols/White/Exit_white.png" class="tagDeleter" (click)="unassignTagFromShortURL(tag.id)">
+        </div>
+      </div>
+    </div>
+  </span>
+  <div>
+    <h2>TargetURLs:</h2>
+    <div>
+      <table>
+        <tr>
+          <th>Current TargetURL:</th>
+          <td><a href="{{this.changedData.targetURL}}" target="_blank" rel="noreferrer noopener">{{this.changedData.targetURL}}</a></td>
+        </tr>
+      </table>
+      <div *ngIf="this.updateMode" class="updateTargetContainer">
+        <!--suppress AngularUndefinedBinding -->
+        <input type="text" [formControl]="newTarget" [pattern]="this.targetURLRegEx" placeholder="Enter a new target for your ShortURL.">
+        <button (click)="onUpdateSubmit()" [disabled]="(this.newTarget.valid && this.newTarget.value !== '')? false: true">Submit</button>
+      </div>
+      <div *ngIf="newTarget.errors?.pattern && this.newTarget.touched" class="errorContainer">
+        The URL format isn't valid. Please enter a typical url-format. You can copy it from your browser.
+      </div>
+    </div>
+    <div class="ag-grid-container targetUrlGrid">
+      <ag-grid-angular
+        (gridReady)="onTargetUrlGridReady($event)"
+        (gridSizeChanged)="onTargetUrlGridSizeChange($event)"
+        class="ag-theme-alpine"
+        colResizeDefault='shift'
+        [rowData]="rowDataTargetUrl"
+        [columnDefs]="columnDefsTargetUrl"
+        (rowDoubleClicked)="reassignOldTargetToShortUrl($event)"
+        (cellKeyPress)="unassignTargetFromShortURL($event)"
+        rowselection="single">
+      </ag-grid-angular>
+    </div>
+  </div>
+  <div>
+    <h2>Calls of ShortURL:</h2>
+    <table>
+      <tr>
+        <th>Number of URL Calls:</th>
+        <td>{{this.rowDataUrlCall.length}}</td>
+      </tr>
+    </table>
+    <div class="ag-grid-container">
+      <ag-grid-angular
+        (gridReady)="onUrlCallGridReady($event)"
+        (gridSizeChanged)="onUrlCallGridSizeChange($event)"
+        class="ag-theme-alpine"
+        colResizeDefault='shift'
+        [rowData]="rowDataUrlCall"
+        [columnDefs]="columnDefsUrlCall">
+      </ag-grid-angular>
+    </div>
+  </div>
+</div>
