@@ -52,7 +52,6 @@ export class ShortenUrlPageComponent {
     this.currentTags.forEach(tag => {
       assignedTagIds.push(tag.id);
     });
-    console.log(assignedTagIds);
 
     if ( this.shortenURLForm.get('targetURL').value == null || this.shortenURLForm.get('targetURL').value === '' ) {
          window.alert('Missing or wrong argument for TargetURL');
@@ -76,6 +75,7 @@ export class ShortenUrlPageComponent {
       assignedTagIds
     );
     this.shortenURLForm.reset();
+    this.currentTags = [];
     return true;
   }
 
@@ -83,7 +83,6 @@ export class ShortenUrlPageComponent {
     let newTag = this.availableTags.find(t => t.title == this.shortenURLForm.get('tagInput').value);
     this.currentTags.push(newTag);
     this.shortenURLForm.get('tagInput').reset();
-    console.log(this.currentTags);
   }
 
   deleteTag(tag: Tag): void {
@@ -91,15 +90,16 @@ export class ShortenUrlPageComponent {
   }
 
   public getTagAddDisabled(): boolean {
-    return ( (this.shortenURLForm.get('tagInput').value == "") ||
-      (this.shortenURLForm.get('tagInput').value == null) ||
-      (this.currentTags.includes(this.shortenURLForm.get('tagInput').value) ) );
+    let newTag = this.shortenURLForm.get('tagInput').value;
+    return ( (newTag == "") ||
+      (newTag == null) ||
+      (this.listContainsTag(this.currentTags, newTag)) ||
+      (!this.listContainsTag(this.availableTags, newTag)));
   }
 
   public getAvailableTags(): void {
     this.dbconnector.getTagsByGroup().subscribe(data => {
       const taglist: Tag[] = [];
-      console.log("getting tags");
       data.forEach(entry => {
         taglist.push(convertToTag(entry));
       });
@@ -107,5 +107,15 @@ export class ShortenUrlPageComponent {
     }, error => {
       console.log(error);
     });
+  }
+
+  public listContainsTag(list: any, tag: string): boolean {
+    let ret = false;
+    list.forEach(t => {
+      if (t.title == tag) {
+        ret = true;
+      }
+    })
+    return ret;
   }
 }
