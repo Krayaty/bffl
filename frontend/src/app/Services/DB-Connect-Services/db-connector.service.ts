@@ -59,6 +59,10 @@ export class DbConnectorService {
     return this.http.get(`${endpoints.get.possible_tags_for_short_url}`, {params: {short_url_id: shortUrlId}});
   }
 
+  getTagsByGroup(): Observable<any> {
+    return this.http.get(`${endpoints.get.tags_by_group}`, {params: {group_name: this.activeGroup}});
+  }
+
   getIsUserAdminOfGroup(groupName: string): Observable<any> {
     return this.http.get(`${endpoints.get.is_user_admin_of_group}`, {params: {group_name: groupName}});
   }

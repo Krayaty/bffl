@@ -4,6 +4,7 @@ import { AuthService } from '../../../Services/Iam-Services/auth.service';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {Validators} from '@angular/forms';
 import { ShortenService } from '../../../Services/Shorten-Services/shorten.service';
+import {convertToTag, Tag} from "../../../DBReturnTypes/Tag";
 
 
 @Component({
@@ -20,6 +21,8 @@ export class ShortenUrlPageComponent {
   customSuffixRegEx = '[a-zA-Z0-9]+[\.a-zA-Z0-9]*';
 
   items = this.shortenService.getItems();
+  currentTags = [];
+  availableTags = [];
 
   constructor(private dbconnector: DbConnectorService,
               private authService: AuthService,
@@ -38,8 +41,10 @@ export class ShortenUrlPageComponent {
       scope: new FormControl('', {
         validators: [Validators.required]
       }),
-      tags: new FormControl('', {}),
+      tagInput: new FormControl('', {}),
     });
+
+    this.getAvailableTags();
   }
 
   shortenURL(): boolean {
@@ -71,5 +76,34 @@ export class ShortenUrlPageComponent {
     );
     this.shortenURLForm.reset();
     return true;
+  }
+
+  addTag(): void {
+    this.currentTags.push(this.shortenURLForm.get('tagInput').value);
+    this.shortenURLForm.get('tagInput').reset();
+    console.log(this.currentTags);
+  }
+
+  deleteTag(tag): void {
+    this.currentTags = this.currentTags.filter(t => t != tag);
+  }
+
+  public getTagAddDisabled(): boolean {
+    return ( (this.shortenURLForm.get('tagInput').value == "") ||
+      (this.shortenURLForm.get('tagInput').value == null) ||
+      (this.currentTags.includes(this.shortenURLForm.get('tagInput').value) ) );
+  }
+
+  public getAvailableTags(): void {
+    this.dbconnector.getTagsByGroup().subscribe(data => {
+      const taglist: Tag[] = [];
+      console.log("getting tags");
+      data.forEach(entry => {
+        taglist.push(convertToTag(entry));
+      });
+      this.availableTags = taglist;
+    }, error => {
+      console.log(error);
+    });
   }
 }
