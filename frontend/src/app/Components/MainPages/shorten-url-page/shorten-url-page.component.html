@@ -61,20 +61,22 @@
     </div>
 
     <div>
+      <button type="button" id = "tagCreate" (click)="openCreateTagView()">Create New Tag</button><br>
       <label for="tagInput">Add tags </label>
       <input type="text" id = "tagInput" placeholder="tag" formControlName="tagInput" required list="suggestions" autocomplete="off"/>
       <datalist id="suggestions">
         <option *ngFor="let tag of availableTags" [value]="tag.title"></option>
       </datalist>
-      <button type="button" id = "tagAdd" (click)="addTag()" [disabled]="getTagAddDisabled()">Add tag</button><br>
+      <button type="button" id = "tagAdd" (click)="addTag()" [disabled]="getTagAddDisabled()">Add</button><br>
       <span *ngFor="let tag of currentTags">
-        <span class="tagShell">
+        <span class="tagShell" style="background-color:{{tag.color}};">
           {{tag.title}}
         </span>
         <button type="button" class="tagDelete" (click)="deleteTag(tag)"><b>X</b></button>
       </span>
     </div>
 
+    <br>
     <div class="horizCenter bottomSpace">
       <input type="submit" class="button" value="Shorten URL" />
     </div>

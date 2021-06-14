@@ -5,6 +5,9 @@ import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {Validators} from '@angular/forms';
 import { ShortenService } from '../../../Services/Shorten-Services/shorten.service';
 import {convertToTag, Tag} from "../../../DBReturnTypes/Tag";
+import {ShortUrlDetailViewComponent} from "../../SubViewComponents/short-url-detail-view/short-url-detail-view.component";
+import {MatDialog} from "@angular/material/dialog";
+import {CreateTagDialogComponent} from "../../SubViewComponents/create-tag-dialog/create-tag-dialog.component";
 
 
 @Component({
@@ -27,7 +30,8 @@ export class ShortenUrlPageComponent {
   constructor(private dbconnector: DbConnectorService,
               private authService: AuthService,
               private formBuilder: FormBuilder,
-              private shortenService: ShortenService) {
+              private shortenService: ShortenService,
+              private dialog: MatDialog) {
 
     this.shortenURLForm = new FormGroup({
       targetURL: new FormControl('', {
@@ -117,5 +121,14 @@ export class ShortenUrlPageComponent {
       }
     })
     return ret;
+  }
+
+  public openCreateTagView(): void {
+    this.dialog.open(CreateTagDialogComponent, {
+      height: '90%',
+      width: '90%',
+    })
+      .afterClosed().subscribe(isDataChanged => {
+    });
   }
 }
