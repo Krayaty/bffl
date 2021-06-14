@@ -5,6 +5,7 @@ import {endpoints} from '../../../assets/endpoints/endpoints';
 import {DbIterator} from './DbIterator';
 import {convertToShortURLWithTarget, ShortURLWithTarget} from '../../DBReturnTypes/ShortUrlWithTarget';
 import {DatePipe} from '@angular/common';
+import {Color} from "ag-grid-community";
 
 
 @Injectable({ providedIn: 'root' })
@@ -180,5 +181,23 @@ export class DbConnectorService {
       JSON.stringify(body),
       {headers: new HttpHeaders({ 'Content-Type': 'application/json' })}
     );
+  }
+
+  createTagForGroup(tagTitle: string,
+                          tagDescription: string,
+                          tagColor: Color): void {
+
+    const body = {
+      group_name: String(this.activeGroup),
+      title: tagTitle,
+      description: tagDescription,
+      color: tagColor.toString()
+    };
+
+    this.http.post<any>(
+      `${endpoints.post.create_tag_for_group}`,
+      JSON.stringify(body),
+      {headers: new HttpHeaders({'Content-Type': 'application/json'})}
+    ).subscribe(res => console.log(res));
   }
 }

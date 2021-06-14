@@ -268,6 +268,19 @@ public class MainController {
         return HttpStatus.OK.value();
     }
 
+    @PostMapping("/createTagForGroup")
+    public int createTagForGroup(@RequestBody POST_Tag body)
+    {
+        System.out.println(body.getGroup_name());
+        System.out.println(body.getTitle());
+        System.out.println(body.getDescription());
+        System.out.println(body.getColor());
+
+
+
+        return HttpStatus.CREATED.value();
+    }
+
     @PostMapping("/updateTag")
     public int updateAttributesOfTag(@RequestBody POST_Tag body){
 

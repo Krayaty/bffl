@@ -10,7 +10,7 @@ import {YesNoDialogComponent} from '../yes-no-dialog/yes-no-dialog.component';
 import {convertToTag, Tag} from '../../../DBReturnTypes/Tag';
 import {Color} from 'ag-grid-community';
 import {formatDateFromDate, formatDateFromGrid} from '../../../Services/Util/Formatter/DateFormatter';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {apiUrl} from '../../../../environments/environment';
 
 @Component({
@@ -24,7 +24,14 @@ export class CreateTagDialogComponent implements OnInit {
 
   constructor(public dbconnector: DbConnectorService,
               public dialog: MatDialogRef<CreateTagDialogComponent>,
-              public acceptDialog: MatDialog) {}
+              public acceptDialog: MatDialog) {
+
+    this.createTagForm = new FormGroup({
+      tagTitle: new FormControl('', {}),
+      tagDescription: new FormControl('', {}),
+      tagColor: new FormControl('', {}),
+    });
+  }
 
   ngOnInit(): void {
   }
@@ -35,5 +42,11 @@ export class CreateTagDialogComponent implements OnInit {
 
   public createTag(): void {
 
+    this.dbconnector.createTagForGroup(
+      this.createTagForm.get('tagTitle').value,
+      this.createTagForm.get('tagDescription').value,
+      this.createTagForm.get('tagColor').value);
+
+    this.closeDialog();
   }
 }
