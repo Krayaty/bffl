@@ -122,7 +122,7 @@ export class MainPageComponent implements OnInit {
 
     // alert(`Selected nodes: ${selectedDataStringPresentation}`);
   }
-  
+
   openDetailView(): void {
     const selectedData = this.api.getSelectedNodes().map(node => node.data);
     this.dialog.open(ShortUrlDetailViewComponent, {
