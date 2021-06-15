@@ -4,10 +4,11 @@ import { AuthService } from '../../../Services/Iam-Services/auth.service';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {Validators} from '@angular/forms';
 import { ShortenService } from '../../../Services/Shorten-Services/shorten.service';
-import {convertToTag, Tag} from "../../../DBReturnTypes/Tag";
-import {ShortUrlDetailViewComponent} from "../../SubViewComponents/short-url-detail-view/short-url-detail-view.component";
-import {MatDialog} from "@angular/material/dialog";
-import {CreateTagDialogComponent} from "../../SubViewComponents/create-tag-dialog/create-tag-dialog.component";
+import {convertToTag, Tag} from '../../../DBReturnTypes/Tag';
+import {MatDialog} from '@angular/material/dialog';
+import {CreateTagDialogComponent} from '../../SubViewComponents/create-tag-dialog/create-tag-dialog.component';
+import {Color} from 'ag-grid-community';
+import {isTagColorLight} from '../../../Services/Util/IsColorLight';
 
 
 @Component({
@@ -84,18 +85,18 @@ export class ShortenUrlPageComponent {
   }
 
   addTag(): void {
-    let newTag = this.availableTags.find(t => t.title == this.shortenURLForm.get('tagInput').value);
+    const newTag = this.availableTags.find(t => t.title === this.shortenURLForm.get('tagInput').value);
     this.currentTags.push(newTag);
     this.shortenURLForm.get('tagInput').reset();
   }
 
   deleteTag(tag: Tag): void {
-    this.currentTags = this.currentTags.filter(t => t != tag);
+    this.currentTags = this.currentTags.filter(t => t !== tag);
   }
 
   public getTagAddDisabled(): boolean {
-    let newTag = this.shortenURLForm.get('tagInput').value;
-    return ( (newTag == "") ||
+    const newTag = this.shortenURLForm.get('tagInput').value;
+    return ( (newTag === '') ||
       (newTag == null) ||
       (this.listContainsTag(this.currentTags, newTag)) ||
       (!this.listContainsTag(this.availableTags, newTag)));
@@ -116,10 +117,10 @@ export class ShortenUrlPageComponent {
   public listContainsTag(list: any, tag: string): boolean {
     let ret = false;
     list.forEach(t => {
-      if (t.title == tag) {
+      if (t.title === tag) {
         ret = true;
       }
-    })
+    });
     return ret;
   }
 
@@ -131,5 +132,9 @@ export class ShortenUrlPageComponent {
       .afterClosed().subscribe(() => {
         this.getAvailableTags();
     });
+  }
+
+  isTagColorLight(color: Color): boolean {
+    return isTagColorLight(color);
   }
 }

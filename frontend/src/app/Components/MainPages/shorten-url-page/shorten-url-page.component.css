@@ -8,6 +8,10 @@
   font-size: 16px;
 }
 
+.rightSpace {
+  margin-right: 20px;
+}
+
 .control_indicator {
   position: absolute;
   top: 2px;
@@ -82,7 +86,34 @@ label{
 }
 
 #tagInput {
-  width: 50%;
+  min-width: 150px;
+  width: 65%;
+  margin-right: 20px;
+}
+
+#tagSection > div {
+  display: flex;
+  justify-content: space-between;
+}
+
+#submit {
+  min-width: 140px;
+  height: 50px;
+}
+
+#tagAdd {
+  min-width: 90px;
+  height: 50px;
+  margin-right: 20px;
+}
+
+#tagsTitle {
+  margin-right: 20px;
+}
+
+#tagCreate {
+  min-width: 120px;
+  height: 50px;
 }
 
 #tagAdd:disabled {
@@ -91,7 +122,6 @@ label{
 }
 
 .tagShell {
-  font-family: "Lucida Console", serif;
   border-top-left-radius: 25px;
   border-bottom-left-radius: 25px;
   color: #FFFFFF;
@@ -114,7 +144,6 @@ label{
   padding: 12px 20px;
   margin: 8px 0;
   margin-right: 8px;
-  font-family: "Lucida Console", serif;
   font-size: medium;
   font-align: center;
 }
