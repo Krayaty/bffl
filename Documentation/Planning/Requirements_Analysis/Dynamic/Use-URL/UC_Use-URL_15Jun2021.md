@@ -8,7 +8,7 @@
 
 |    Date    | Version | Description | Author |
 |------------|---------|-------------|--------|
-| 22.10.2020 |   1.0   |  -  | Krayaty |
+| 15.06.2021 |   1.0   |  -  | Krayaty |
 
 # Table of Contents
 
@@ -42,7 +42,7 @@ n/a
 
 ## 3. Flow of Events
 ### 3.1 Basic Flow
-![Basic Flow](./UC_Use-URL_flow)
+![Basic Flow](./UC_Use-URL_flow.png)
 
 ### 3.2 .feature
 ``` Cucumber
