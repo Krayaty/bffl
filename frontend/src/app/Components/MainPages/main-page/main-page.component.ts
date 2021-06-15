@@ -4,6 +4,7 @@ import {DbConnectorService} from '../../../Services/DB-Connect-Services/db-conne
 import {ShortURLWithTarget} from '../../../DBReturnTypes/ShortUrlWithTarget';
 import {MatDialog} from '@angular/material/dialog';
 import {ShortUrlDetailViewComponent} from '../../SubViewComponents/short-url-detail-view/short-url-detail-view.component';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-main-page',

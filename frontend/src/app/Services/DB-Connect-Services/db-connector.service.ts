@@ -5,6 +5,7 @@ import {endpoints} from '../../../assets/endpoints/endpoints';
 import {DbIterator} from './DbIterator';
 import {convertToShortURLWithTarget, ShortURLWithTarget} from '../../DBReturnTypes/ShortUrlWithTarget';
 import {DatePipe} from '@angular/common';
+import {Color} from 'ag-grid-community';
 
 
 @Injectable({ providedIn: 'root' })
@@ -57,6 +58,10 @@ export class DbConnectorService {
 
   getAllPossibleTagsForShortURL(shortUrlId: number): Observable<any> {
     return this.http.get(`${endpoints.get.possible_tags_for_short_url}`, {params: {short_url_id: shortUrlId}});
+  }
+
+  getTagsByGroup(): Observable<any> {
+    return this.http.get(`${endpoints.get.tags_by_group}`, {params: {group_name: this.activeGroup}});
   }
 
   getIsUserAdminOfGroup(groupName: string): Observable<any> {
@@ -176,5 +181,23 @@ export class DbConnectorService {
       JSON.stringify(body),
       {headers: new HttpHeaders({ 'Content-Type': 'application/json' })}
     );
+  }
+
+  createTagForGroup(tagTitle: string,
+                    tagDescription: string,
+                    tagColor: Color): void {
+
+    const body = {
+      group_name: String(this.activeGroup),
+      title: tagTitle,
+      description: tagDescription,
+      color: tagColor.toString().substr(1, 7)
+    };
+
+    this.http.post<any>(
+      `${endpoints.post.create_tag_for_group}`,
+      JSON.stringify(body),
+      {headers: new HttpHeaders({'Content-Type': 'application/json'})}
+    ).subscribe(res => console.log(res));
   }
 }

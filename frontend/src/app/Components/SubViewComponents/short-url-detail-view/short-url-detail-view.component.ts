@@ -8,10 +8,11 @@ import {scopeToString} from '../../../Services/Util/Formatter/ScopeFormatter';
 import {HttpErrorResponse, HttpStatusCode} from '@angular/common/http';
 import {YesNoDialogComponent} from '../yes-no-dialog/yes-no-dialog.component';
 import {convertToTag, Tag} from '../../../DBReturnTypes/Tag';
-import {Color} from 'ag-grid-community';
 import {formatDateFromDate, formatDateFromGrid} from '../../../Services/Util/Formatter/DateFormatter';
 import {FormControl} from '@angular/forms';
 import {apiUrl} from '../../../../environments/environment';
+import {isTagColorLight} from '../../../Services/Util/IsColorLight';
+import {Color} from 'ag-grid-community';
 
 @Component({
   selector: 'app-short-url-detail-view',
@@ -389,20 +390,6 @@ export class ShortUrlDetailViewComponent implements OnInit {
     return scopeToString(this.changedData.scope);
   }
 
-  isTagColorLight(c: Color): boolean {
-    const hsb = c.toHSB();
-
-    if (hsb[0] > 30 && hsb[0] < 180 && hsb[2] > .6) {
-      return true;
-    }
-
-    if (hsb[2] > .6 && hsb[1] < .8) {
-      return true;
-    }
-
-    return false;
-  }
-
   changeMode(): void {
     if (this.updateMode) {
       if (this.newTarget.value === '') {
@@ -441,4 +428,7 @@ export class ShortUrlDetailViewComponent implements OnInit {
     return formatDateFromDate(endOfValidityTs);
   }
 
+  isTagColorLight(color: Color): boolean {
+    return isTagColorLight(color);
+  }
 }

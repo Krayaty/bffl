@@ -170,8 +170,9 @@ public class MainController {
         }
 
         for(int tagId: assignedTagIds){
-            if(this.url_has_tagRepo.saveTagOfGroupToShortURLBySuffix(tagId, body.getGroup_name(), body.getCustom_suffix()) != 1)
+            if(this.url_has_tagRepo.saveTagOfGroupToShortURLBySuffix(tagId, body.getGroup_name(), body.getCustom_suffix()) != 1) {
                 return HttpStatus.BAD_REQUEST.value();
+            }
         }
 
         return HttpStatus.CREATED.value();
@@ -265,6 +266,15 @@ public class MainController {
         }
 
         return HttpStatus.OK.value();
+    }
+
+    @PostMapping("/createTagForGroup")
+    public int createTagForGroup(@RequestBody POST_Tag body)
+    {
+        if(this.tagRepo.saveTag(body.getGroup_name(), body.getTitle(), body.getDescription(), body.getColor() ) != 1)
+            return HttpStatus.BAD_REQUEST.value();
+
+        return HttpStatus.CREATED.value();
     }
 
     @PostMapping("/updateTag")

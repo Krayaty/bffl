@@ -26,6 +26,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {DatePipe} from '@angular/common';
 import { YesNoDialogComponent } from './Components/SubViewComponents/yes-no-dialog/yes-no-dialog.component';
+import {CreateTagDialogComponent} from "./Components/SubViewComponents/create-tag-dialog/create-tag-dialog.component";
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { YesNoDialogComponent } from './Components/SubViewComponents/yes-no-dial
     ChooseGroupPageComponent,
     ShortUrlDetailViewComponent,
     YesNoDialogComponent,
+    CreateTagDialogComponent
   ],
     imports: [
         BrowserModule,

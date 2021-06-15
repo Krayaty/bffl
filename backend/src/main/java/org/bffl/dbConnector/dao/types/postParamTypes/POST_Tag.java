@@ -7,6 +7,7 @@ import lombok.Setter;
 @Setter
 public class POST_Tag {
 
+    private String group_name;
     private int tag_id;
     private String title;
     private String description;

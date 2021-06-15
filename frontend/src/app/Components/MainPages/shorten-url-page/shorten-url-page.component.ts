@@ -4,6 +4,11 @@ import { AuthService } from '../../../Services/Iam-Services/auth.service';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {Validators} from '@angular/forms';
 import { ShortenService } from '../../../Services/Shorten-Services/shorten.service';
+import {convertToTag, Tag} from '../../../DBReturnTypes/Tag';
+import {MatDialog} from '@angular/material/dialog';
+import {CreateTagDialogComponent} from '../../SubViewComponents/create-tag-dialog/create-tag-dialog.component';
+import {Color} from 'ag-grid-community';
+import {isTagColorLight} from '../../../Services/Util/IsColorLight';
 
 
 @Component({
@@ -20,11 +25,14 @@ export class ShortenUrlPageComponent {
   customSuffixRegEx = '[a-zA-Z0-9]+[\.a-zA-Z0-9]*';
 
   items = this.shortenService.getItems();
+  currentTags = [];
+  availableTags = [];
 
   constructor(private dbconnector: DbConnectorService,
               private authService: AuthService,
               private formBuilder: FormBuilder,
-              private shortenService: ShortenService) {
+              private shortenService: ShortenService,
+              private dialog: MatDialog) {
 
     this.shortenURLForm = new FormGroup({
       targetURL: new FormControl('', {
@@ -38,15 +46,17 @@ export class ShortenUrlPageComponent {
       scope: new FormControl('', {
         validators: [Validators.required]
       }),
-      tags: new FormControl('', {}),
+      tagInput: new FormControl('', {}),
     });
+
+    this.getAvailableTags();
   }
 
   shortenURL(): boolean {
     const assignedTagIds: number[] = [];
-    if (this.shortenURLForm.get('tags').value != null) {
-         assignedTagIds.push();
-    }
+    this.currentTags.forEach(tag => {
+      assignedTagIds.push(tag.id);
+    });
 
     if ( this.shortenURLForm.get('targetURL').value == null || this.shortenURLForm.get('targetURL').value === '' ) {
          window.alert('Missing or wrong argument for TargetURL');
@@ -70,6 +80,61 @@ export class ShortenUrlPageComponent {
       assignedTagIds
     );
     this.shortenURLForm.reset();
+    this.currentTags = [];
     return true;
+  }
+
+  addTag(): void {
+    const newTag = this.availableTags.find(t => t.title === this.shortenURLForm.get('tagInput').value);
+    this.currentTags.push(newTag);
+    this.shortenURLForm.get('tagInput').reset();
+  }
+
+  deleteTag(tag: Tag): void {
+    this.currentTags = this.currentTags.filter(t => t !== tag);
+  }
+
+  public getTagAddDisabled(): boolean {
+    const newTag = this.shortenURLForm.get('tagInput').value;
+    return ( (newTag === '') ||
+      (newTag == null) ||
+      (this.listContainsTag(this.currentTags, newTag)) ||
+      (!this.listContainsTag(this.availableTags, newTag)));
+  }
+
+  public getAvailableTags(): void {
+    this.dbconnector.getTagsByGroup().subscribe(data => {
+      const taglist: Tag[] = [];
+      data.forEach(entry => {
+        taglist.push(convertToTag(entry));
+      });
+      this.availableTags = taglist;
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  public listContainsTag(list: any, tag: string): boolean {
+    let ret = false;
+    list.forEach(t => {
+      if (t.title === tag) {
+        ret = true;
+      }
+    });
+    return ret;
+  }
+
+  public openCreateTagView(): void {
+    this.dialog.open(CreateTagDialogComponent, {
+      height: '300px',
+      width: '50%',
+    })
+      .afterClosed().subscribe(() => {
+        this.getAvailableTags();
+    });
+  }
+
+  isTagColorLight(color: Color): boolean {
+    return isTagColorLight(color);
   }
 }

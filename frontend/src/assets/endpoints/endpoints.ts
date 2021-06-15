@@ -32,6 +32,7 @@ export const endpoints = {
     update_tag: `${apiUrl}/api/updateTag`,
     update_update_flag: `${apiUrl}/api/updateUpdateFlag`,
     update_user_of_group_assignment: `${apiUrl}/api/updateUserOfGroupAssignment`,
+    create_tag_for_group: `${apiUrl}/api/createTagForGroup`
   }
 
 };

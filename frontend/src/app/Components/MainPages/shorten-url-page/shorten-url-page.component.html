@@ -60,18 +60,27 @@
       </div>
     </div>
 
-    <div class="inputContainer">
-      <label for="tags">(optional) Select Tags to assign to the ShortURL.</label><br>
-      <select name="tags" id="tags" required="required" formControlName="tags">
-        <option value="default"></option>
-        <option value="1">Tag 1</option>
-        <option value="2">Tag 2</option>
-        <option value="3">Tag 3</option>
-      </select>
+    <div id="tagSection">
+      <label id="tagsTitle" for="tagInput">Add tags </label>
+      <div>
+        <input type="text" id="tagInput" placeholder="tag" formControlName="tagInput" required list="suggestions" autocomplete="off"/>
+        <datalist id="suggestions">
+          <option *ngFor="let tag of availableTags" [value]="tag.title"></option>
+        </datalist>
+        <button type="button" id="tagAdd" (click)="addTag()" [disabled]="getTagAddDisabled()">Add</button>
+        <button type="button" id="tagCreate" (click)="openCreateTagView()">New Tag</button>
+      </div>
+      <span *ngFor="let tag of currentTags">
+      <span class="tagShell" [style]="{'background': tag.color, 'color': isTagColorLight(tag.color)? 'black': 'white'}">
+        {{tag.title}}
+      </span>
+      <button type="button" class="tagDelete" (click)="deleteTag(tag)"><b>X</b></button>
+    </span>
     </div>
 
+    <br>
     <div class="horizCenter bottomSpace">
-      <input type="submit" class="button" value="Shorten URL" />
+      <input id="submit" type="submit" class="button" value="Shorten URL" />
     </div>
   </form>
   </div>
