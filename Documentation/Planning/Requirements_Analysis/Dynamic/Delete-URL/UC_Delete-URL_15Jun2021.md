@@ -8,7 +8,7 @@
 
 |    Date    | Version | Description | Author |
 |------------|---------|-------------|--------|
-| 22.10.2020 |   1.0   |  -  | Krayaty |
+| 15.06.2021 |   1.0   |  -  | Krayaty |
 
 # Table of Contents
 
