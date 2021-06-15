@@ -126,7 +126,7 @@ export class ShortenUrlPageComponent {
 
   public openCreateTagView(): void {
     this.dialog.open(CreateTagDialogComponent, {
-      height: '30%',
+      height: '300px',
       width: '50%',
     })
       .afterClosed().subscribe(() => {
