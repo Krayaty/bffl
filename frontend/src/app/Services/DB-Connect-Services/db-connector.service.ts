@@ -11,7 +11,8 @@ export class DbConnectorService {
 
   public activeGroup: string;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   getAllGroupsOfUser(): Observable<any> {
     return this.http.get(`${endpoints.get.groups_of_user}`);
@@ -40,6 +41,7 @@ export class DbConnectorService {
   getDeleteFlag(): boolean {
     return true;
   }
+
   getUpdateFlag(): boolean {
     return true;
   }
@@ -66,14 +68,14 @@ export class DbConnectorService {
     this.http.post<any>(
       endpoints.post.create_short_url_for_group_with_tags,
       JSON.stringify(body),
-      {headers: new HttpHeaders({ 'Content-Type': 'application/json' })}
+      {headers: new HttpHeaders({'Content-Type': 'application/json'})}
     ).subscribe(res => res.json());
   }
 
   removeEntryById(shortUrlId): void {
     const body = {short_url_id: shortUrlId};
     this.http.post<any>(endpoints.post.delete_short_url, JSON.stringify(body),
-      {headers: new HttpHeaders({ 'Content-Type': 'application/json' })});
+      {headers: new HttpHeaders({'Content-Type': 'application/json'})});
   }
 
   updateShortURL(customSuffix: string, newScope: number, updateFlag: boolean, deleteFlag: boolean, targetURL: string): void {
@@ -88,8 +90,14 @@ export class DbConnectorService {
     this.http.post<any>(
       endpoints.post.update_short_url,
       JSON.stringify(body),
-      {headers: new HttpHeaders({ 'Content-Type': 'application/json' })}
+      {headers: new HttpHeaders({'Content-Type': 'application/json'})}
     ).subscribe(res => res.json());
+  }
+
+  deleteShortURLAgGrid(shortURLId: number): void {
+    const body = {
+      short_url_id: shortURLId
+    };
   }
 }
 

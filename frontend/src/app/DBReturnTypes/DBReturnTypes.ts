@@ -1,7 +1,7 @@
 export class ShortURLWithTarget {
-  private shortURLId: number;
-  private groupName: string;
-  private customSuffix: string;
+  shortURLId: number;
+  groupName: string;
+  customSuffix: string;
   private createTimestamp: Date;
   private scope: number;
   private targetURL: string;

@@ -16,7 +16,8 @@ export class MainPageComponent implements OnInit {
   frameworkComponents: any;
   api;
   columnApi;
-
+  originalData: ShortURLWithTarget;
+  changedData: ShortURLWithTarget;
   rowData: ShortURLWithTarget[];
 
   columnDefs = [{
@@ -88,13 +89,6 @@ export class MainPageComponent implements OnInit {
     filter: true,
     resizable: true
   }, {
-      field: 'Save',
-      cellRenderer: 'buttonRenderer',
-      cellRendererParams: {
-        onClick: this.onSaveButtonClick.bind(this),
-        label: 'Save'
-      },
-    }, {
       field: 'Delete',
       cellRenderer: 'buttonRenderer',
       cellRendererParams: {
@@ -141,68 +135,29 @@ export class MainPageComponent implements OnInit {
     this.api.sizeColumnsToFit();
   }
 
-  onSaveButtonClick(params): void
-  {
-    const selectedRow = this.getSelectedRows();
-    const customSuffix: string = this.getRelevantPartOfRow(selectedRow, '"customSuffix":"', 2, '",', 1);
-    window.alert(customSuffix);
-    const scopeString = this.getRelevantPartOfRow(selectedRow, '"scope":', 2, ',', 1);
-    const scope: number = JSON.parse(scopeString);
-    window.alert(scope);
-    const updateFlagString = this.getRelevantPartOfRow(selectedRow, '"updateFlag":', 2, '}]', 1);
-    const updateFlag: boolean = JSON.parse(updateFlagString);
-    window.alert(updateFlag);
-    const deleteFlagString = this.getRelevantPartOfRow(selectedRow, '"deleteFlag":', 2, ',', 1);
-    const deleteFlag: boolean = JSON.parse(deleteFlagString);
-    window.alert(deleteFlag);
-    const targetUrl: string = this.getRelevantPartOfRow(selectedRow, '"targetURL":"', 2, '",', 1);
-    window.alert(targetUrl);
-    this.dbconnector.updateShortURL(customSuffix, scope, updateFlag, deleteFlag, targetUrl);
-  }
-
-  onDeleteButtonClick(params): boolean
-  {
+  onDeleteButtonClick(params): boolean {
     const selectedRow = this.getSelectedRows();
     // no row choosed?
-    if ( selectedRow === '[]'){
+    if (selectedRow === '[]') {
       window.alert('Please click in the line, first');
       return false;
     }
     // get deleteFlag out of String of selected Row
     const deleteFlag: string = this.getRelevantPartOfRow(selectedRow, '"deleteFlag":', 2, ',', 1);
-    if ( String(deleteFlag) === String(false) ){
+    if (String(deleteFlag) === String(false)) {
       window.alert('You can not delete an entry with the deleteFlag \'false\'');
       return false;
     }
     const shortUrlIdString = this.getRelevantPartOfRow(selectedRow, '"shortURLId":', 2, ',', 1);
     const shortUrlId: number = JSON.parse(shortUrlIdString);
     const infoAboutRow: string = this.getRelevantPartOfRow(selectedRow, shortUrlId + ',', 2, ',', 2);
-    if ( confirm('Are you sure to delete the entry of ' + infoAboutRow) ) {
-      window.alert(shortUrlId);
+    window.alert('Hi');
+    if (confirm('Are you sure to delete the entry of ' + infoAboutRow)) {
       this.dbconnector.removeEntryById(shortUrlId);
+      // this.dbconnector.deleteShortURLAgGrid(this.originalData.shortURLId);
       this.retrieveAllShortURLsByGroupName();
       return true;
     }
-    this.acceptDialog.open(YesNoDialogComponent, {
-      data: dialogMsg,
-      height: '280px',
-      width: '600px',
-    }).afterClosed().subscribe(shouldDelete => {
-      if (shouldDelete) {
-        this.dbconnector.deleteShortURL(this.originalData.shortURLId).subscribe(
-          data => {
-            if (data as number === HttpStatusCode.Ok){
-              window.alert('Successfully deleted ShortURL: "https://api.bfflshort.de/s/' + this.changedData.groupName + '/'
-                + this.changedData.customSuffix + '"\n');
-              this.closeDialog();
-            } else {
-              window.alert('Couldn\'t delete ShortURL: "https://api.bfflshort.de/s/' + this.changedData.groupName + '/'
-                + this.changedData.customSuffix + '"\n');
-            }
-          }
-        );
-      }
-    });
   }
 
   getRelevantPartOfRow(selectedRow, start, times1, end, times2): string {
