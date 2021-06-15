@@ -12,7 +12,7 @@
     </div>
 
     <div class="horizCenter bottomSpace">
-      <input type="submit" class="button" value="Create Tag" />
+      <input type="submit" id="createTag" class="button" value="Create Tag" [disabled]="cannotCreateTag()" />
     </div>
   </form>
 </div>

@@ -49,4 +49,8 @@ export class CreateTagDialogComponent implements OnInit {
 
     this.closeDialog();
   }
+
+  public cannotCreateTag(): boolean {
+    return (this.createTagForm.get('tagTitle').value == "");
+  }
 }

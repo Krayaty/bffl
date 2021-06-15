@@ -163,3 +163,8 @@ u:hover {
   margin-right: 0.25em !important;
   margin-left: 0.25em !important;
 }
+
+#createTag:disabled {
+  background: #c8d1e6;
+  cursor: default;
+}
