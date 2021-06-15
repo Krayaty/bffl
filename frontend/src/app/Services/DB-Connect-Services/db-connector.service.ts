@@ -84,9 +84,6 @@ export class DbConnectorService {
       target_url: targetURL,
       assigned_tag_ids: assignedTagIds
     };
-
-    window.alert(JSON.stringify(body));
-
     this.http.post<any>(
       `${endpoints.post.create_short_url_for_group_with_tags}`,
       JSON.stringify(body),

@@ -22,7 +22,7 @@ export class ChooseGroupPageComponent implements OnInit {
 
   columnDefs = [{
     field: 'groupName',
-    headerName: 'Gruppe',
+    headerName: 'Group',
     hide: false,
     sortable: true,
     filter: true,
