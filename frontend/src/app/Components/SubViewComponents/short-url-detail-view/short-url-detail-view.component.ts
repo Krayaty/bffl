@@ -190,7 +190,7 @@ export class ShortUrlDetailViewComponent implements OnInit {
               if (data as number === HttpStatusCode.Ok){
                 window.alert('Successfully deleted ShortURL: "https://api.bfflshort.de/s/' + this.changedData.groupName + '/'
                   + this.changedData.customSuffix + '"\n');
-                this.closeDialog();
+                this.closeDialog(true);
               } else {
                 window.alert('Couldn\'t delete ShortURL: "https://api.bfflshort.de/s/' + this.changedData.groupName + '/'
                   + this.changedData.customSuffix + '"\n');
@@ -355,8 +355,11 @@ export class ShortUrlDetailViewComponent implements OnInit {
     }
   }
 
-  closeDialog(): void {
-    const isDataChanged = (this.originalData !== this.changedData);
+  closeDialog(isDeleted: boolean): void {
+    let isDataChanged = (this.originalData !== this.changedData);
+    if (isDeleted) {
+      isDataChanged = true;
+    }
     this.dialog.close(isDataChanged);
   }
 
