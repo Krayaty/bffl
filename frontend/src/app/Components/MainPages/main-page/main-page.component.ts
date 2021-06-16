@@ -115,14 +115,6 @@ export class MainPageComponent implements OnInit {
     });
   }
 
-  getSelectedRows(): void {
-    const selectedNodes = this.api.getSelectedNodes();
-    const selectedData = selectedNodes.map(node => node.data );
-    const selectedDataStringPresentation = selectedData.map(node => node.make + ' ' + node.model).join(', ');
-
-    // alert(`Selected nodes: ${selectedDataStringPresentation}`);
-  }
-
   openDetailView(): void {
     const selectedData = this.api.getSelectedNodes().map(node => node.data);
     this.dialog.open(ShortUrlDetailViewComponent, {
@@ -167,5 +159,5 @@ function secondFormatter(params: any): string {
 function checkBoxRenderer(params: any): string {
   let isChecked = '';
   if (params.value) { isChecked = 'checked'; }
-  return '<input type="checkbox" contenteditable="false" ' + isChecked + '>';
+  return '<input type="checkbox" onclick="return false;" contenteditable="false" ' + isChecked + '>';
 }
