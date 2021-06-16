@@ -46,7 +46,7 @@ The use case itself is part of a CRUD regarding the management of URLs in our ap
 
 ### 3.2 .feature
 ``` Cucumber
-  Feature: Use Case to shorten a link
+  Feature: Use Case to delete an URL-entry
     As a user
     I want to open the app and be able to remove a shortened URL from my group under specific circumstances.
 
