@@ -2,7 +2,7 @@
   <img title="refresh" src="assets/images/Symbols/Black/Reload_black.png" (click)="refreshDetailView()">
   <img *ngIf="this.changedData.updateFlag || this.dbconnector.isAdmin" title="update" src="assets/images/Symbols/Black/Update_black.png" (click)="changeMode()">
   <img *ngIf="this.changedData.deleteFlag || this.dbconnector.isAdmin" title="delete" src="assets/images/Symbols/Black/Delete_black.png" (click)="deleteShortUrl()">
-  <img title="exit" src="assets/images/Symbols/Black/Exit_black.png" (click)="closeDialog()">
+  <img title="exit" src="assets/images/Symbols/Black/Exit_black.png" (click)="closeDialog(false)">
 </div>
 <div class="container">
   <div>

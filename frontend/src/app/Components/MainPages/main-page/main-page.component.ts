@@ -4,7 +4,7 @@ import {DbConnectorService} from '../../../Services/DB-Connect-Services/db-conne
 import {ShortURLWithTarget} from '../../../DBReturnTypes/ShortUrlWithTarget';
 import {MatDialog} from '@angular/material/dialog';
 import {ShortUrlDetailViewComponent} from '../../SubViewComponents/short-url-detail-view/short-url-detail-view.component';
-import {ActivatedRoute} from '@angular/router';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-main-page',
@@ -99,7 +99,7 @@ export class MainPageComponent implements OnInit {
       cellRenderer: params => checkBoxRenderer(params)
     }];
 
-  constructor(private dbconnector: DbConnectorService, private dialog: MatDialog) {}
+  constructor(private dbconnector: DbConnectorService, private dialog: MatDialog, private router: Router) {}
 
   ngOnInit(): void {
     this.retrieveAllShortURLsByGroupName();
@@ -124,7 +124,9 @@ export class MainPageComponent implements OnInit {
     })
     .afterClosed().subscribe(isDataChanged => {
       if (isDataChanged) {
-        this.api.refreshCells();
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+        this.router.onSameUrlNavigation = 'reload';
+        this.router.navigateByUrl('/' + this.router.url, {skipLocationChange: false});
       }
     });
   }
