@@ -4,7 +4,7 @@ import {DbConnectorService} from '../../../Services/DB-Connect-Services/db-conne
 import {ShortURLWithTarget} from '../../../DBReturnTypes/ShortUrlWithTarget';
 import {MatDialog} from '@angular/material/dialog';
 import {ShortUrlDetailViewComponent} from '../../SubViewComponents/short-url-detail-view/short-url-detail-view.component';
-import {ActivatedRoute} from '@angular/router';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-main-page',
@@ -99,7 +99,7 @@ export class MainPageComponent implements OnInit {
       cellRenderer: params => checkBoxRenderer(params)
     }];
 
-  constructor(private dbconnector: DbConnectorService, private dialog: MatDialog) {}
+  constructor(private dbconnector: DbConnectorService, private dialog: MatDialog, private router: Router) {}
 
   ngOnInit(): void {
     this.retrieveAllShortURLsByGroupName();
@@ -115,14 +115,6 @@ export class MainPageComponent implements OnInit {
     });
   }
 
-  getSelectedRows(): void {
-    const selectedNodes = this.api.getSelectedNodes();
-    const selectedData = selectedNodes.map(node => node.data );
-    const selectedDataStringPresentation = selectedData.map(node => node.make + ' ' + node.model).join(', ');
-
-    // alert(`Selected nodes: ${selectedDataStringPresentation}`);
-  }
-  
   openDetailView(): void {
     const selectedData = this.api.getSelectedNodes().map(node => node.data);
     this.dialog.open(ShortUrlDetailViewComponent, {
@@ -132,7 +124,9 @@ export class MainPageComponent implements OnInit {
     })
     .afterClosed().subscribe(isDataChanged => {
       if (isDataChanged) {
-        this.api.refreshCells();
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+        this.router.onSameUrlNavigation = 'reload';
+        this.router.navigateByUrl('/' + this.router.url, {skipLocationChange: false});
       }
     });
   }
@@ -167,5 +161,5 @@ function secondFormatter(params: any): string {
 function checkBoxRenderer(params: any): string {
   let isChecked = '';
   if (params.value) { isChecked = 'checked'; }
-  return '<input type="checkbox" contenteditable="false" ' + isChecked + '>';
+  return '<input type="checkbox" onclick="return false;" contenteditable="false" ' + isChecked + '>';
 }
