@@ -12,29 +12,28 @@ Feature: Use Case to shorten a link
     Given The entered URL is already in the database
     When The user clicks the button "Shorten URL"
     Then Text "Your URL has been shortened already" is displayed
-    And Input fields are cleared
 
   Scenario: Error - Shorten an invalid link
     Given The entered URL does not match the URL format
     When The user clicks the button "Shorten URL"
-    Then The text "Your URL is invalid" is displayed
-    And Input fields are cleared
-
-  Scenario: Error - Shorten a link without a short URL
-    Given The entered URL is a URL
-    And The entered URL is valid
-    And No short URL has been entered
-    When The user clicks the button "Shorten URL"
-    Then The text "Please enter a short URL" is displayed
+    Then The text "Missing or wrong argument for TargetURL" is displayed
     And The input field is highlighted in red
 
-  Scenario: Error - Shorten a link without a category
+  Scenario: Error - Shorten a link without a suffix
     Given The entered URL is a URL
     And The entered URL is valid
-    And No category has been selected
+    And No custom suffix is entered
     When The user clicks the button "Shorten URL"
-    Then The text "Please select a category" is displayed
-    And The categories are highlighted in red
+    Then The text "Missing or wrong argument for suffix of ShortURL" is displayed
+    And The input field is highlighted in red
+
+  Scenario: Error - Shorten a link without a scope
+    Given The entered URL is a URL
+    And The entered URL is valid
+    And A custom suffix is entered
+    And No Scope is selected
+    When The user clicks the button "Shorten URL"
+    Then The test "Missing or wrong argument for scope" is displayed
 
   Scenario: Success - Shorten a link
     Given The entered URL is a URL
