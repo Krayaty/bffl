@@ -41,8 +41,8 @@ export class ShortenUrlPageComponent {
       customSuffix: new FormControl('', {
         validators: [Validators.required, Validators.pattern(this.customSuffixRegEx)]
       }),
-      updateFlag: new FormControl('', {}),
-      deleteFlag: new FormControl('', {}),
+      updateFlag: new FormControl(true, {}),
+      deleteFlag: new FormControl(true, {}),
       scope: new FormControl('', {
         validators: [Validators.required]
       }),
@@ -58,10 +58,16 @@ export class ShortenUrlPageComponent {
       assignedTagIds.push(tag.id);
     });
 
-    if ( this.shortenURLForm.get('targetURL').value == null || this.shortenURLForm.get('targetURL').value === '' ) {
+    if ( this.shortenURLForm.get('targetURL').value == null || this.shortenURLForm.get('targetURL').value === '') {
          window.alert('Missing or wrong argument for TargetURL');
          return false;
     }
+
+    if (this.shortenURLForm.get('targetURL').value.includes('bfflshort.de')) {
+      window.alert('Please don\'t input one of our ShortURLs as a target. Our domain is not available as a target');
+      return false;
+    }
+
     if ( this.shortenURLForm.get('customSuffix').value == null || this.shortenURLForm.get('customSuffix').value === '') {
         window.alert('Missing or wrong argument for suffix of ShortURL');
         return false;
@@ -112,6 +118,11 @@ export class ShortenUrlPageComponent {
     }, error => {
       console.log(error);
     });
+  }
+
+  public isValidShortURL(): boolean {
+    return !(this.shortenURLForm.get('customSuffix').valid
+    && this.shortenURLForm.get('targetURL').valid);
   }
 
   public listContainsTag(list: any, tag: string): boolean {
