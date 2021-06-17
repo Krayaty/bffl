@@ -80,7 +80,7 @@
 
     <br>
     <div class="horizCenter bottomSpace">
-      <input id="submit" type="submit" class="button" value="Shorten URL" />
+      <input id="submit" type="submit" class="button" value="Shorten URL" [disabled]="this.isValidShortURL()" />
     </div>
   </form>
   </div>
