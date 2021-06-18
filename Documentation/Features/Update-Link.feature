@@ -14,7 +14,7 @@ Feature: Update-Link
     Given the user and his group have minimum one URL saved in the database
     When the user clicks on an entry
     Then the update-view should open for the specific entry
-    When the user chages the entrys data
+    When the user changes the entries data
     And clicks on submit
     And the data is valid
     Then the data is changed in the database
@@ -22,22 +22,17 @@ Feature: Update-Link
     But the update-view closes
 
   Scenario: The User and his group have an URL saved and changes the entry but discards the changes.
-    Given the user and his group have minimum one URL saved in the database
+    Given the user and his group have at least one URL saved in the database
     When the user clicks on an entry
     Then the update-view should open for the specific entry
-    When the user chages the entrys data
-    And clicks on cancel
+    When the user changes the entries data
+    And exits the update view
     Then the changes are discarded by not sending an SQL-request
     And the main page is shown
-    But the update-view closes
 
   Scenario: The User and his group have an URL saved and wants to change the entry, but the new data is not valid.
     Given the user and his group have minimum one URL saved in the database
     When the user clicks on an entry
     Then the update-view should open for the specific entry
-    When the user chages the entrys data
-    And clicks on submit
-    But the data is invalid
-    Then the update-view is shown again with the old data
-    And an error message is shown
-    But the data isn't changed in the database
+    When the user changes the entries data
+    Then the submit button should be disable
